@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,17 +33,17 @@ public class PlayerInputHandler : MonoBehaviour
     // v Position angle for dash
     public Vector2 RawDashDirectionInput { get; private set; }
     public Vector2Int DashDirectionInput { get; private set; }
+
+    public bool[] AttackInput { get; private set; }
     
 
     private void Start() 
     {
         playerInput = GetComponent<PlayerInput>();
         cam = Camera.main;
-    }
 
-    private void Update() 
-    {
-
+        int count = Enum.GetValues(typeof(CombatInputs)).Length;
+        AttackInput = new bool[count];
     }
 
     // f Function storing the necessary processes for movement
@@ -52,28 +53,11 @@ public class PlayerInputHandler : MonoBehaviour
         RawMovementInput = context.ReadValue<Vector2>();
 
         // t Provide a threshold for the player input via the x axis
-        if (Mathf.Abs(RawMovementInput.x) > 0.5f)
-        {
-            // t Provide a full normalized integar if the threshold is met
-            NormInputX = (int)(RawMovementInput * Vector2.right).normalized.x;
-        }
-        else 
-        {
-            // t Centre back to zero if the threshold is not met
-            NormInputX = 0;
-        }
+        NormInputX = Mathf.RoundToInt(RawMovementInput.x);
 
         // t Provide a threshold for the player input via the y axis
-        if (Mathf.Abs(RawMovementInput.y) > 0.5f)
-        {
-            // t Provide a full normalized integar if the threshold is met
-            NormInputY = (int)(RawMovementInput * Vector2.up).normalized.y;
-        }
-        else 
-        {
-            // t Centre back to zero if the threshold is not met
-            NormInputY = 0;
-        }
+        NormInputY = Mathf.RoundToInt(RawMovementInput.y);
+
     }
 
     // f Function to store all logic for the jump input
@@ -149,6 +133,32 @@ public class PlayerInputHandler : MonoBehaviour
         }
     }
 
+    public void OnPrimaryAttackInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            AttackInput[(int)CombatInputs.primary] = true;
+        }
+
+        if (context.canceled)
+        {
+            AttackInput[(int)CombatInputs.primary] = false;
+        }
+    }
+
+    public void OnSecondaryAttackInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            AttackInput[(int)CombatInputs.secondary] = true;
+        }
+
+        if (context.canceled)
+        {
+            AttackInput[(int)CombatInputs.secondary] = false;
+        }
+    }
+
     // f Function to externally set the jump input off and to be used for other states
     public void UseJumpInput()
     {
@@ -160,4 +170,10 @@ public class PlayerInputHandler : MonoBehaviour
     {
         DashInput = false;
     }
+}
+
+public enum CombatInputs
+{
+    primary,
+    secondary
 }

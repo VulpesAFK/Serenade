@@ -100,8 +100,18 @@ public class PlayerInAirState : PlayerState
         // t Test after the jump input is received whether it is a short jump or a long jump
         CheckJumpMultiplier();
 
+        if (player.InputHandler.AttackInput[(int)CombatInputs.primary])
+        {
+            stateMachine.ChangeState(player.PrimaryAttackState);
+        }
+
+        else if (player.InputHandler.AttackInput[(int)CombatInputs.secondary])
+        {
+            stateMachine.ChangeState(player.SecondaryAttackState);
+        }
+
         // t If player has landed and the player of the y is less than a small leeway to prevent a crash of floats
-        if (isGrounded && player.CurrentVelocity.y < 0.01f)
+        else if (isGrounded && player.CurrentVelocity.y < 0.01f)
         {
             // t Switch to land state
             stateMachine.ChangeState(player.LandState);
