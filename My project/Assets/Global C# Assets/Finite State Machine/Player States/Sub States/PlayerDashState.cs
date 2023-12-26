@@ -16,7 +16,7 @@ public class PlayerDashState : PlayerAbilitiesState
     private float lastDashTime;
     public PlayerDashState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
-
+        
     }
 
     public override void Enter()
