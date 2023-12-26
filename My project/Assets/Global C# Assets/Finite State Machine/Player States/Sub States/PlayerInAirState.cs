@@ -116,14 +116,7 @@ public class PlayerInAirState : PlayerState
             // t Switch to land state
             stateMachine.ChangeState(player.LandState);
         }
-
-        // t If the player a by a corner ledge from the ground wall
-        else if (isTouchingWall && !isTouchingLedge && !isGrounded)
-        {
-            // t Switch the sate to ledge climbing
-            stateMachine.ChangeState(player.LedgeClimbState);
-        }
-
+        
         // t If the player is going to jump sand there is a wall either in front or behind or the timer is on from the coyote time
         else if (jumpInput && (isTouchingWall || isTouchingWallBack || wallJumpCoyoteTime))
         {
@@ -136,6 +129,14 @@ public class PlayerInAirState : PlayerState
             // t Switch to new state
             stateMachine.ChangeState(player.WallJumpState);
         }
+
+        // t If the player a by a corner ledge from the ground wall
+        else if (isTouchingWall && !isTouchingLedge && !isGrounded)
+        {
+            // t Switch the sate to ledge climbing
+            stateMachine.ChangeState(player.LedgeClimbState);
+        }
+
 
         // t Check if there is an input and there is available counter left to be able to jump
         else if (jumpInput && player.JumpState.CanJump())

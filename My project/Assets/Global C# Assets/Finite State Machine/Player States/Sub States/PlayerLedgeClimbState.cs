@@ -117,9 +117,18 @@ public class PlayerLedgeClimbState : PlayerState
 
             // t Makre sure the player is at the correct ledge climb position
             player.transform.position = startPosition;
+            
+            // t Walk jump from holding the ledge
+            if (jumpInput && !isClimbing)
+            {
+                // t Check for if there is a wall in front however the player is climbing so there is going to be 
+                player.WallJumpState.DetermineWallJumpDirection(true);
+                // t Switch to the wall jump state
+                stateMachine.ChangeState(player.WallJumpState);
+            }
 
             // t Check if the player wants to climb
-            if (xInput == player.FacingDirection && isHanging && !isClimbing)
+            else if (xInput == player.FacingDirection && isHanging && !isClimbing)
             {
 
                 CheckForSpace();
@@ -137,14 +146,6 @@ public class PlayerLedgeClimbState : PlayerState
                 stateMachine.ChangeState(player.InAirState);
             }   
 
-            // t Walk jump from holding the ledge
-            else if (jumpInput && !isClimbing)
-            {
-                // t Check for if there is a wall in front however the player is climbing so there is going to be 
-                player.WallJumpState.DetermineWallJumpDirection(true);
-                // t Switch to the wall jump state
-                stateMachine.ChangeState(player.WallJumpState);
-            }
         }
     }
 
