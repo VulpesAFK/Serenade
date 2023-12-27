@@ -39,7 +39,10 @@ public class PlayerAttackState : PlayerAbilitiesState
 
         xInput = player.InputHandler.NormInputX;
 
-        player.CheckIfShouldFlip(xInput);
+        if (shouldCheckFlip)
+        {
+            player.CheckIfShouldFlip(xInput);
+        }
 
         if (setVelocity)
         {
