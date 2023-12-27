@@ -5,6 +5,13 @@ using UnityEngine;
 public class PlayerAttackState : PlayerAbilitiesState
 {
     private Weapon weapon;
+
+    private int xInput;
+
+    private float velocityToSet;
+    private bool setVelocity;
+
+    private bool shouldCheckFlip;
     public PlayerAttackState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
 
@@ -14,6 +21,8 @@ public class PlayerAttackState : PlayerAbilitiesState
     {
         base.Enter();
 
+        setVelocity = false;
+
         weapon.EnterWeapon();
     }
 
@@ -22,6 +31,20 @@ public class PlayerAttackState : PlayerAbilitiesState
         base.Exit();
 
         weapon.ExitWeapon();
+    }
+
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+
+        xInput = player.InputHandler.NormInputX;
+
+        player.CheckIfShouldFlip(xInput);
+
+        if (setVelocity)
+        {
+            player.SetVelocityX(velocityToSet * player.FacingDirection);
+        }
     }
 
     public void SetWeapon(Weapon weapon)
@@ -37,10 +60,17 @@ public class PlayerAttackState : PlayerAbilitiesState
         isAbilityDone = true;
     }
 
-    public override void AnimationTrigger()
+    public void SetPlayerVelocity(float velocity)
     {
-        base.AnimationTrigger();
-    }
+        player.SetVelocityX(velocity * player.FacingDirection);
 
+        velocityToSet = velocity;
+        setVelocity = true;
+    }   
+
+    public void SetFlipCheck()
+    {
+        
+    }
 
 }

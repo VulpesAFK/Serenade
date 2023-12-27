@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] private WeaponData weaponData;
     protected Animator baseAnimator;
     protected Animator weaponAnimator;
 
@@ -23,11 +24,16 @@ public class Weapon : MonoBehaviour
     {
         gameObject.SetActive(true);
 
+        if (attackCounter >= weaponData.MovementSpeed.Length)
+        {
+            attackCounter = 0;
+        }
+
         baseAnimator.SetBool("attack", true);
         weaponAnimator.SetBool("attack", true);
 
-        baseAnimator.SetInteger("attackCounter", attackCounter % 3);
-        weaponAnimator.SetInteger("attackCounter", attackCounter % 3);
+        baseAnimator.SetInteger("attackCounter", attackCounter);
+        weaponAnimator.SetInteger("attackCounter", attackCounter);
     }
 
     public virtual void ExitWeapon()
@@ -43,6 +49,16 @@ public class Weapon : MonoBehaviour
     public virtual void AnimationFinishTrigger()
     {
         attackState.AnimationFinishTrigger();
+    }
+
+    public virtual void AnimationStartMovementTrigger()
+    {
+        attackState.SetPlayerVelocity(weaponData.MovementSpeed[attackCounter]);
+    }
+
+    public virtual void AnimationStopMovementTrigger()
+    {
+        attackState.SetPlayerVelocity(0);
     }
 
     public void InitializeWeapon(PlayerAttackState attackState)
