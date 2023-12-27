@@ -68,9 +68,9 @@ public class PlayerAttackState : PlayerAbilitiesState
         setVelocity = true;
     }   
 
-    public void SetFlipCheck()
+    public void SetFlipCheck(bool value)
     {
-        
-    }
+        shouldCheckFlip = value;
+    }   
 
 }
