@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D RB { get; private set; }
     public Transform DashDirectionIndicator { get; private set; }
     public BoxCollider2D MovementCollider { get; private set; }
+    public PlayerInventory Inventory { get; private set; }
 
     // v Transforms need from the player for surrounding checks
     [SerializeField] private Transform groundCheck;
@@ -96,6 +97,11 @@ public class Player : MonoBehaviour
         MovementCollider = GetComponent<BoxCollider2D>();
 
         DashDirectionIndicator = transform.Find("Dash Direction Indicator");
+
+        Inventory = GetComponent<PlayerInventory>();
+
+        PrimaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.primary]);
+        //SecondaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.secondary]);
 
         // t Default direction to the player facing 
         FacingDirection = 1;

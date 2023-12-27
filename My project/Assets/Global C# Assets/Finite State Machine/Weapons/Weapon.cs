@@ -7,6 +7,8 @@ public class Weapon : MonoBehaviour
     protected Animator baseAnimator;
     protected Animator weaponAnimator;
 
+    protected PlayerAttackState attackState;
+
     protected virtual void Start()
     {
         baseAnimator = transform.Find("Base").GetComponent<Animator>();
@@ -29,5 +31,15 @@ public class Weapon : MonoBehaviour
         weaponAnimator.SetBool("attack", false);   
 
         gameObject.SetActive(false);
+    }
+
+    public virtual void AnimationFinishTrigger()
+    {
+        attackState.AnimationFinishTrigger();
+    }
+
+    public void InitializeWeapon(PlayerAttackState attackState)
+    {
+        this.attackState = attackState;
     }
 }
