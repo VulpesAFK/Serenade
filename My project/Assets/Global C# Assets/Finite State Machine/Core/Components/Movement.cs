@@ -16,10 +16,15 @@ public class Movement : CoreComponent
         RB = GetComponentInParent<Rigidbody2D>();
     }
 
+    public void LogicUpdate()
+    {
+        CurrentVelocity = RB.velocity;
+    }
+
     // Functions for all notion to player movement 
     #region Velocity functions to alter the player position
 
-    #region SetVelocityX
+        # region SetVelocityX
     // Function to help aid any state to force movement via the x axis
     public void SetVelocityX(float velocity)
     {

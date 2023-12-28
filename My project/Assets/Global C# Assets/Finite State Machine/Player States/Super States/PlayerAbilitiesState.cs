@@ -42,7 +42,7 @@ public class PlayerAbilitiesState : PlayerState
         if (isAbilityDone)
         {
             // t The player is grounded and a leeway on the y axis assuming still
-            if (isGrounded && player.CurrentVelocity.y < 0.01f)
+            if (isGrounded && core.Movement.CurrentVelocity.y < 0.01f)
             {
                 // t Switch to idle state
                 stateMachine.ChangeState(player.IdleState);

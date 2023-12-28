@@ -11,4 +11,9 @@ public class Core : MonoBehaviour
         Movement = GetComponentInChildren<Movement>(); 
         if (Movement == null) Debug.LogError($"There is no movement component in core. Core status : {Movement}");       
     }
+
+    public void LogicUpdate()
+    {
+        Movement.LogicUpdate();
+    }
 }

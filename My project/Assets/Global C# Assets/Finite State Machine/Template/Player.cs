@@ -26,8 +26,7 @@ public class Player : MonoBehaviour
 
     // v Reference to a vector2 to hold a custom vector to be assigned to the rigidbody2d
     private Vector2 workSpace;
-    // v Reference to the current resultant forces acting onto the player rigidbody2d
-    public Vector2 CurrentVelocity { get; private set; }
+ 
     // v Reference to the current direction  the player is facing
     public int FacingDirection { get; private set; }
     
@@ -115,8 +114,7 @@ public class Player : MonoBehaviour
 
     private void Update() 
     {
-        // t Set the current velocity to the current tied rigidbody2d
-        CurrentVelocity = RB.velocity;
+        Core.LogicUpdate();
         // t Update all logic tied to the logic update in the current running state
         StateMachine.CurrentState.LogicUpdate();
     }

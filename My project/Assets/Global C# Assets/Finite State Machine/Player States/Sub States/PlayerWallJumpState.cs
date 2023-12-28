@@ -33,8 +33,8 @@ public class PlayerWallJumpState : PlayerAbilitiesState
         base.LogicUpdate();
 
         // t Update the animator with the x and y axis to update the fall animation when the animation ends
-        player.Anim.SetFloat("yVelocity", player.CurrentVelocity.y);
-        player.Anim.SetFloat("xVelocity", Mathf.Abs(player.CurrentVelocity.x));
+        player.Anim.SetFloat("yVelocity", core.Movement.CurrentVelocity.y);
+        player.Anim.SetFloat("xVelocity", Mathf.Abs(core.Movement.CurrentVelocity.x));
 
         // t If the time increasing is larger then the start of the animation and the fixed wall time to prevent quick back trekking
         if (Time.time >= startTime + playerData.WallJumpTime)

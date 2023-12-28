@@ -39,9 +39,9 @@ public class PlayerDashState : PlayerAbilitiesState
     {
         base.Exit();
 
-        if (player.CurrentVelocity.y > 0)
+        if (core.Movement.CurrentVelocity.y > 0)
         {
-            core.Movement.SetVelocityY(player.CurrentVelocity.y * playerData.DashEndYMultiplier);
+            core.Movement.SetVelocityY(core.Movement.CurrentVelocity.y * playerData.DashEndYMultiplier);
         }
     }
 
@@ -51,6 +51,11 @@ public class PlayerDashState : PlayerAbilitiesState
 
         if (!isExitingState)
         {
+
+            player.Anim.SetFloat("yVelocity", core.Movement.CurrentVelocity.y);
+            player.Anim.SetFloat("xVelocity", Mathf.Abs(core.Movement.CurrentVelocity.x));
+
+
             if (isHolding)
             {
                 dashDirectionInput = player.InputHandler.DashDirectionInput;

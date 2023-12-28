@@ -111,7 +111,7 @@ public class PlayerInAirState : PlayerState
         }
 
         // t If player has landed and the player of the y is less than a small leeway to prevent a crash of floats
-        else if (isGrounded && player.CurrentVelocity.y < 0.01f)
+        else if (isGrounded && core.Movement.CurrentVelocity.y < 0.01f)
         {
             // t Switch to land state
             stateMachine.ChangeState(player.LandState);
@@ -153,7 +153,7 @@ public class PlayerInAirState : PlayerState
         }
 
         // t Check whether touching the wall and that the player is facing the wall at its peak height reach
-        else if (isTouchingWall && xInput == player.FacingDirection && player.CurrentVelocity.y <= 0.0f)
+        else if (isTouchingWall && xInput == player.FacingDirection && core.Movement.CurrentVelocity.y <= 0.0f)
         {
             // t Switch to a new state
             stateMachine.ChangeState(player.WallSlideState);
@@ -173,8 +173,8 @@ public class PlayerInAirState : PlayerState
             core.Movement.SetVelocityX(playerData.MovementVelocity * xInput);
 
             // t Provide the animator with the current x and y values to provide the correct animation value a blend tree
-            player.Anim.SetFloat("yVelocity", player.CurrentVelocity.y);
-            player.Anim.SetFloat("xVelocity", Mathf.Abs(player.CurrentVelocity.x));
+            player.Anim.SetFloat("yVelocity", core.Movement.CurrentVelocity.y);
+            player.Anim.SetFloat("xVelocity", Mathf.Abs(core.Movement.CurrentVelocity.x));
         }
     }
 
@@ -193,13 +193,13 @@ public class PlayerInAirState : PlayerState
             if (jumpInputStop)
             {
                 // t Change the current playing jump velocity with a reduce amount via the data 
-                core.Movement.SetVelocityY(player.CurrentVelocity.y * playerData.VariableJumpHeightMultiplier);
+                core.Movement.SetVelocityY(core.Movement.CurrentVelocity.y * playerData.VariableJumpHeightMultiplier);
                 // t Stop all future effects till the next jump is made
                 isJumping = false;
             }
 
             // t Checks if the player has landed then the jump has ended
-            else if (player.CurrentVelocity.y <= 0.0f)
+            else if (core.Movement.CurrentVelocity.y <= 0.0f)
             {
                 // t Set the bool to false
                 isJumping = false;
