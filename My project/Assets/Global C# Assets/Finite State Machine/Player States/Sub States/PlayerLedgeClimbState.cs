@@ -53,7 +53,7 @@ public class PlayerLedgeClimbState : PlayerState
         base.Enter();
 
         // t Freeze the player to its position
-        player.SetVelocityZero();
+        core.Movement.SetVelocityZero();
         // t Full updated version of the climb position
         player.transform.position = detectedPosition;
 
@@ -113,7 +113,7 @@ public class PlayerLedgeClimbState : PlayerState
             jumpInput = player.InputHandler.JumpInput;
 
             // t Freeze the player
-            player.SetVelocityZero();
+            core.Movement.SetVelocityZero();
 
             // t Makre sure the player is at the correct ledge climb position
             player.transform.position = startPosition;

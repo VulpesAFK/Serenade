@@ -46,7 +46,7 @@ public class PlayerAttackState : PlayerAbilitiesState
 
         if (setVelocity)
         {
-            player.SetVelocityX(velocityToSet * player.FacingDirection);
+            core.Movement.SetVelocityX(velocityToSet * player.FacingDirection);
         }
     }
 
@@ -65,7 +65,7 @@ public class PlayerAttackState : PlayerAbilitiesState
 
     public void SetPlayerVelocity(float velocity)
     {
-        player.SetVelocityX(velocity * player.FacingDirection);
+        core.Movement.SetVelocityX(velocity * player.FacingDirection);
 
         velocityToSet = velocity;
         setVelocity = true;

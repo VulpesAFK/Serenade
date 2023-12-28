@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // External properties from the core functions
+    public Core Core { get; private set; }
     // v All references needed to components and external scripts for input and animation
     public PlayerStateMachine StateMachine { get; private set; }
     public Animator Anim { get; private set; }
@@ -55,6 +57,9 @@ public class Player : MonoBehaviour
 
     private void Awake() 
     {
+        // Fetching the core components from child scripts
+        Core = GetComponentInChildren<Core>();
+
         // t Instantiation of the player sttae machine
         StateMachine = new PlayerStateMachine();
 
@@ -63,25 +68,20 @@ public class Player : MonoBehaviour
 
         IdleState = new PlayerIdleState(this, StateMachine, playerData, "idle");
         MoveState = new PlayerMoveState(this, StateMachine, playerData, "move");
-
         JumpState  = new PlayerJumpState(this, StateMachine, playerData, "inAir");
         InAirState = new PlayerInAirState(this, StateMachine, playerData, "inAir");
         LandState = new PlayerLandState(this, StateMachine, playerData, "land");
-
         WallSlideState = new PlayerWallSlideState(this, StateMachine, playerData, "wallSlide");
         WallGrabState = new PlayerWallGrabState(this, StateMachine, playerData, "wallGrab");
         WallClimbState = new PlayerWallClimbState(this, StateMachine, playerData, "wallClimb");
         WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "inAir");
-
         LedgeClimbState = new PlayerLedgeClimbState(this, StateMachine, playerData, "ledgeClimbState");
-
         DashState = new PlayerDashState(this, StateMachine, playerData, "inAir");
-
         CrouchIdleState = new PlayerCrouchIdleState(this, StateMachine, playerData, "crouchIdle");
         CrouchMoveState = new PlayerCrouchMoveState(this, StateMachine, playerData, "crouchMove");
-
         PrimaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
         SecondaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
+
         # endregion
     }
 
@@ -125,65 +125,6 @@ public class Player : MonoBehaviour
     {
         // t Run the physics update tied to the current state with the  fixed update
         StateMachine.CurrentState.PhysicsUpdate();
-    }
-
-    # endregion
-
-
-
-    // r Functiosn for all notion to player movement 
-    # region Velocity functions to alter the player position
-
-    // f Function to help aid any state to force movement via the x axis
-    public void SetVelocityX(float velocity)
-    {
-        // t Set the workspace velocity with an arguement and the current velocity y
-        workSpace.Set(velocity, CurrentVelocity.y);
-        // t Set the rigidbody2d with the set vector2 
-        RB.velocity = workSpace;
-        // t Set the control vector2 with the forced vector2 
-        CurrentVelocity = workSpace;
-    }
-
-    // f Function to help aid any state to force movement via the y axis
-    public void SetVelocityY(float velocity)
-    {
-        // t Set the workspace velocity with san arugement and the current velcoity x
-        workSpace.Set(CurrentVelocity.x, velocity);
-        // t Set the rigidbody2d with the set vector2
-        RB.velocity = workSpace;
-        // t Set the control vector2 with the forced vector2
-        CurrentVelocity = workSpace;
-    }
-
-    // f Function to force the movement of the player with a force under a specific direction
-    public void SetVelocity(float velocity, Vector2 angle, int direction)
-    {
-        // t Set the angle vector2 arguement to be in a fixed magitude of one
-        angle.Normalize();
-        // t Set the vector2 force to the with the of the angle and velocity under a specific x direction
-        workSpace.Set(angle.x * velocity * direction, angle.y * velocity);
-        // t Set the rigidbody with the new work vector2
-        RB.velocity = workSpace;
-        // t Change the current vector2 force to match with the added
-        CurrentVelocity = workSpace;
-    }
-
-    // f Freeze the player two its current position flat
-    public void SetVelocityZero()
-    {
-        // t Freeze the rigidbody2d at its place
-        RB.velocity = Vector2.zero;
-        // t Update the current velocity to these changes
-        CurrentVelocity = Vector2.zero;
-    }
-
-    // f Another function that will support the velocity force with only a vector2 and float
-    public void SetVelocity(float velocity, Vector2 direction)
-    {
-        workSpace = direction * velocity;
-        RB.velocity = workSpace;
-        CurrentVelocity = workSpace;
     }
 
     # endregion

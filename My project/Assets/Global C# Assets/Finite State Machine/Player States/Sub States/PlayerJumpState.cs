@@ -20,7 +20,7 @@ public class PlayerJumpState : PlayerAbilitiesState
         // t Set the use jump input to false as currently active
         player.InputHandler.UseJumpInput();
         // t Make the player move upwards with the added jump velocity 
-        player.SetVelocityY(playerData.JumpVelocity);
+        core.Movement.SetVelocityY(playerData.JumpVelocity);
 
         // t Set to true and allow for the abilities state to take over
         isAbilityDone = true;

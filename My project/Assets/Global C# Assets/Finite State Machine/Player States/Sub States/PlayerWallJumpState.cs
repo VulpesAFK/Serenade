@@ -20,7 +20,7 @@ public class PlayerWallJumpState : PlayerAbilitiesState
         // t Reset the amount of jumps left just to make it equal again
         player.JumpState.ResetAmountOfJumpsLeft();
         // t Set the velocity with a specific velocity and angle and facing direction
-        player.SetVelocity(playerData.WallJumpVelocity, playerData.WallJumpAngle, wallJumpDirection);
+        core.Movement.SetVelocity(playerData.WallJumpVelocity, playerData.WallJumpAngle, wallJumpDirection);
 
         // t Test the opposite facing dircetion compared to the facing direction
         player.CheckIfShouldFlip(wallJumpDirection);

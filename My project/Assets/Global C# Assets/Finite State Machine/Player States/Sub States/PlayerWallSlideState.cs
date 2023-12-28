@@ -17,7 +17,7 @@ public class PlayerWallSlideState : PlayerTouchingWallState
         if (!isExitingState)
         {
             // t Slow the player down when it is going down
-            player.SetVelocityY(-playerData.WallSlideVelocity);
+            core.Movement.SetVelocityY(-playerData.WallSlideVelocity);
 
             // t If the player is going to be start grabbing and the input on the y axis is not on
             if (grabInput && yInput == 0)

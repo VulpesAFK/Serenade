@@ -170,7 +170,7 @@ public class PlayerInAirState : PlayerState
             // t Check if we have to flip the player
             player.CheckIfShouldFlip(xInput);
             // t Move the player whilst in the air 
-            player.SetVelocityX(playerData.MovementVelocity * xInput);
+            core.Movement.SetVelocityX(playerData.MovementVelocity * xInput);
 
             // t Provide the animator with the current x and y values to provide the correct animation value a blend tree
             player.Anim.SetFloat("yVelocity", player.CurrentVelocity.y);
@@ -193,7 +193,7 @@ public class PlayerInAirState : PlayerState
             if (jumpInputStop)
             {
                 // t Change the current playing jump velocity with a reduce amount via the data 
-                player.SetVelocityY(player.CurrentVelocity.y * playerData.VariableJumpHeightMultiplier);
+                core.Movement.SetVelocityY(player.CurrentVelocity.y * playerData.VariableJumpHeightMultiplier);
                 // t Stop all future effects till the next jump is made
                 isJumping = false;
             }
