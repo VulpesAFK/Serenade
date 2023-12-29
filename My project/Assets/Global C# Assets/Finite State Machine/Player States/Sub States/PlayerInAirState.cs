@@ -43,12 +43,12 @@ public class PlayerInAirState : PlayerState
         oldIsTouchingWallBack = isTouchingWallBack;
 
         // t Check the surrounds of the player with the ground and both forwards and backwards
-        isGrounded = player.CheckIfGrounded();
-        isTouchingWall = player.CheckIfTouchingWall();
-        isTouchingWallBack = player.CheckIfTouchingWallBack();
+        isGrounded = core.Collision.Ground;
+        isTouchingWall = core.Collision.WallFront;
+        isTouchingWallBack = core.Collision.WallBack;
 
         // t Checks whether the player is gonna ledge
-        isTouchingLedge = player.CheckIfTouchingLedge();
+        isTouchingLedge = core.Collision.Ledge;
 
         // t Checks if the player is touching a wall but not touching a ledge 
         if (isTouchingWall && !isTouchingLedge)
@@ -123,7 +123,7 @@ public class PlayerInAirState : PlayerState
             // t Stop the timer from continuing 
             StopWallJumpCoyoteTime();
             // t Check the ensure that it is up to date
-            isTouchingWall = player.CheckIfTouchingWall();
+            isTouchingWall = core.Collision.WallFront;
             // t Determine the direction of the jump depending on comparing a side
             player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
             // t Switch to new state

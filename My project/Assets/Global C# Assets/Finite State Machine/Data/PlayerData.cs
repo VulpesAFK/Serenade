@@ -50,11 +50,6 @@ public class PlayerData : ScriptableObject
 
     [Header("Crouch Move State")]
     public float CrouchMovementVelocity = 5f;
-
-    [Header("Check Variables")]
-    public float GroundCheckRadius = 0.3f;
-    public float WallCheckDistance = 0.5f;
-    public LayerMask WhatIsGround;
     
 
     # endregion

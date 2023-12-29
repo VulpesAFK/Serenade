@@ -35,9 +35,9 @@ public class PlayerTouchingWallState : PlayerState
         base.DoChecks();
 
         // t Store all bool results from the main player to be translated here
-        isGrounded = player.CheckIfGrounded();
-        isTouchingWall = player.CheckIfTouchingWall();
-        isTouchingLedge = player.CheckIfTouchingLedge();
+        isGrounded = core.Collision.Ground;
+        isTouchingWall = core.Collision.WallFront;
+        isTouchingLedge = core.Collision.Ledge;
 
         // t If the player detects a corner approaching
         if (isTouchingWall && !isTouchingLedge)

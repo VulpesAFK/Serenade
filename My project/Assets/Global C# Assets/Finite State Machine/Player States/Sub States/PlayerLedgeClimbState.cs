@@ -160,26 +160,26 @@ public class PlayerLedgeClimbState : PlayerState
 
     private void CheckForSpace()
     {
-        isTouchingCeiling = Physics2D.Raycast(cornerPosition + (Vector2.up * 0.015f) + (Vector2.right * core.Movement.FacingDirection * 0.015f), Vector2.up, playerData.StandColliderHeight, playerData.WhatIsGround);
+        isTouchingCeiling = Physics2D.Raycast(cornerPosition + (Vector2.up * 0.015f) + (Vector2.right * core.Movement.FacingDirection * 0.015f), Vector2.up, playerData.StandColliderHeight, core.Collision.WhatIsGround);
         player.Anim.SetBool("isTouchingCeiling", isTouchingCeiling);
     }
 
     private Vector2 DetermineCornerPosition()
     {
         // t Find the location of the wall in front of the player
-        RaycastHit2D xHit = Physics2D.Raycast(wallCheck.position, Vector2.right * core.Movement.FacingDirection, playerData.WallCheckDistance, playerData.WhatIsGround);
+        RaycastHit2D xHit = Physics2D.Raycast(core.Collision.WallCheck.position, Vector2.right * core.Movement.FacingDirection, core.Collision.WallCheckDistance, core.Collision.WhatIsGround);
         // t Determine the x distance from the player to the wall
         float xDistance = xHit.distance;
 
         // t Set a workspace to make a variable to signla the amount to add on to the position
         workSpace.Set((xDistance + 0.015f) * core.Movement.FacingDirection, 0f);
         // t Raycast to note the position of the grounf that the player will appear to 
-        RaycastHit2D yHit = Physics2D.Raycast(ledgeCheck.position + (Vector3)(workSpace), Vector2.down, ledgeCheck.position.y - wallCheck.position.y + 0.015f,  playerData.WhatIsGround);
+        RaycastHit2D yHit = Physics2D.Raycast(core.Collision.LedgeCheck.position + (Vector3)(workSpace), Vector2.down, core.Collision.LedgeCheck.position.y - core.Collision.WallCheck.position.y + 0.015f,  core.Collision.WhatIsGround);
         // t Determine the y distance
         float yDistance = yHit.distance;
 
         // t Formulate the final vector2 to be returned
-        workSpace.Set(wallCheck.position.x + (xDistance * core.Movement.FacingDirection), ledgeCheck.position.y - yDistance);
+        workSpace.Set(core.Collision.WallCheck.position.x + (xDistance * core.Movement.FacingDirection), core.Collision.LedgeCheck.position.y - yDistance);
 
         // t return the final result
         return workSpace;

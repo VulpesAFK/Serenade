@@ -102,19 +102,19 @@ public class Movement : CoreComponent
 
     # endregion
 
-    // f Flips the player via rotation or can be scale
+    // Flips the player via rotation or can be scale
     private void Flip()
     {
-        // t Alters the facing direction to match the current
+        // Alters the facing direction to match the current
         FacingDirection *= -1;
-        // t Rotation via the y axis
-        transform.Rotate(0.0f, 180.0f, 0.0f);
+        // Rotation via the y axis
+        RB.transform.Rotate(0.0f, 180.0f, 0.0f);
     }
 
-    // f Checks if there should be a sprite flip
+    // Checks if there should be a sprite flip
     public void CheckIfShouldFlip(int xInput)
     {
-        // t Checks if the input pressed is different to that of the variable holding the old direction
+        // Checks if the input pressed is different to that of the variable holding the old direction
         if (xInput != 0 && xInput != FacingDirection)
         {
             Flip();

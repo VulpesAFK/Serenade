@@ -27,10 +27,10 @@ public class PlayerGroundedState : PlayerState
         base.DoChecks();
 
         // t Storing the near surroundings of the player
-        isGrounded = player.CheckIfGrounded();
-        isTouchingWall = player.CheckIfTouchingWall();
-        isTouchingLedge = player.CheckIfTouchingLedge();
-        isTouchingCeiling = player.CheckForCeiling();
+        isGrounded = core.Collision.Ground;
+        isTouchingWall = core.Collision.WallFront;
+        isTouchingLedge = core.Collision.Ledge;
+        isTouchingCeiling = core.Collision.Ceiling;
     }
 
     public override void Enter()

@@ -15,12 +15,6 @@ public class Player : MonoBehaviour
     public BoxCollider2D MovementCollider { get; private set; }
     public PlayerInventory Inventory { get; private set; }
 
-    // v Transforms need from the player for surrounding checks
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private Transform wallCheck;
-    [SerializeField] private Transform ledgeCheck;
-    [SerializeField] private Transform ceilingCheck;
-
     // v Player data for fixed properties
     [SerializeField] private PlayerData playerData;
 
@@ -119,46 +113,6 @@ public class Player : MonoBehaviour
         // t Run the physics update tied to the current state with the  fixed update
         StateMachine.CurrentState.PhysicsUpdate();
     }
-
-    # endregion
-
-
-
-    // r Functions that aid with checking all the surrounding objects
-    # region Checking the player surroundings and returning 
-
-    // f Check the surroundings of the ground
-    public bool CheckIfGrounded()
-    {
-        return Physics2D.OverlapCircle(groundCheck.position, playerData.GroundCheckRadius, playerData.WhatIsGround);
-    }
-
-    // f Check the surroundings of the walls in front of us
-    public bool CheckIfTouchingWall()
-    {
-        return Physics2D.Raycast(wallCheck.position, Vector2.right * Core.Movement.FacingDirection, playerData.WallCheckDistance, playerData.WhatIsGround);
-    }
-
-    // f Check the surroundings of the walls behind of us
-    public bool CheckIfTouchingWallBack()
-    {
-        return Physics2D.Raycast(wallCheck.position, Vector2.right * -Core.Movement.FacingDirection, playerData.WallCheckDistance, playerData.WhatIsGround);
-    }
-
-    // f Designed to check whether there is a ledge or not
-    public bool CheckIfTouchingLedge()
-    {
-        return Physics2D.Raycast(ledgeCheck.position, Vector2.right * Core.Movement.FacingDirection, playerData.WallCheckDistance, playerData.WhatIsGround);
-    }
-
-    public bool CheckForCeiling()
-    {
-        return Physics2D.OverlapCircle(ceilingCheck.position, playerData.GroundCheckRadius, playerData.WhatIsGround);
-    }
-
-    
-
-
 
     # endregion
 
