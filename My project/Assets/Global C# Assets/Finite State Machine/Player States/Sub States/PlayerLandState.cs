@@ -22,12 +22,18 @@ public class PlayerLandState : PlayerGroundedState
                 //t Switch to the move state
                 stateMachine.ChangeState(player.MoveState);
             }
-    
-            // t The animation ends and the trigger is set
-            else if(isAnimationFinished)
+            
+            else 
             {
-                // t Switch to the idle state when the land is finish
-                stateMachine.ChangeState(player.IdleState);
+                core.Movement.SetVelocityX(0f);
+                
+                // t The animation ends and the trigger is set
+                if(isAnimationFinished)
+                {
+                    // t Switch to the idle state when the land is finish
+                    stateMachine.ChangeState(player.IdleState);
+                }
+
             }
         }
     }
