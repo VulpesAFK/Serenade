@@ -22,7 +22,7 @@ public class PlayerLandState : PlayerGroundedState
                 //t Switch to the move state
                 stateMachine.ChangeState(player.MoveState);
             }
-
+    
             // t The animation ends and the trigger is set
             else if(isAnimationFinished)
             {

@@ -5,8 +5,11 @@ using UnityEngine;
 public class Movement : CoreComponent
 {
     public Rigidbody2D RB { get; private set; }
+
     public Vector2 CurrentVelocity { get; private set; }
+    public int FacingDirection { get; private set; }
     private Vector2 workSpace;
+
 
     protected override void Awake()
     {
@@ -14,6 +17,9 @@ public class Movement : CoreComponent
 
         // Fetch all necessary components required to function accordingly
         RB = GetComponentInParent<Rigidbody2D>();
+
+        // Set the default direction to right 
+        FacingDirection = 1;
     }
 
     public void LogicUpdate()
@@ -95,4 +101,24 @@ public class Movement : CoreComponent
         # endregion
 
     # endregion
+
+    // f Flips the player via rotation or can be scale
+    private void Flip()
+    {
+        // t Alters the facing direction to match the current
+        FacingDirection *= -1;
+        // t Rotation via the y axis
+        transform.Rotate(0.0f, 180.0f, 0.0f);
+    }
+
+    // f Checks if there should be a sprite flip
+    public void CheckIfShouldFlip(int xInput)
+    {
+        // t Checks if the input pressed is different to that of the variable holding the old direction
+        if (xInput != 0 && xInput != FacingDirection)
+        {
+            Flip();
+        }
+    }
+
 }

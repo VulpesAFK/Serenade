@@ -84,7 +84,7 @@ public class PlayerTouchingWallState : PlayerState
         }
 
         // t Not touching the wall or the player is moving away from the wall without grabbing
-        else if (!isTouchingWall || (xInput != player.FacingDirection && !grabInput))
+        else if (!isTouchingWall || (xInput != core.Movement.FacingDirection && !grabInput))
         {
             // t The player is current falling now
             stateMachine.ChangeState(player.InAirState);

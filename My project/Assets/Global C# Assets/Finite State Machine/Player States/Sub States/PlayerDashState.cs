@@ -27,7 +27,7 @@ public class PlayerDashState : PlayerAbilitiesState
         player.InputHandler.UseDashInput();
 
         isHolding = true;
-        dashDirection = Vector2.right * player.FacingDirection;
+        dashDirection = Vector2.right * core.Movement.FacingDirection;
 
         Time.timeScale = playerData.HoldTimeScale;
         startTime = Time.unscaledTime;
@@ -52,10 +52,6 @@ public class PlayerDashState : PlayerAbilitiesState
         if (!isExitingState)
         {
 
-            player.Anim.SetFloat("yVelocity", core.Movement.CurrentVelocity.y);
-            player.Anim.SetFloat("xVelocity", Mathf.Abs(core.Movement.CurrentVelocity.x));
-
-
             if (isHolding)
             {
                 dashDirectionInput = player.InputHandler.DashDirectionInput;
@@ -76,7 +72,7 @@ public class PlayerDashState : PlayerAbilitiesState
                     Time.timeScale = 1;
                     startTime = Time.time;
 
-                    player.CheckIfShouldFlip(Mathf.RoundToInt(dashDirection.x));
+                    core.Movement.CheckIfShouldFlip(Mathf.RoundToInt(dashDirection.x));
                     player.RB.drag = playerData.Drag;
 
                     core.Movement.SetVelocity(playerData.DashVelocity, dashDirection);

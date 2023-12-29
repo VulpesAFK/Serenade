@@ -26,9 +26,6 @@ public class Player : MonoBehaviour
 
     // v Reference to a vector2 to hold a custom vector to be assigned to the rigidbody2d
     private Vector2 workSpace;
- 
-    // v Reference to the current direction  the player is facing
-    public int FacingDirection { get; private set; }
     
     // r Variables for all states
     # region Variable created to hold the state instantiations
@@ -102,8 +99,6 @@ public class Player : MonoBehaviour
         PrimaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.primary]);
         //SecondaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.secondary]);
 
-        // t Default direction to the player facing 
-        FacingDirection = 1;
 
         // t Set the default animation to the default idle state
         StateMachine.Initialize(IdleState);
@@ -129,32 +124,6 @@ public class Player : MonoBehaviour
 
 
 
-    // r Functions to help flip the player
-    # region Checking to flip and then flipping
-
-    // f Checks if there should be a sprite flip
-    public void CheckIfShouldFlip(int xInput)
-    {
-        // t Checks if the input pressed is different to that of the variable holding the old direction
-        if (xInput != 0 && xInput != FacingDirection)
-        {
-            Flip();
-        }
-    }
-
-    // f Flips the player via rotation or can be scale
-    private void Flip()
-    {
-        // t Alters the facing direction to match the current
-        FacingDirection *= -1;
-        // t Rotation via the y axis
-        transform.Rotate(0.0f, 180.0f, 0.0f);
-    }
-
-    # endregion
-
-
-
     // r Functions that aid with checking all the surrounding objects
     # region Checking the player surroundings and returning 
 
@@ -167,19 +136,19 @@ public class Player : MonoBehaviour
     // f Check the surroundings of the walls in front of us
     public bool CheckIfTouchingWall()
     {
-        return Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection, playerData.WallCheckDistance, playerData.WhatIsGround);
+        return Physics2D.Raycast(wallCheck.position, Vector2.right * Core.Movement.FacingDirection, playerData.WallCheckDistance, playerData.WhatIsGround);
     }
 
     // f Check the surroundings of the walls behind of us
     public bool CheckIfTouchingWallBack()
     {
-        return Physics2D.Raycast(wallCheck.position, Vector2.right * -FacingDirection, playerData.WallCheckDistance, playerData.WhatIsGround);
+        return Physics2D.Raycast(wallCheck.position, Vector2.right * -Core.Movement.FacingDirection, playerData.WallCheckDistance, playerData.WhatIsGround);
     }
 
     // f Designed to check whether there is a ledge or not
     public bool CheckIfTouchingLedge()
     {
-        return Physics2D.Raycast(ledgeCheck.position, Vector2.right * FacingDirection, playerData.WallCheckDistance, playerData.WhatIsGround);
+        return Physics2D.Raycast(ledgeCheck.position, Vector2.right * Core.Movement.FacingDirection, playerData.WallCheckDistance, playerData.WhatIsGround);
     }
 
     public bool CheckForCeiling()
@@ -211,29 +180,6 @@ public class Player : MonoBehaviour
     }
 
     # endregion
-
-
-    public Vector2 DetermineCornerPosition()
-    {
-        // t Find the location of the wall in front of the player
-        RaycastHit2D xHit = Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection, playerData.WallCheckDistance, playerData.WhatIsGround);
-        // t Determine the x distance from the player to the wall
-        float xDistance = xHit.distance;
-
-        // t Set a workspace to make a variable to signla the amount to add on to the position
-        workSpace.Set((xDistance + 0.015f) * FacingDirection, 0f);
-        // t Raycast to note the position of the grounf that the player will appear to 
-        RaycastHit2D yHit = Physics2D.Raycast(ledgeCheck.position + (Vector3)(workSpace), Vector2.down, ledgeCheck.position.y - wallCheck.position.y + 0.015f,  playerData.WhatIsGround);
-        // t Determine the y distance
-        float yDistance = yHit.distance;
-
-        // t Formulate the final vector2 to be returned
-        workSpace.Set(wallCheck.position.x + (xDistance * FacingDirection), ledgeCheck.position.y - yDistance);
-
-        // t return the final result
-        return workSpace;
-
-    }
 
     public void SetColliderHeight(float height)
     {

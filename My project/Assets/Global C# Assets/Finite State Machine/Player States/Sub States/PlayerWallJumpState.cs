@@ -23,7 +23,7 @@ public class PlayerWallJumpState : PlayerAbilitiesState
         core.Movement.SetVelocity(playerData.WallJumpVelocity, playerData.WallJumpAngle, wallJumpDirection);
 
         // t Test the opposite facing dircetion compared to the facing direction
-        player.CheckIfShouldFlip(wallJumpDirection);
+        core.Movement.CheckIfShouldFlip(wallJumpDirection);
         // t Decrease the amount of jumps as the player is jumping
         player.JumpState.DecreaseAmountOfJumpsLeft();
     }
@@ -52,14 +52,14 @@ public class PlayerWallJumpState : PlayerAbilitiesState
         if (isTouchingWall)
         {
             // t Opposite to the facing direction
-            wallJumpDirection = -player.FacingDirection;
+            wallJumpDirection = -core.Movement.FacingDirection;
         }
 
         // t Else then there is a wall behind use in stead
         else
         {
             // t Opposite to the facing direction 
-            wallJumpDirection = player.FacingDirection;
+            wallJumpDirection = core.Movement.FacingDirection;
         }
     }
 }

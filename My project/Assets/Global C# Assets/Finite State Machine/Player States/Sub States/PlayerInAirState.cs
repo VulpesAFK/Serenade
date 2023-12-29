@@ -153,7 +153,7 @@ public class PlayerInAirState : PlayerState
         }
 
         // t Check whether touching the wall and that the player is facing the wall at its peak height reach
-        else if (isTouchingWall && xInput == player.FacingDirection && core.Movement.CurrentVelocity.y <= 0.0f)
+        else if (isTouchingWall && xInput == core.Movement.FacingDirection && core.Movement.CurrentVelocity.y <= 0.0f)
         {
             // t Switch to a new state
             stateMachine.ChangeState(player.WallSlideState);
@@ -168,7 +168,7 @@ public class PlayerInAirState : PlayerState
         else 
         {
             // t Check if we have to flip the player
-            player.CheckIfShouldFlip(xInput);
+            core.Movement.CheckIfShouldFlip(xInput);
             // t Move the player whilst in the air 
             core.Movement.SetVelocityX(playerData.MovementVelocity * xInput);
 

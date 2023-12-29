@@ -27,6 +27,8 @@ public class PlayerLedgeClimbState : PlayerState
     private int yInput;
     private bool jumpInput;
 
+    private Vector2 workSpace;
+
     public PlayerLedgeClimbState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
         
@@ -58,11 +60,11 @@ public class PlayerLedgeClimbState : PlayerState
         player.transform.position = detectedPosition;
 
         // t Set the corner position
-        cornerPosition = player.DetermineCornerPosition();
+        cornerPosition = DetermineCornerPosition();
 
         // t Positions to start and stop the whole climb animation
-        startPosition.Set(cornerPosition.x - (player.FacingDirection * playerData.StartOffset.x), cornerPosition.y - playerData.StartOffset.y);
-        stopPosition.Set(cornerPosition.x + (player.FacingDirection * playerData.StopOffset.x), cornerPosition.y + playerData.StopOffset.y);
+        startPosition.Set(cornerPosition.x - (core.Movement.FacingDirection * playerData.StartOffset.x), cornerPosition.y - playerData.StartOffset.y);
+        stopPosition.Set(cornerPosition.x + (core.Movement.FacingDirection * playerData.StopOffset.x), cornerPosition.y + playerData.StopOffset.y);
     
         // t Set the player transofmr to the start
         player.transform.position = startPosition;
@@ -128,7 +130,7 @@ public class PlayerLedgeClimbState : PlayerState
             }
 
             // t Check if the player wants to climb
-            else if (xInput == player.FacingDirection && isHanging && !isClimbing)
+            else if (xInput == core.Movement.FacingDirection && isHanging && !isClimbing)
             {
 
                 CheckForSpace();
@@ -158,7 +160,29 @@ public class PlayerLedgeClimbState : PlayerState
 
     private void CheckForSpace()
     {
-        isTouchingCeiling = Physics2D.Raycast(cornerPosition + (Vector2.up * 0.015f) + (Vector2.right * player.FacingDirection * 0.015f), Vector2.up, playerData.StandColliderHeight, playerData.WhatIsGround);
+        isTouchingCeiling = Physics2D.Raycast(cornerPosition + (Vector2.up * 0.015f) + (Vector2.right * core.Movement.FacingDirection * 0.015f), Vector2.up, playerData.StandColliderHeight, playerData.WhatIsGround);
         player.Anim.SetBool("isTouchingCeiling", isTouchingCeiling);
+    }
+
+    private Vector2 DetermineCornerPosition()
+    {
+        // t Find the location of the wall in front of the player
+        RaycastHit2D xHit = Physics2D.Raycast(wallCheck.position, Vector2.right * core.Movement.FacingDirection, playerData.WallCheckDistance, playerData.WhatIsGround);
+        // t Determine the x distance from the player to the wall
+        float xDistance = xHit.distance;
+
+        // t Set a workspace to make a variable to signla the amount to add on to the position
+        workSpace.Set((xDistance + 0.015f) * core.Movement.FacingDirection, 0f);
+        // t Raycast to note the position of the grounf that the player will appear to 
+        RaycastHit2D yHit = Physics2D.Raycast(ledgeCheck.position + (Vector3)(workSpace), Vector2.down, ledgeCheck.position.y - wallCheck.position.y + 0.015f,  playerData.WhatIsGround);
+        // t Determine the y distance
+        float yDistance = yHit.distance;
+
+        // t Formulate the final vector2 to be returned
+        workSpace.Set(wallCheck.position.x + (xDistance * core.Movement.FacingDirection), ledgeCheck.position.y - yDistance);
+
+        // t return the final result
+        return workSpace;
+
     }
 }
