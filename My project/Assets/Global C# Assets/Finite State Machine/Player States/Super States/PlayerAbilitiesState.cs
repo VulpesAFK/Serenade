@@ -4,61 +4,37 @@ using UnityEngine;
 
 public class PlayerAbilitiesState : PlayerState
 {
-    // v Bools to help to save the abilties inheriting to be saved
+    // Bools to help to save the abilties inheriting to be saved
     protected bool isAbilityDone;
-    // v Check the surrounding made specifically the made
+
+    // Check the surrounding made specifically the made
     private bool isGrounded;
 
-    public PlayerAbilitiesState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
-    {
+    public PlayerAbilitiesState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) {
 
     }
-    public override void DoChecks()
-    {
+
+    public override void DoChecks() {
         base.DoChecks();
 
-        // t Base check from the ground bool
         isGrounded = core.Collision.Ground;
     }
 
-    public override void Enter()
-    {
+    public override void Enter() {
         base.Enter();
 
-        // t Set to false when the states starts
+        // Return control to state when any ability inheriting is finish
         isAbilityDone = false;
     }
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void LogicUpdate()
-    {
+    public override void LogicUpdate() {
         base.LogicUpdate();
 
-        // t When the inheriting states finish will go back to the base
         if (isAbilityDone)
         {
-            // t The player is grounded and a leeway on the y axis assuming still
-            if (isGrounded && core.Movement.CurrentVelocity.y < 0.01f)
-            {
-                // t Switch to idle state
-                stateMachine.ChangeState(player.IdleState);
-            }
+            if (isGrounded && core.Movement.CurrentVelocity.y < 0.01f) { stateMachine.ChangeState(player.IdleState); }
 
-            // t If the grounded then then player is most likely in the air
-            else
-            {
-                //t Switch to the in air state
-                stateMachine.ChangeState(player.InAirState);
-            }
+            else { stateMachine.ChangeState(player.InAirState); }
         }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }
