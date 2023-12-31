@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -173,7 +174,7 @@ public class PlayerInAirState : PlayerState
             core.Movement.SetVelocityX(playerData.MovementVelocity * xInput);
 
             // t Provide the animator with the current x and y values to provide the correct animation value a blend tree
-            player.Anim.SetFloat("yVelocity", core.Movement.CurrentVelocity.y);
+            player.Anim.SetFloat("yVelocity", Math.Max(core.Movement.CurrentVelocity.y, -10));
             player.Anim.SetFloat("xVelocity", Mathf.Abs(core.Movement.CurrentVelocity.x));
         }
     }
