@@ -42,24 +42,11 @@ public class PlayerWallJumpState : PlayerAbilitiesState
             // t Set to finish and hand back to the abilities states
             isAbilityDone = true;
         }
-
     }
 
-    // f Test to see the opposite direction from the wall being jumped from 
-    public void DetermineWallJumpDirection(bool isTouchingWall)
-    {
-        // t If there is a wall in front of the player then the player needs to go the opposite direction
-        if (isTouchingWall)
-        {
-            // t Opposite to the facing direction
-            wallJumpDirection = -core.Movement.FacingDirection;
-        }
+    public void DetermineWallJumpDirection(bool isTouchingWall) {
+        if (isTouchingWall) { wallJumpDirection = -core.Movement.FacingDirection; }
 
-        // t Else then there is a wall behind use in stead
-        else
-        {
-            // t Opposite to the facing direction 
-            wallJumpDirection = core.Movement.FacingDirection;
-        }
+        else { wallJumpDirection = core.Movement.FacingDirection; }
     }
 }

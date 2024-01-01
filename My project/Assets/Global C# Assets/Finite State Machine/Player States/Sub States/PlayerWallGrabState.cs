@@ -11,20 +11,6 @@ public class PlayerWallGrabState : PlayerTouchingWallState
     {
         
     }
-    public override void AnimationFinishTrigger()
-    {
-        base.AnimationFinishTrigger();
-    }
-
-    public override void AnimationTrigger()
-    {
-        base.AnimationTrigger();
-    }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
-    }
 
     public override void Enter()
     {
@@ -34,11 +20,6 @@ public class PlayerWallGrabState : PlayerTouchingWallState
         holdPosition = player.transform.position;
 
         HoldPosition();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
     }
 
     public override void LogicUpdate()
@@ -76,10 +57,5 @@ public class PlayerWallGrabState : PlayerTouchingWallState
         // t Set forces to zero to remove any other external forces 
         core.Movement.SetVelocityX(0f);
         core.Movement.SetVelocityY(0f);
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 }

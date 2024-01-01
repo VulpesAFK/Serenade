@@ -20,9 +20,6 @@ public class Player : MonoBehaviour
 
     // v Reference to a vector2 to hold a custom vector to be assigned to the rigidbody2d
     private Vector2 workSpace;
-    
-    // r Variables for all states
-    # region Variable created to hold the state instantiations
 
     public PlayerIdleState IdleState { get; private set; }
     public PlayerMoveState MoveState { get; private set; }
@@ -40,21 +37,10 @@ public class Player : MonoBehaviour
     public PlayerAttackState PrimaryAttackState { get; private set; }
     public PlayerAttackState SecondaryAttackState { get; private set; }
 
-
-    # endregion
-
-
-
-    private void Awake() 
-    {
-        // Fetching the core components from child scripts
+    private void Awake() {
         Core = GetComponentInChildren<Core>();
 
-        // t Instantiation of the player sttae machine
         StateMachine = new PlayerStateMachine();
-
-        // r State instantiation of all states tied to the player
-        # region Instantiation of all states to the specific variable
 
         IdleState = new PlayerIdleState(this, StateMachine, playerData, "idle");
         MoveState = new PlayerMoveState(this, StateMachine, playerData, "move");
@@ -71,8 +57,6 @@ public class Player : MonoBehaviour
         CrouchMoveState = new PlayerCrouchMoveState(this, StateMachine, playerData, "crouchMove");
         PrimaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
         SecondaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
-
-        # endregion
     }
 
     private void Start() 
@@ -98,9 +82,6 @@ public class Player : MonoBehaviour
         StateMachine.Initialize(IdleState);
     }
 
-    // r Callback for all of the unity functions to run
-    # region Unity functions for all callback functions
-
     private void Update() 
     {
         Core.LogicUpdate();
@@ -108,32 +89,11 @@ public class Player : MonoBehaviour
         StateMachine.CurrentState.LogicUpdate();
     }
 
-    private void FixedUpdate() 
-    {
-        // t Run the physics update tied to the current state with the  fixed update
-        StateMachine.CurrentState.PhysicsUpdate();
-    }
+    private void FixedUpdate() => StateMachine.CurrentState.PhysicsUpdate();
 
-    # endregion
+    private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
 
-
-
-    // r Functions that connect the animation with a timer condition
-    # region Animation triggers if there are events needed to be played after or mid
-
-    // f Function to hold the trigger for all animation to be trigger mid
-    private void AnimationTrigger() 
-    {
-        StateMachine.CurrentState.AnimationTrigger();
-    }
-
-    // f Function to gold and trigger the end of the animation
-    private void AnimationFinishTrigger()
-    {
-        StateMachine.CurrentState.AnimationFinishTrigger();
-    }
-
-    # endregion
+    private void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
 
     public void SetColliderHeight(float height)
     {

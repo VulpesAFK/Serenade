@@ -9,6 +9,7 @@ public class CoreComponent : MonoBehaviour
     protected virtual void Awake() 
     {
         core = transform.parent.GetComponent<Core>();
+        
         if (core == null) Debug.LogError($"There is no core component in core. Core status : {core}");    
     }
 }
