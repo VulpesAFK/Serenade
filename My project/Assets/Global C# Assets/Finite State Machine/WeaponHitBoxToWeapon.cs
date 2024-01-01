@@ -11,12 +11,10 @@ public class WeaponHitBoxToWeapon : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("On trigger we hit");
         agressiveWeapon.AddToDetected(other);
     }
     
     private void OnTriggerExit2D(Collider2D other) {
-        Debug.Log("Exit trigger we leave");
         agressiveWeapon.RemoveFromDetected(other);
     }
 }
