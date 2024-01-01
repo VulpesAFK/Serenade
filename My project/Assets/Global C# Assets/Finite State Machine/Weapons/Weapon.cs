@@ -69,6 +69,14 @@ public class Weapon : MonoBehaviour
     {
         attackState.SetFlipCheck(false);
     }
+
+    public virtual void AnimationActionTrigger()
+    {
+        
+    }
+
+
+
     public void InitializeWeapon(PlayerAttackState attackState)
     {
         this.attackState = attackState;

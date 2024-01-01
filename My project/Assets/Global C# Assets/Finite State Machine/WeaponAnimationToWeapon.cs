@@ -33,5 +33,9 @@ public class WeaponAnimationToWeapon : MonoBehaviour
     private void AnimationStopFlipTrigger()
     {
         weapon.AnimationStopFlipTrigger();
-    }    
+    }  
+    private void AnimationActionTrigger()
+    {
+        weapon.AnimationActionTrigger();
+    }  
 }
