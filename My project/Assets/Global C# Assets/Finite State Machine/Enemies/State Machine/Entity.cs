@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Rigidbody2D RB { get; private set; }
+    public Animator Anim { get; private set; }
+    public GameObject AliveGO { get; private set; }
+
+    public virtual void Start()
     {
-        
+        AliveGO = transform.Find("Alive").gameObject;
+        RB = AliveGO.GetComponent<Rigidbody2D>();
+        Anim = AliveGO.GetComponent<Animator>();
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
