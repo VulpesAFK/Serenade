@@ -18,7 +18,9 @@ public class EnemyState
         entity.Anim.SetBool(animBoolName, true);
     }
 
-    public virtual void Exit() { }
+    public virtual void Exit() {
+        entity.Anim.SetBool(animBoolName, false); 
+    }
 
     public virtual void LogicUpdate() { }
 

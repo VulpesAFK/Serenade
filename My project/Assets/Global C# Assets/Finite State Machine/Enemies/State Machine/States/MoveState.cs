@@ -2,17 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveState : MonoBehaviour
+public class MoveState : EnemyState
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    protected EnemyMoveData stateData;
+    protected bool isDetectingWall;
+    protected bool isDetectingLedge;
+
+    public MoveState(Entity entity, EnemyStateMachine stateMachine, string animBoolName, EnemyMoveData stateData) : base(entity, stateMachine, animBoolName) {
+        this.stateData = stateData;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public override void Enter() {
+        base.Enter();
+        entity.SetVelocity(stateData.MovementVelocity);
+
+        isDetectingLedge = entity.CheckLedge();
+        isDetectingWall = entity.CheckWall();
+    }
+
+    public override void Exit() {
+        base.Exit();
+    }
+
+    public override void LogicUpdate() {
+        base.LogicUpdate();
+    }
+
+    public override void PhysicsUpdate() {
+        base.PhysicsUpdate();
+
+        isDetectingLedge = entity.CheckLedge();
+        isDetectingWall = entity.CheckWall();
     }
 }
