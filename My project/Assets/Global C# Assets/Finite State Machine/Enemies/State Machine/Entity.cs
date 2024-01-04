@@ -21,6 +21,8 @@ public class Entity : MonoBehaviour
         RB = AliveGO.GetComponent<Rigidbody2D>();
         Anim = AliveGO.GetComponent<Animator>(); 
 
+        FacingDirection = 1;
+
         StateMachine = new EnemyStateMachine();
     }
 
@@ -54,6 +56,11 @@ public class Entity : MonoBehaviour
     {
         FacingDirection *= -1;
         AliveGO.transform.Rotate(0f, 180f, 0f);
+    }
+
+    public virtual void OnDrawGizmos() {
+        Gizmos.DrawLine(wallCheck.position, wallCheck.position + (Vector3)(Vector2.right * FacingDirection * EntityData.WallCheckDistance));
+        Gizmos.DrawLine(ledgeCheck.position, ledgeCheck.position + (Vector3)(Vector2.down * EntityData.LedgeCheckDistance));
     }
 
 }
