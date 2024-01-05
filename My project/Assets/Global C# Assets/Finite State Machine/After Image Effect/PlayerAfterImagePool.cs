@@ -56,8 +56,6 @@ public class PlayerAfterImagePool : MonoBehaviour
     // Fetching from the pool
     public GameObject GetFromPool()
     {
-        // If there is no active a 
-        Debug.Log(availableObjects.Count);
         if (availableObjects.Count == 0 && transform.childCount < maxPoolSizeOverFlow)
         {
             // Grow the queue length even further

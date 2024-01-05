@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class PlayerJumpState : PlayerAbilitiesState
 {
-    // v Variable to hold the amount of possible jumps left 
     private int amountOfJumpsLeft;
 
-    public PlayerJumpState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
-    {
-        // t Instantiate the amount of jumps left to to the lax number of jumps
+    public PlayerJumpState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) {
         amountOfJumpsLeft = playerData.AmountOfJumps;
     }
 
@@ -31,28 +28,15 @@ public class PlayerJumpState : PlayerAbilitiesState
         player.InAirState.SetIsJumping();
     }
 
-    // f Allow the bool conditions to be able to continue jumping in the air 
     public bool CanJump()
     {
-        // t If there is jumps left then return true
-        if (amountOfJumpsLeft > 0)
-        {
-            return true;
+        switch (amountOfJumpsLeft) {
+            case > 0: return true;
+            default:  return false;
         }
-
-        // t False when the player jump amount is zero or below
-        else
-        {
-            return false;
-        }
-
     }
 
-    // f Reset the amount of jumps back to the max
-    public void ResetAmountOfJumpsLeft()
-    {
-        amountOfJumpsLeft = playerData.AmountOfJumps;
-    }
+    public void ResetAmountOfJumpsLeft() => amountOfJumpsLeft = playerData.AmountOfJumps;
 
 
     // f Decrease the amount of jumps by one 

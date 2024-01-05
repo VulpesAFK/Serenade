@@ -13,7 +13,6 @@ public class PlayerLandState : PlayerGroundedState
     {
         base.LogicUpdate();
 
-        // t If the grounded state being inherited is not in an exiting state
         if (!isExitingState)
         {
             // t Input on the x axis
