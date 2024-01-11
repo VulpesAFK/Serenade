@@ -2,17 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyChargeData : MonoBehaviour
+[CreateAssetMenu(fileName = "New Entity Data", menuName = "Data/Entity Data/Base Data")]
+public class EnemyChargeData : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float ChargeSpeed  = 8f;
+    public float ChargeTime = 3;
 }

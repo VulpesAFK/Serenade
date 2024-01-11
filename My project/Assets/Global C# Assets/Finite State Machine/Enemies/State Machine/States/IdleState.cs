@@ -14,6 +14,13 @@ public class IdleState : EnemyState
         this.stateData = stateData;
     }
 
+    public override void DoChecks()
+    {
+        base.DoChecks();
+        isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
+    }
+
+
     public override void Enter()
     {
         base.Enter();
@@ -22,7 +29,6 @@ public class IdleState : EnemyState
         isIdleTimeOver = false;
         SetRandomIdleTime();
 
-        isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
     }
 
     public override void Exit()
@@ -48,8 +54,6 @@ public class IdleState : EnemyState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-
-        isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
     }
 
     public void SetFlipAfterIdle(bool flip)

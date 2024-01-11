@@ -11,13 +11,18 @@ public class DetectionState : EnemyState
         this.stateData = stateData;
     }
 
+    public override void DoChecks()
+    {
+        base.DoChecks();
+        isPlayerInMaxAggroRange = entity.CheckPlayerInMaxAggroRange();
+        isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
+    }
+
     public override void Enter()
     {
         base.Enter();
         entity.SetVelocity(0f);
 
-        isPlayerInMaxAggroRange = entity.CheckPlayerInMaxAggroRange();
-        isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
     }
     public override void Exit()
     {
@@ -32,8 +37,5 @@ public class DetectionState : EnemyState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-
-        isPlayerInMaxAggroRange = entity.CheckPlayerInMaxAggroRange();
-        isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
     }
 }
