@@ -8,6 +8,8 @@ public class ChargeState : EnemyState
     protected bool isPlayerInMinAggroRange;
     protected bool isDetectingLedge;
     protected bool isDetectingWall;
+    protected bool isChargeTimeOver;
+
     public ChargeState(Entity entity, EnemyStateMachine stateMachine, string animBoolName, EnemyChargeData stateData) : base(entity, stateMachine, animBoolName)
     {
         this.stateData = stateData;
@@ -24,6 +26,7 @@ public class ChargeState : EnemyState
     public override void Enter()
     {
         base.Enter();
+        isChargeTimeOver = false;
 
         entity.SetVelocity(stateData.ChargeSpeed);
     }
@@ -36,6 +39,11 @@ public class ChargeState : EnemyState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        if (Time.time >= startTime + stateData.ChargeTime)
+        {
+            isChargeTimeOver = true;
+        }
     }
 
     public override void PhysicsUpdate()

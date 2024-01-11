@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Entity Data", menuName = "Data/Entity Data/Base Data")]
+[CreateAssetMenu(fileName = "newChargeStateData", menuName = "Data/State Data/Charge State")]
 public class EnemyChargeData : ScriptableObject
 {
     public float ChargeSpeed  = 8f;
-    public float ChargeTime = 3;
+    public float ChargeTime = 1;
 }

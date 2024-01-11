@@ -23,10 +23,9 @@ public class E1DetectionState : DetectionState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (!isPlayerInMaxAggroRange)
+        if (performLongRangedAction)
         {
-            enemy.E1IdleState.SetFlipAfterIdle(false);
-            stateMachine.ChangeState(enemy.E1IdleState);
+            stateMachine.ChangeState(enemy.E1ChargeState);
         }
     }
 
