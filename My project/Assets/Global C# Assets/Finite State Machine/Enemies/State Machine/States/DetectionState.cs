@@ -1,18 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
+ using System.Collections.Generic;
 using UnityEngine;
 
-public class DetectionState : MonoBehaviour
+public class DetectionState : EnemyState
 {
-    // Start is called before the first frame update
-    void Start()
+    protected EnemyDetectionData stateData;
+    protected bool isPlayerInMinAggroRange;
+    protected bool isPlayerInMaxAggroRange;
+    public DetectionState(Entity entity, EnemyStateMachine stateMachine, string animBoolName, EnemyDetectionData stateData) : base(entity, stateMachine, animBoolName)
     {
-        
+        this.stateData = stateData;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Enter()
     {
-        
+        base.Enter();
+        entity.SetVelocity(0f);
+
+        isPlayerInMaxAggroRange = entity.CheckPlayerInMaxAggroRange();
+        isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
+    }
+    public override void Exit()
+    {
+        base.Exit();
+    }
+
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+    }
+
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+
+        isPlayerInMaxAggroRange = entity.CheckPlayerInMaxAggroRange();
+        isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
     }
 }

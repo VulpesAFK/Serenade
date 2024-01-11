@@ -13,6 +13,7 @@ public class Entity : MonoBehaviour
 
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
+    [SerializeField] private Transform playerCheck;
     private Vector2 workSpace;
 
     public virtual void Start()
@@ -56,6 +57,16 @@ public class Entity : MonoBehaviour
     {
         FacingDirection *= -1;
         AliveGO.transform.Rotate(0f, 180f, 0f);
+    }
+
+    public virtual bool CheckPlayerInMinAggroRange()
+    {
+        return Physics2D.Raycast(playerCheck.position, AliveGO.transform.right, EntityData.MinAggroDistance, EntityData.whatIsPlayer);
+    }
+
+    public virtual bool CheckPlayerInMaxAggroRange()
+    {
+        return Physics2D.Raycast(playerCheck.position, AliveGO.transform.right, EntityData.MaxAggroDistance, EntityData.whatIsPlayer);
     }
 
     public virtual void OnDrawGizmos() {

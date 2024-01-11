@@ -22,8 +22,12 @@ public class E1IdleState : IdleState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        if (isPlayerInMinAggroRange)
+        {
+            stateMachine.ChangeState(enemy.E1DetectionState);
+        }
 
-        if (isIdleTimeOver)
+        else if (isIdleTimeOver)
         {
             stateMachine.ChangeState(enemy.E1MoveState);
         }
