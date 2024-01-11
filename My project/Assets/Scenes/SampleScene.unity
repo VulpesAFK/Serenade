@@ -654,7 +654,7 @@ GameObject:
   - component: {fileID: 342660456}
   - component: {fileID: 342660455}
   - component: {fileID: 342660458}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Alive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -962,7 +962,7 @@ GameObject:
   - component: {fileID: 532218880}
   - component: {fileID: 532218882}
   - component: {fileID: 532218881}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15351,7 +15351,7 @@ GameObject:
   m_Component:
   - component: {fileID: 829045995}
   - component: {fileID: 829045994}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: E1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15373,8 +15373,12 @@ MonoBehaviour:
   EntityData: {fileID: 11400000, guid: 8e670bf23ccfba443a682cec386e072b, type: 2}
   wallCheck: {fileID: 1565550958}
   ledgeCheck: {fileID: 1035831112}
+  playerCheck: {fileID: 929278852}
   enemyIdleData: {fileID: 11400000, guid: bf272b6f7ef425549b4a1833f590ce93, type: 2}
   enemyMoveData: {fileID: 11400000, guid: a39c115f7afc4d54bbedf0b3cc8b01ba, type: 2}
+  enemyDetectionData: {fileID: 11400000, guid: 184f702db1f0e40468ab591ec80e8f66, type: 2}
+  enemyChargeData: {fileID: 11400000, guid: 92f507cd4e9fdaf4a90d82180a252192, type: 2}
+  enemyLookForPlayerData: {fileID: 11400000, guid: cd89d807d9ac2794f972fce3fe04f5e1, type: 2}
 --- !u!4 &829045995
 Transform:
   m_ObjectHideFlags: 0
@@ -15384,7 +15388,7 @@ Transform:
   m_GameObject: {fileID: 829045993}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.76, y: 8.61, z: 0}
+  m_LocalPosition: {x: -14.01, y: 0.84, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15400,8 +15404,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 929278852}
-  m_Layer: 9
-  m_Name: --
+  m_Layer: 10
+  m_Name: PlayerCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15416,7 +15420,7 @@ Transform:
   m_GameObject: {fileID: 929278851}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.06, y: -0.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15462,7 +15466,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1035831112}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: LedgeCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15494,7 +15498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1056206567}
   - component: {fileID: 1056206568}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16584,7 +16588,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1565550958}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
