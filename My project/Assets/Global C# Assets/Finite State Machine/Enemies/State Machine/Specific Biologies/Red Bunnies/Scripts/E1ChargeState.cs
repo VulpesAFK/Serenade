@@ -32,7 +32,7 @@ public class E1ChargeState : ChargeState
 
         if (!isDetectingLedge || isDetectingWall)
         {
-
+            stateMachine.ChangeState(enemy.E1LookForPlayerState);
         }
 
         else if (isChargeTimeOver)
@@ -40,6 +40,10 @@ public class E1ChargeState : ChargeState
             if (isPlayerInMinAggroRange)
             {
                 stateMachine.ChangeState(enemy.E1DetectionState);
+            }
+            else
+            {
+                stateMachine.ChangeState(enemy.E1LookForPlayerState);
             }
         }
     }

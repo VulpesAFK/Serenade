@@ -27,6 +27,10 @@ public class E1DetectionState : DetectionState
         {
             stateMachine.ChangeState(enemy.E1ChargeState);
         }
+        else if (!isPlayerInMaxAggroRange)
+        {
+            stateMachine.ChangeState(enemy.E1LookForPlayerState);
+        }
     }
 
     public override void PhysicsUpdate()
