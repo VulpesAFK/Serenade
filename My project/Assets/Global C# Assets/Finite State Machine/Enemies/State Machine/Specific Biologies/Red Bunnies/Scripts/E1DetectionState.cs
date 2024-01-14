@@ -23,13 +23,25 @@ public class E1DetectionState : DetectionState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (performLongRangedAction)
+        if (performCloseRangeAction)
+        {
+            stateMachine.ChangeState(enemy.E1MeleeAttackState);
+        }
+
+        else if (performLongRangedAction)
         {
             stateMachine.ChangeState(enemy.E1ChargeState);
         }
+        
         else if (!isPlayerInMaxAggroRange)
         {
             stateMachine.ChangeState(enemy.E1LookForPlayerState);
+        }
+
+        else if(!isDetectingLedge)
+        {
+            entity.Flip();
+            stateMachine.ChangeState(enemy.E1MoveState);
         }
     }
 

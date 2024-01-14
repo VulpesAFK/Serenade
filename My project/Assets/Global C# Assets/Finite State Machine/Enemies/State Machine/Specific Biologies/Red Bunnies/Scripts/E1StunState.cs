@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class E1ChargeState : ChargeState
+public class E1StunState : StunState
 {
     private E1 enemy;
-
-    public E1ChargeState(Entity entity, EnemyStateMachine stateMachine, string animBoolName, EnemyChargeData stateData, E1 enemy) : base(entity, stateMachine, animBoolName, stateData)
+    public E1StunState(Entity entity, EnemyStateMachine stateMachine, string animBoolName, EnemyStunData stateData, E1 enemy) : base(entity, stateMachine, animBoolName, stateData)
     {
         this.enemy = enemy;
     }
@@ -30,24 +30,19 @@ public class E1ChargeState : ChargeState
     {
         base.LogicUpdate();
 
-        if (performCloseRangeAction)
+        if(isStunTimeOver)
         {
-            stateMachine.ChangeState(enemy.E1MeleeAttackState);
-        }
-
-        else if (!isDetectingLedge || isDetectingWall)
-        {
-            stateMachine.ChangeState(enemy.E1LookForPlayerState);
-        }
-
-        else if (isChargeTimeOver)
-        {
-            if (isPlayerInMinAggroRange)
+            if(performCloseRangeAction)
             {
-                stateMachine.ChangeState(enemy.E1DetectionState);
+                stateMachine.ChangeState(enemy.E1MeleeAttackState);
             }
-            else
+            else if (isPlayerInMinAggroRange)
             {
+                stateMachine.ChangeState(enemy.E1ChargeState);
+            }
+            else 
+            {
+                enemy.E1LookForPlayerState.SetTurnImmediately(true);
                 stateMachine.ChangeState(enemy.E1LookForPlayerState);
             }
         }

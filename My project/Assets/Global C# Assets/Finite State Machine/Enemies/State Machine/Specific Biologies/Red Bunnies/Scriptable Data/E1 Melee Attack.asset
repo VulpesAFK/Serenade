@@ -9,17 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d52a59d940e08f43bbbf968230ba896, type: 3}
-  m_Name: E1
+  m_Script: {fileID: 11500000, guid: e45609a4c02eaa84bb7c8f61292683cb, type: 3}
+  m_Name: E1 Melee Attack
   m_EditorClassIdentifier: 
-  WallCheckDistance: 0.2
-  LedgeCheckDistance: 0.4
-  CloseRangeActionDistance: 1.75
-  MaxAggroDistance: 8
-  MinAggroDistance: 7
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 256
-  whatIsPlayer:
+  AttackRadius: 0.75
+  WhatIsPlayer:
     serializedVersion: 2
     m_Bits: 512
+  AttackDamage: 10

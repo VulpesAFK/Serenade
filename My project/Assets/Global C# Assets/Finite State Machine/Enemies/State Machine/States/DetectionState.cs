@@ -7,6 +7,9 @@ public class DetectionState : EnemyState
     protected bool isPlayerInMinAggroRange;
     protected bool isPlayerInMaxAggroRange;
     protected bool performLongRangedAction;
+    protected bool performCloseRangeAction;
+    protected bool isDetectingLedge;
+
     public DetectionState(Entity entity, EnemyStateMachine stateMachine, string animBoolName, EnemyDetectionData stateData) : base(entity, stateMachine, animBoolName)
     {
         this.stateData = stateData;
@@ -17,6 +20,8 @@ public class DetectionState : EnemyState
         base.DoChecks();
         isPlayerInMaxAggroRange = entity.CheckPlayerInMaxAggroRange();
         isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
+        performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
+        isDetectingLedge = entity.CheckLedge();
     }
 
     public override void Enter()

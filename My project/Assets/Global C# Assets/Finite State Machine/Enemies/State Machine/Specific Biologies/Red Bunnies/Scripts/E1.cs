@@ -10,12 +10,19 @@ public class E1 : Entity
     public E1DetectionState E1DetectionState { get; private set; }
     public E1ChargeState E1ChargeState { get; private set; }
     public E1LookForPlayerState E1LookForPlayerState { get; private set; }
+    public E1MeleeAttackState E1MeleeAttackState { get; private set; }
+    public E1StunState E1StunState { get; private set; }
+    public E1DeadState E1DeadState { get; private set; }
 
     [SerializeField] private EnemyIdleData enemyIdleData;
     [SerializeField] private EnemyMoveData enemyMoveData;
     [SerializeField] private EnemyDetectionData enemyDetectionData;
     [SerializeField] private EnemyChargeData enemyChargeData;
     [SerializeField] private EnemyLookForPlayerData enemyLookForPlayerData;
+    [SerializeField] private EnemyMeleeAttackData enemyMeleeAttackData;
+    [SerializeField] private EnemyStunData enemyStunData;
+    [SerializeField] private EnemyDeadData enemyDeadData; 
+    [SerializeField] private Transform meleeAttackPosition;
 
     public override void Start()
     {
@@ -26,7 +33,32 @@ public class E1 : Entity
         E1DetectionState =  new E1DetectionState(this, StateMachine, "detected", enemyDetectionData, this); 
         E1ChargeState =  new E1ChargeState(this, StateMachine, "charge", enemyChargeData, this);
         E1LookForPlayerState = new E1LookForPlayerState(this, StateMachine, "lookForPlayer", enemyLookForPlayerData, this);
+        E1MeleeAttackState = new E1MeleeAttackState(this, StateMachine, "melee", meleeAttackPosition, enemyMeleeAttackData, this);
+        E1StunState = new E1StunState(this, StateMachine, "stun", enemyStunData, this);
+        E1DeadState = new E1DeadState(this, StateMachine, "dead", enemyDeadData, this);
 
         StateMachine.Initialize(E1MoveState);
+    }
+
+    public override void Damage(AttackDetails attackDetails)
+    {
+        base.Damage(attackDetails);
+        if (isDead)
+        {
+            StateMachine.ChangeState(E1DeadState);
+        }
+
+        else if (isStunned && StateMachine.CurrentState != E1StunState)
+        {
+            StateMachine.ChangeState(E1StunState);
+        }
+
+    }
+
+    public override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+
+        Gizmos.DrawWireSphere(meleeAttackPosition.position, enemyMeleeAttackData.AttackRadius);
     }
 }

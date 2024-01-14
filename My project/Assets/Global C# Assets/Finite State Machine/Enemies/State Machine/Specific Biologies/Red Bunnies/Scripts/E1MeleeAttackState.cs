@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class E1ChargeState : ChargeState
+public class E1MeleeAttackState : MeleeAttackState
 {
     private E1 enemy;
-
-    public E1ChargeState(Entity entity, EnemyStateMachine stateMachine, string animBoolName, EnemyChargeData stateData, E1 enemy) : base(entity, stateMachine, animBoolName, stateData)
+    public E1MeleeAttackState(Entity entity, EnemyStateMachine stateMachine, string animBoolName, Transform attackPosition, EnemyMeleeAttackData stateData, E1 enemy) : base(entity, stateMachine, animBoolName, attackPosition, stateData)
     {
         this.enemy = enemy;
     }
@@ -26,21 +25,16 @@ public class E1ChargeState : ChargeState
         base.Exit();
     }
 
+    public override void FinishAttack()
+    {
+        base.FinishAttack();
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (performCloseRangeAction)
-        {
-            stateMachine.ChangeState(enemy.E1MeleeAttackState);
-        }
-
-        else if (!isDetectingLedge || isDetectingWall)
-        {
-            stateMachine.ChangeState(enemy.E1LookForPlayerState);
-        }
-
-        else if (isChargeTimeOver)
+        if (isAnimationFinish)
         {
             if (isPlayerInMinAggroRange)
             {
@@ -56,5 +50,10 @@ public class E1ChargeState : ChargeState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    public override void TriggerAttack()
+    {
+        base.TriggerAttack();
     }
 }
