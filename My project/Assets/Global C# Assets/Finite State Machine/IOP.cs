@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IOP : MonoBehaviour
 {
-    [SerializeField] private E1 entity;
+    [SerializeField] private E2 entity;
     private AttackDetails attackDetails;
     // Start is called before the first frame update
     void Start()

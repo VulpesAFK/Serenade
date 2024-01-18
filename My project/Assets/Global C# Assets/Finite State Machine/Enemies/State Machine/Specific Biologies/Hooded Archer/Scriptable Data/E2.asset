@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d52a59d940e08f43bbbf968230ba896, type: 3}
-  m_Name: E1
+  m_Name: E2
   m_EditorClassIdentifier: 
   WallCheckDistance: 0.2
   LedgeCheckDistance: 0.4
   groundCheckRadius: 0.3
-  CloseRangeActionDistance: 1.75
-  MaxAggroDistance: 8
-  MinAggroDistance: 7
+  CloseRangeActionDistance: 1
+  MaxAggroDistance: 4
+  MinAggroDistance: 3
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
