@@ -32,9 +32,15 @@ public class E2DodgeState : DodgeState
         if(isDodgeOver)
         {
             enemy.SetVelocity(0f);
+
             if(isPlayerInMaxAggroRange && performCloseRangeAction)
             {
                 stateMachine.ChangeState(enemy.E2MeleeState);
+            }
+
+            else if (isPlayerInMaxAggroRange && !performCloseRangeAction)
+            {
+                stateMachine.ChangeState(enemy.E2RangeState);
             }
 
             else if(!isPlayerInMaxAggroRange)

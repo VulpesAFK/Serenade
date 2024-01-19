@@ -42,6 +42,11 @@ public class E2DetectionState : DetectionState
             }
         }
 
+        else if (performLongRangedAction)
+        {
+            stateMachine.ChangeState(enemy.E2RangeState);
+        }
+
         else if (isPlayerInMaxAggroRange)
         {
             stateMachine.ChangeState(enemy.E2LookForPlayerState);

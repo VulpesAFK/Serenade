@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRangeAttackData : MonoBehaviour
+[CreateAssetMenu(fileName = "newRangeAttackStateData", menuName = "Data/State Data/Range Attack State")]
+public class EnemyRangeAttackData : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameObject Projectile;
+    public float ProjectileDamage = 10;
+    public float ProjectileVelocity = 20;
+    public float ProjectileTravelDistance = 13;
 }
+ 
