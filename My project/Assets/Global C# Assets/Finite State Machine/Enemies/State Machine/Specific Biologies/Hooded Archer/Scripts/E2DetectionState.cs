@@ -31,7 +31,15 @@ public class E2DetectionState : DetectionState
 
         if (performCloseRangeAction)
         {
+            if (Time.time >= enemy.E2DodgeState.startTime + enemy.enemyDodgeData.DodgeTime)
+            {
+                stateMachine.ChangeState(enemy.E2DodgeState);
+            }
+              
+            else
+            {
             stateMachine.ChangeState(enemy.E2MeleeState);
+            }
         }
 
         else if (isPlayerInMaxAggroRange)
