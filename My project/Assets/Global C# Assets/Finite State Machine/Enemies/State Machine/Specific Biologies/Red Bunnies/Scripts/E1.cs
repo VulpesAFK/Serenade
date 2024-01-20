@@ -24,9 +24,9 @@ public class E1 : Entity
     [SerializeField] private EnemyDeadData enemyDeadData; 
     [SerializeField] private Transform meleeAttackPosition;
 
-    public override void Start()
+    public override void Awake()
     {
-        base.Start();
+        base.Awake();
         
         E1MoveState = new E1MoveState(this, StateMachine, "move", enemyMoveData, this);
         E1IdleState = new E1IdleState(this, StateMachine, "idle", enemyIdleData, this);

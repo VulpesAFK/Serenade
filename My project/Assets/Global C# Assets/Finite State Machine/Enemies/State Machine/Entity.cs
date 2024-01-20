@@ -9,8 +9,8 @@ public class Entity : MonoBehaviour
     public int FacingDirection { get; private set; }
     public Rigidbody2D RB { get; private set; }
     public Animator Anim { get; private set; }
-    public GameObject AliveGO { get; private set; }
     public AnimationToStateMachine AnimationToStateMachine { get; private set; }
+    public Core Core { get; private set; }
 
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
@@ -28,12 +28,13 @@ public class Entity : MonoBehaviour
     public int lastDamageDirection { get; private set; }
 
 
-    public virtual void Start()
+    public virtual void Awake()
     {
-        AliveGO = transform.Find("Alive").gameObject;
-        RB = AliveGO.GetComponent<Rigidbody2D>();
-        Anim = AliveGO.GetComponent<Animator>(); 
-        AnimationToStateMachine = AliveGO.GetComponent<AnimationToStateMachine>();
+        Core = GetComponentInChildren<Core>();
+        
+        RB = GetComponent<Rigidbody2D>();
+        Anim = GetComponent<Animator>(); 
+        AnimationToStateMachine = GetComponent<AnimationToStateMachine>();
 
         FacingDirection = 1;
 
@@ -68,7 +69,7 @@ public class Entity : MonoBehaviour
 
     public virtual bool CheckWall()
     {
-        return Physics2D.Raycast(wallCheck.position, AliveGO.transform.right, EntityData.WallCheckDistance, EntityData.whatIsGround);
+        return Physics2D.Raycast(wallCheck.position, transform.right, EntityData.WallCheckDistance, EntityData.whatIsGround);
     }
 
     public virtual bool CheckLedge()
@@ -79,21 +80,21 @@ public class Entity : MonoBehaviour
     public virtual void Flip()
     {
         FacingDirection *= -1;
-        AliveGO.transform.Rotate(0f, 180f, 0f);
+        transform.Rotate(0f, 180f, 0f);
     }
 
     public virtual bool CheckPlayerInMinAggroRange()
     {
-        return Physics2D.Raycast(playerCheck.position, AliveGO.transform.right, EntityData.MinAggroDistance, EntityData.whatIsPlayer);
+        return Physics2D.Raycast(playerCheck.position, transform.right, EntityData.MinAggroDistance, EntityData.whatIsPlayer);
     }
 
     public virtual bool CheckPlayerInMaxAggroRange()
     {
-        return Physics2D.Raycast(playerCheck.position, AliveGO.transform.right, EntityData.MaxAggroDistance, EntityData.whatIsPlayer);
+        return Physics2D.Raycast(playerCheck.position, transform.right, EntityData.MaxAggroDistance, EntityData.whatIsPlayer);
     }
     public virtual bool CheckPlayerInCloseRangeAction()
     {
-        return Physics2D.Raycast(playerCheck.position, AliveGO.transform.right, EntityData.CloseRangeActionDistance, EntityData.whatIsPlayer);
+        return Physics2D.Raycast(playerCheck.position, transform.right, EntityData.CloseRangeActionDistance, EntityData.whatIsPlayer);
     }
     public virtual bool CheckGround()
     {
@@ -130,9 +131,9 @@ public class Entity : MonoBehaviour
 
         DamageHop(EntityData.DamageHopVelocity);
 
-        Instantiate(EntityData.HitParticle, AliveGO.transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
+        Instantiate(EntityData.HitParticle, transform.position, Quaternion.Euler(0f, 0f, Random.Range(0f, 360f)));
 
-        if(attackDetails.Position.x > AliveGO.transform.position.x)
+        if(attackDetails.Position.x > transform.position.x)
         {
             lastDamageDirection = -1;
         }

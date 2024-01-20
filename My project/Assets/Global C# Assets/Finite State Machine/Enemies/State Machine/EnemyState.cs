@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyState
 {
+    protected Core core;
     protected EnemyStateMachine stateMachine;
     protected Entity entity;
     public float startTime { get; protected set;}
@@ -11,6 +12,7 @@ public class EnemyState
         this.entity = entity;
         this.stateMachine = stateMachine;
         this.animBoolName = animBoolName;
+        core = entity.Core;
     }
 
     public virtual void Enter() {

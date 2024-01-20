@@ -27,9 +27,9 @@ public class E2 : Entity
     [SerializeField] public EnemyRangeAttackData enemyRangeAttackData;
 
 
-    public override void Start() 
+    public override void Awake() 
     {
-        base.Start();
+        base.Awake();
 
         E2MoveState = new E2MoveState(this, StateMachine, "move", enemyMoveData, this);
         E2IdleState = new E2IdleState(this, StateMachine, "idle", enemyIdleData, this);
