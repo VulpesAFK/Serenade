@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class PlayerAbilitiesState : PlayerState
 {
     // Bools to help to save the abilties inheriting to be saved
@@ -10,9 +6,7 @@ public class PlayerAbilitiesState : PlayerState
     // Check the surrounding made specifically the made
     private bool isGrounded;
 
-    public PlayerAbilitiesState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) {
-
-    }
+    public PlayerAbilitiesState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) { }
 
     public override void DoChecks() {
         base.DoChecks();
@@ -30,11 +24,18 @@ public class PlayerAbilitiesState : PlayerState
     public override void LogicUpdate() {
         base.LogicUpdate();
 
-        if (isAbilityDone)
-        {
-            if (isGrounded && core.Movement.CurrentVelocity.y < 0.01f) { stateMachine.ChangeState(player.IdleState); }
+        // Conditions
+        bool FinishedAbilityOnGround = isAbilityDone && isGrounded && core.Movement.CurrentVelocity.y < 0.01f;
+        bool FinishedAbilityInAir = isAbilityDone && !(isGrounded && core.Movement.CurrentVelocity.y < 0.01f);
 
-            else { stateMachine.ChangeState(player.InAirState); }
-        }
+        if (FinishedAbilityOnGround) stateMachine.ChangeState(player.IdleState);
+        else if (FinishedAbilityInAir) stateMachine.ChangeState(player.InAirState);
+
+        // if (isAbilityDone)
+        // {
+        //     if (isGrounded && core.Movement.CurrentVelocity.y < 0.01f) { stateMachine.ChangeState(player.IdleState); }
+
+        //     else { stateMachine.ChangeState(player.InAirState); }
+        // }
     }
 }

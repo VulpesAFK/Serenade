@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea68c025982b4954fbc4766eb7cc2df6, type: 3}
   m_Name: E2 Range
   m_EditorClassIdentifier: 
-  Projectile: {fileID: 0}
+  Projectile: {fileID: 9197123065615403031, guid: e2f18a14f82206b44865ef9ec49cd144, type: 3}
   ProjectileDamage: 10
   ProjectileVelocity: 20
   ProjectileTravelDistance: 13

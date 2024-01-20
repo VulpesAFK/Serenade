@@ -28,20 +28,27 @@ public class PlayerCrouchMoveState : PlayerGroundedState
     {
         base.LogicUpdate();
 
+        // Conditions
+        bool StopMovement = !isExitingState && xInput == 0;
+        bool NonCrouchMovement = !isExitingState && yInput != -1 && !isTouchingCeiling;
+
         if (!isExitingState)
         {
             core.Movement.SetVelocityX(playerData.CrouchMovementVelocity * core.Movement.FacingDirection);
             core.Movement.CheckIfShouldFlip(xInput);
-
-            if (xInput == 0)
-            {
-                stateMachine.ChangeState(player.CrouchIdleState);
-            }
-
-            else if (yInput != -1 && !isTouchingCeiling)
-            {
-                stateMachine.ChangeState(player.MoveState);
-            }
         }
+
+        if (StopMovement) stateMachine.ChangeState(player.CrouchIdleState);
+        else if (NonCrouchMovement) stateMachine.ChangeState(player.MoveState);
+
+            // if (xInput == 0)
+            // {
+            //     stateMachine.ChangeState(player.CrouchIdleState);
+            // }
+
+            // else if (yInput != -1 && !isTouchingCeiling)
+            // {
+            //     stateMachine.ChangeState(player.MoveState);
+            // }
     }
 }

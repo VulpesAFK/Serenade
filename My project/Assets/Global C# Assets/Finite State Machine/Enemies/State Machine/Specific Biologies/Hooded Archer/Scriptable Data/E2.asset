@@ -15,9 +15,9 @@ MonoBehaviour:
   WallCheckDistance: 0.2
   LedgeCheckDistance: 0.4
   groundCheckRadius: 0.3
-  CloseRangeActionDistance: 1
-  MaxAggroDistance: 4
-  MinAggroDistance: 3
+  CloseRangeActionDistance: 1.4
+  MaxAggroDistance: 8.5
+  MinAggroDistance: 7.5
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
