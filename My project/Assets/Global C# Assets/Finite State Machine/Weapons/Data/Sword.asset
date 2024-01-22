@@ -16,9 +16,15 @@ MonoBehaviour:
   - AttackName: Attack Slash 1
     MovementSpeed: 3
     DamageAmount: 10
+    KnockbackStrength: 10
+    KnockbackAngle: {x: 1, y: 1}
   - AttackName: Attack Slash 2
     MovementSpeed: 4
     DamageAmount: 15
+    KnockbackStrength: 15
+    KnockbackAngle: {x: 1, y: 1}
   - AttackName: Whip Sword Going up
     MovementSpeed: 2
     DamageAmount: 20
+    KnockbackStrength: 20
+    KnockbackAngle: {x: 1, y: 2}

@@ -40,7 +40,7 @@ public class E1DetectionState : DetectionState
 
         else if(!isDetectingLedge)
         {
-            entity.Flip();
+            Movement.Flip();
             stateMachine.ChangeState(enemy.E1MoveState);
         }
     }

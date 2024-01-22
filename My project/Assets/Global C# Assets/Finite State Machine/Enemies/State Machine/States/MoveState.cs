@@ -9,6 +9,12 @@ public class MoveState : EnemyState
     protected bool isDetectingLedge;
     protected bool isPlayerInMinAggroRange;
 
+    private Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
+    private Movement movement;
+    private Collision Collision { get => collision ??= core.GetCoreComponent<Collision>(); }
+    private Collision collision;
+
+
     public MoveState(Entity entity, EnemyStateMachine stateMachine, string animBoolName, EnemyMoveData stateData) : base(entity, stateMachine, animBoolName) {
         this.stateData = stateData;
     }
@@ -16,14 +22,18 @@ public class MoveState : EnemyState
     public override void DoChecks()
     {
         base.DoChecks();
-        isDetectingLedge = entity.CheckLedge();
-        isDetectingWall = entity.CheckWall();
+        if (Collision)
+        {
+            isDetectingLedge = Collision.LedgeVertical;
+            isDetectingWall = Collision.WallFront;
+        }
+        
         isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
     }
 
     public override void Enter() {
         base.Enter();
-        entity.SetVelocity(stateData.MovementVelocity);
+        Movement?.SetVelocityX(stateData.MovementVelocity * Movement.FacingDirection);
 
     }
 
@@ -33,6 +43,8 @@ public class MoveState : EnemyState
 
     public override void LogicUpdate() {
         base.LogicUpdate();
+        Movement?.SetVelocityX(stateData.MovementVelocity * Movement.FacingDirection);
+
     }
 
     public override void PhysicsUpdate() {

@@ -12,6 +12,12 @@ public class StunState : EnemyState
     protected bool performCloseRangeAction;
     protected bool isPlayerInMinAggroRange;
 
+    private Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
+    private Movement movement;
+    private Collision Collision { get => collision ??= core.GetCoreComponent<Collision>(); }
+    private Collision collision;
+
+
     public StunState(Entity entity, EnemyStateMachine stateMachine, string animBoolName, EnemyStunData stateData) : base(entity, stateMachine, animBoolName)
     {
         this.stateData = stateData;
@@ -21,7 +27,7 @@ public class StunState : EnemyState
     {
         base.DoChecks();
 
-        isGrounded = entity.CheckGround();
+        isGrounded = Collision.Ground;
         performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
         isPlayerInMinAggroRange = entity.CheckPlayerInMinAggroRange();
     }
@@ -31,7 +37,7 @@ public class StunState : EnemyState
         base.Enter();
         isMovementStopped = false;
         isStunTimeOver = false;
-        entity.SetVelocity(stateData.StunKnockBackVelocity, stateData.StunKnockBackAngle, entity.lastDamageDirection);
+        Movement?.SetVelocity(stateData.StunKnockBackVelocity, stateData.StunKnockBackAngle, entity.lastDamageDirection);
     }
 
     public override void Exit()
@@ -52,7 +58,7 @@ public class StunState : EnemyState
         if(isGrounded && Time.time >= startTime + stateData.StunKnockBackTime && !isMovementStopped)
         {
             isMovementStopped = true;
-            entity.SetVelocity(0f);
+            Movement?.SetVelocityX(0f);
         }
     }
 

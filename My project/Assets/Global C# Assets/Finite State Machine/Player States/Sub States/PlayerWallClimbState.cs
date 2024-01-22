@@ -17,7 +17,7 @@ public class PlayerWallClimbState : PlayerTouchingWallState
         if (!isExitingState)
         {
             // t Set the climbing velocity upwards
-            core.Movement.SetVelocityY(playerData.WallClimbVelocity);
+            Movement?.SetVelocityY(playerData.WallClimbVelocity);
 
             // t If the player is not wanting to go upwards
             if (yInput != 1)

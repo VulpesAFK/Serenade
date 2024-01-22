@@ -10,6 +10,10 @@ public class IdleState : EnemyState
     protected float idleTime;
     protected bool isPlayerInMinAggroRange;
 
+    private Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
+    private Movement movement;
+
+
     public IdleState(Entity entity, EnemyStateMachine stateMachine, string animBoolName, EnemyIdleData stateData) : base(entity, stateMachine, animBoolName) {
         this.stateData = stateData;
     }
@@ -24,7 +28,7 @@ public class IdleState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        entity.SetVelocity(0f); 
+        Movement?.SetVelocityX(0f); 
 
         isIdleTimeOver = false;
         SetRandomIdleTime();
@@ -37,13 +41,15 @@ public class IdleState : EnemyState
 
         if (flipAfterIdle)
         {
-            entity.Flip();
+            Movement?.Flip();
         }
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        Movement?.SetVelocityX(0f);
 
         if (Time.time >= startTime + idleTime)
         {

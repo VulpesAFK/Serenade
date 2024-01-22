@@ -30,6 +30,11 @@ public class PlayerInAirState : PlayerState
     // Variable used to decalre whether the player is jumping from thia local state
     private bool isJumping;
 
+    protected Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
+    private Movement movement;
+    private Collision Collision { get => collision ??= core.GetCoreComponent<Collision>(); }
+    private Collision collision;
+
     public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
 
@@ -44,12 +49,13 @@ public class PlayerInAirState : PlayerState
         oldIsTouchingWallBack = isTouchingWallBack;
 
         // Check the surrounds of the player with the ground and both forwards and backwards
-        isGrounded = core.Collision.Ground;
-        isTouchingWall = core.Collision.WallFront;
-        isTouchingWallBack = core.Collision.WallBack;
-
-        // Checks whether the player is gonna ledge
-        isTouchingLedge = core.Collision.Ledge;
+        if (Collision)
+        {
+            isGrounded = Collision.Ground;
+            isTouchingWall = Collision.WallFront;
+            isTouchingWallBack = Collision.WallBack;
+            isTouchingLedge = Collision.LedgeHorizontal;
+        }
 
         // Checks if the player is touching a wall but not touching a ledge 
         if (isTouchingWall && !isTouchingLedge)
@@ -99,7 +105,7 @@ public class PlayerInAirState : PlayerState
         dashInput = player.InputHandler.DashInput;
 
         // Condition
-        bool conditionToLand = isGrounded && core.Movement.CurrentVelocity.y < 0.01f;
+        bool conditionToLand = isGrounded && Movement?.CurrentVelocity.y < 0.01f;
         bool conditionToWallJumpFromAir = jumpInput && (isTouchingWall || isTouchingWallBack || wallJumpCoyoteTime);
 
         // Test after the jump input is received whether it is a short jump or a long jump
@@ -123,7 +129,7 @@ public class PlayerInAirState : PlayerState
             // Stop the timer from continuing 
             StopWallJumpCoyoteTime();
             // Check the ensure that it is up to date
-            isTouchingWall = core.Collision.WallFront;
+            isTouchingWall = Collision.WallFront;
             // Determine the direction of the jump depending on comparing a side
             player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
             // Switch to new state
@@ -153,7 +159,7 @@ public class PlayerInAirState : PlayerState
         }
 
         // Check whether touching the wall and that the player is facing the wall at its peak height reach
-        else if (isTouchingWall && xInput == core.Movement.FacingDirection && core.Movement.CurrentVelocity.y <= 0.0f)
+        else if (isTouchingWall && xInput == Movement?.FacingDirection && Movement?.CurrentVelocity.y <= 0.0f)
         {
             // Switch to a new state
             stateMachine.ChangeState(player.WallSlideState);
@@ -168,13 +174,13 @@ public class PlayerInAirState : PlayerState
         else 
         {
             // Check if we have to flip the player
-            core.Movement.CheckIfShouldFlip(xInput);
+            Movement?.CheckIfShouldFlip(xInput);
             // Move the player whilst in the air 
-            core.Movement.SetVelocityX(playerData.MovementVelocity * xInput);
+            Movement?.SetVelocityX(playerData.MovementVelocity * xInput);
 
             // Provide the animator with the current x and y values to provide the correct animation value a blend tree
-            player.Anim.SetFloat("yVelocity", Math.Max(core.Movement.CurrentVelocity.y, -10));
-            player.Anim.SetFloat("xVelocity", Mathf.Abs(core.Movement.CurrentVelocity.x));
+            player.Anim.SetFloat("yVelocity", Math.Max(Movement.CurrentVelocity.y, -10));
+            player.Anim.SetFloat("xVelocity", Mathf.Abs(Movement.CurrentVelocity.x));
         }
     }
 
@@ -193,13 +199,13 @@ public class PlayerInAirState : PlayerState
             if (jumpInputStop)
             {
                 // Change the current playing jump velocity with a reduce amount via the data 
-                core.Movement.SetVelocityY(core.Movement.CurrentVelocity.y * playerData.VariableJumpHeightMultiplier);
+                Movement?.SetVelocityY(Movement.CurrentVelocity.y * playerData.VariableJumpHeightMultiplier);
                 // Stop all future effects till the next jump is made
                 isJumping = false;
             }
 
             // Checks if the player has landed then the jump has ended
-            else if (core.Movement.CurrentVelocity.y <= 0.0f)
+            else if (Movement?.CurrentVelocity.y <= 0.0f)
             {
                 // Set the bool to false
                 isJumping = false;

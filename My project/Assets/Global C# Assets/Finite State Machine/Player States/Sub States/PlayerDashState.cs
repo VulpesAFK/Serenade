@@ -27,7 +27,7 @@ public class PlayerDashState : PlayerAbilitiesState
         player.InputHandler.UseDashInput();
 
         isHolding = true;
-        dashDirection = Vector2.right * core.Movement.FacingDirection;
+        dashDirection = Vector2.right * Movement.FacingDirection;
 
         Time.timeScale = playerData.HoldTimeScale;
         startTime = Time.unscaledTime;
@@ -39,9 +39,9 @@ public class PlayerDashState : PlayerAbilitiesState
     {
         base.Exit();
 
-        if (core.Movement.CurrentVelocity.y > 0)
+        if (Movement?.CurrentVelocity.y > 0)
         {
-            core.Movement.SetVelocityY(core.Movement.CurrentVelocity.y * playerData.DashEndYMultiplier);
+            Movement?.SetVelocityY(Movement.CurrentVelocity.y * playerData.DashEndYMultiplier);
         }
     }
 
@@ -72,10 +72,10 @@ public class PlayerDashState : PlayerAbilitiesState
                     Time.timeScale = 1;
                     startTime = Time.time;
 
-                    core.Movement.CheckIfShouldFlip(Mathf.RoundToInt(dashDirection.x));
+                    Movement?.CheckIfShouldFlip(Mathf.RoundToInt(dashDirection.x));
                     player.RB.drag = playerData.Drag;
 
-                    core.Movement.SetVelocity(playerData.DashVelocity, dashDirection);
+                    Movement?.SetVelocity(playerData.DashVelocity, dashDirection);
 
                     player.DashDirectionIndicator.gameObject.SetActive(false);
 
@@ -85,7 +85,7 @@ public class PlayerDashState : PlayerAbilitiesState
 
             else
             {
-                core.Movement.SetVelocity(playerData.DashVelocity, dashDirection);
+                Movement?.SetVelocity(playerData.DashVelocity, dashDirection);
                 CheckIfShouldPaceAfterImage();
 
                 if (Time.time >= startTime + playerData.DashTime)

@@ -7,7 +7,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected WeaponData weaponData;
     protected Animator baseAnimator;
     protected Animator weaponAnimator;
-
+    protected Core core;
     protected PlayerAttackState attackState;
 
     protected int attackCounter;
@@ -77,8 +77,9 @@ public class Weapon : MonoBehaviour
 
 
 
-    public void InitializeWeapon(PlayerAttackState attackState)
+    public void InitializeWeapon(PlayerAttackState attackState, Core core)
     {
         this.attackState = attackState;
+        this.core = core;
     }
 }

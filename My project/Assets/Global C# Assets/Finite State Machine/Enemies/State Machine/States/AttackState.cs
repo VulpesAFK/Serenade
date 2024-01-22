@@ -8,6 +8,9 @@ public class AttackState : EnemyState
     protected bool isAnimationFinish;
     protected bool isPlayerInMinAggroRange;
 
+    protected Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
+    private Movement movement;
+
     public AttackState(Entity entity, EnemyStateMachine stateMachine, string animBoolName, Transform attackPosition) : base(entity, stateMachine, animBoolName)
     {
         this.attackPosition = attackPosition;
@@ -24,7 +27,7 @@ public class AttackState : EnemyState
         base.Enter();
         entity.AnimationToStateMachine.AttackState =  this;
         isAnimationFinish = false;
-        entity.SetVelocity(0f);
+        Movement?.SetVelocityX(0f);
     }
 
     public override void Exit()
@@ -35,6 +38,7 @@ public class AttackState : EnemyState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        Movement?.SetVelocityX(0f);
     }
 
     public override void PhysicsUpdate()

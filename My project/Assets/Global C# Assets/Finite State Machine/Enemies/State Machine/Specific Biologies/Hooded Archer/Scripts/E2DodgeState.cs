@@ -5,6 +5,9 @@ using UnityEngine;
 public class E2DodgeState : DodgeState
 {
     private E2 enemy;
+    private Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
+    private Movement movement;
+
     public E2DodgeState(Entity entity, EnemyStateMachine stateMachine, string animBoolName, EnemyDodgeData stateData, E2 enemy) : base(entity, stateMachine, animBoolName, stateData)
     {
         this.enemy = enemy;
@@ -31,7 +34,7 @@ public class E2DodgeState : DodgeState
 
         if(isDodgeOver)
         {
-            enemy.SetVelocity(0f);
+            Movement?.SetVelocityX(0f);
 
             if(isPlayerInMaxAggroRange && performCloseRangeAction)
             {

@@ -41,33 +41,10 @@ public class E2 : Entity
         E2DodgeState = new E2DodgeState(this, StateMachine, "dodge", enemyDodgeData, this);
         E2RangeState = new E2RangeState(this, StateMachine, "range", rangeAttackPosition, enemyRangeAttackData, this);
 
-        StateMachine.Initialize(E2IdleState);
     }
 
-    public override void Damage(AttackDetails attackDetails)
-    {
-        base.Damage(attackDetails);
-        
-        if (isDead)
-        {
-            StateMachine.ChangeState(E2DeadState);
-        }
-
-        else if(isStunned && StateMachine.CurrentState != E2StunState)
-        {
-            StateMachine.ChangeState(E2StunState);
-        }
-
-        else if (CheckPlayerInMinAggroRange())
-        {
-            StateMachine.ChangeState(E2RangeState);
-        }
-
-        else if(!CheckPlayerInMinAggroRange())
-        {
-            E2LookForPlayerState.SetTurnImmediately(true);
-            StateMachine.ChangeState(E2LookForPlayerState);
-        }
+    private void Start() {
+        StateMachine.Initialize(E2IdleState);
     }
 
     public override void OnDrawGizmos()

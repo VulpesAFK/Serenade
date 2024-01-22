@@ -20,10 +20,10 @@ public class PlayerWallJumpState : PlayerAbilitiesState
         // t Reset the amount of jumps left just to make it equal again
         player.JumpState.ResetAmountOfJumpsLeft();
         // t Set the velocity with a specific velocity and angle and facing direction
-        core.Movement.SetVelocity(playerData.WallJumpVelocity, playerData.WallJumpAngle, wallJumpDirection);
+        Movement?.SetVelocity(playerData.WallJumpVelocity, playerData.WallJumpAngle, wallJumpDirection);
 
         // t Test the opposite facing dircetion compared to the facing direction
-        core.Movement.CheckIfShouldFlip(wallJumpDirection);
+        Movement?.CheckIfShouldFlip(wallJumpDirection);
         // t Decrease the amount of jumps as the player is jumping
         player.JumpState.DecreaseAmountOfJumpsLeft();
     }
@@ -33,8 +33,8 @@ public class PlayerWallJumpState : PlayerAbilitiesState
         base.LogicUpdate();
 
         // t Update the animator with the x and y axis to update the fall animation when the animation ends
-        player.Anim.SetFloat("yVelocity", core.Movement.CurrentVelocity.y);
-        player.Anim.SetFloat("xVelocity", Mathf.Abs(core.Movement.CurrentVelocity.x));
+        player.Anim.SetFloat("yVelocity", Movement.CurrentVelocity.y);
+        player.Anim.SetFloat("xVelocity", Mathf.Abs(Movement.CurrentVelocity.x));
 
         // t If the time increasing is larger then the start of the animation and the fixed wall time to prevent quick back trekking
         if (Time.time >= startTime + playerData.WallJumpTime)
@@ -45,8 +45,8 @@ public class PlayerWallJumpState : PlayerAbilitiesState
     }
 
     public void DetermineWallJumpDirection(bool isTouchingWall) {
-        if (isTouchingWall) { wallJumpDirection = -core.Movement.FacingDirection; }
+        if (isTouchingWall) { wallJumpDirection = -Movement.FacingDirection; }
 
-        else { wallJumpDirection = core.Movement.FacingDirection; }
+        else { wallJumpDirection = Movement.FacingDirection; }
     }
 }

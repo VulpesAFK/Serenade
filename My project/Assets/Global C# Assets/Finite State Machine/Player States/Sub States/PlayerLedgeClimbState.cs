@@ -27,6 +27,11 @@ public class PlayerLedgeClimbState : PlayerState
     private int yInput;
     private bool jumpInput;
 
+    protected Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
+    private Movement movement;
+    private Collision Collision { get => collision ??= core.GetCoreComponent<Collision>(); }
+    private Collision collision;
+
     private Vector2 workSpace;
 
     public PlayerLedgeClimbState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
@@ -55,7 +60,7 @@ public class PlayerLedgeClimbState : PlayerState
         base.Enter();
 
         // t Freeze the player to its position
-        core.Movement.SetVelocityZero();
+        Movement?.SetVelocityZero();
         // t Full updated version of the climb position
         player.transform.position = detectedPosition;
 
@@ -63,8 +68,8 @@ public class PlayerLedgeClimbState : PlayerState
         cornerPosition = DetermineCornerPosition();
 
         // t Positions to start and stop the whole climb animation
-        startPosition.Set(cornerPosition.x - (core.Movement.FacingDirection * playerData.StartOffset.x), cornerPosition.y - playerData.StartOffset.y);
-        stopPosition.Set(cornerPosition.x + (core.Movement.FacingDirection * playerData.StopOffset.x), cornerPosition.y + playerData.StopOffset.y);
+        startPosition.Set(cornerPosition.x - (Movement.FacingDirection * playerData.StartOffset.x), cornerPosition.y - playerData.StartOffset.y);
+        stopPosition.Set(cornerPosition.x + (Movement.FacingDirection * playerData.StopOffset.x), cornerPosition.y + playerData.StopOffset.y);
     
         // t Set the player transofmr to the start
         player.transform.position = startPosition;
@@ -115,7 +120,7 @@ public class PlayerLedgeClimbState : PlayerState
             jumpInput = player.InputHandler.JumpInput;
 
             // t Freeze the player
-            core.Movement.SetVelocityZero();
+            Movement?.SetVelocityZero();
 
             // t Makre sure the player is at the correct ledge climb position
             player.transform.position = startPosition;
@@ -130,7 +135,7 @@ public class PlayerLedgeClimbState : PlayerState
             }
 
             // t Check if the player wants to climb
-            else if (xInput == core.Movement.FacingDirection && isHanging && !isClimbing)
+            else if (xInput == Movement?.FacingDirection && isHanging && !isClimbing)
             {
 
                 CheckForSpace();
@@ -160,26 +165,26 @@ public class PlayerLedgeClimbState : PlayerState
 
     private void CheckForSpace()
     {
-        isTouchingCeiling = Physics2D.Raycast(cornerPosition + (Vector2.up * 0.015f) + (Vector2.right * core.Movement.FacingDirection * 0.015f), Vector2.up, playerData.StandColliderHeight, core.Collision.WhatIsGround);
+        isTouchingCeiling = Physics2D.Raycast(cornerPosition + (Vector2.up * 0.015f) + (Vector2.right * Movement.FacingDirection * 0.015f), Vector2.up, playerData.StandColliderHeight, Collision.WhatIsGround);
         player.Anim.SetBool("isTouchingCeiling", isTouchingCeiling);
     }
 
     private Vector2 DetermineCornerPosition()
     {
         // t Find the location of the wall in front of the player
-        RaycastHit2D xHit = Physics2D.Raycast(core.Collision.WallCheck.position, Vector2.right * core.Movement.FacingDirection, core.Collision.WallCheckDistance, core.Collision.WhatIsGround);
+        RaycastHit2D xHit = Physics2D.Raycast(Collision.WallCheck.position, Vector2.right * Movement.FacingDirection, Collision.WallCheckDistance, Collision.WhatIsGround);
         // t Determine the x distance from the player to the wall
         float xDistance = xHit.distance;
 
         // t Set a workspace to make a variable to signla the amount to add on to the position
-        workSpace.Set((xDistance + 0.015f) * core.Movement.FacingDirection, 0f);
+        workSpace.Set((xDistance + 0.015f) * Movement.FacingDirection, 0f);
         // t Raycast to note the position of the grounf that the player will appear to 
-        RaycastHit2D yHit = Physics2D.Raycast(core.Collision.LedgeCheck.position + (Vector3)(workSpace), Vector2.down, core.Collision.LedgeCheck.position.y - core.Collision.WallCheck.position.y + 0.015f,  core.Collision.WhatIsGround);
+        RaycastHit2D yHit = Physics2D.Raycast(Collision.LedgeCheckHorizontal.position + (Vector3)(workSpace), Vector2.down, Collision.LedgeCheckHorizontal.position.y - Collision.WallCheck.position.y + 0.015f,  Collision.WhatIsGround);
         // t Determine the y distance
         float yDistance = yHit.distance;
 
         // t Formulate the final vector2 to be returned
-        workSpace.Set(core.Collision.WallCheck.position.x + (xDistance * core.Movement.FacingDirection), core.Collision.LedgeCheck.position.y - yDistance);
+        workSpace.Set(Collision.WallCheck.position.x + (xDistance * Movement.FacingDirection), Collision.LedgeCheckHorizontal.position.y - yDistance);
 
         // t return the final result
         return workSpace;

@@ -8,11 +8,15 @@ public class PlayerGroundedState : PlayerState
     private bool dashInput;
 
     // Surrounding check variables to store the player surroundings
+    protected Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
+    private Movement movement;
+    private Collision Collision { get => collision ??= core.GetCoreComponent<Collision>(); }
+    private Collision collision;
     private bool isGrounded;
     private bool isTouchingWall;
     private bool isTouchingLedge;
     protected bool isTouchingCeiling;
-    
+
     public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) {
 
     }
@@ -20,10 +24,13 @@ public class PlayerGroundedState : PlayerState
     public override void DoChecks() {
         base.DoChecks();
 
-        isGrounded = core.Collision.Ground;
-        isTouchingWall = core.Collision.WallFront;
-        isTouchingLedge = core.Collision.Ledge;
-        isTouchingCeiling = core.Collision.Ceiling;
+        if (Collision)
+        {
+            isGrounded = Collision.Ground;
+            isTouchingWall = Collision.WallFront;
+            isTouchingLedge = Collision.LedgeHorizontal;
+            isTouchingCeiling = Collision.Ceiling;
+        }
     }
 
     public override void Enter() {

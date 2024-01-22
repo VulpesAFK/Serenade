@@ -55,7 +55,7 @@ public class PlayerWallGrabState : PlayerTouchingWallState
         player.transform.position = holdPosition;
 
         // t Set forces to zero to remove any other external forces 
-        core.Movement.SetVelocityX(0f);
-        core.Movement.SetVelocityY(0f);
+        Movement?.SetVelocityX(0f);
+        Movement?.SetVelocityY(0f);
     }
 }

@@ -37,22 +37,10 @@ public class E1 : Entity
         E1StunState = new E1StunState(this, StateMachine, "stun", enemyStunData, this);
         E1DeadState = new E1DeadState(this, StateMachine, "dead", enemyDeadData, this);
 
-        StateMachine.Initialize(E1MoveState);
     }
 
-    public override void Damage(AttackDetails attackDetails)
-    {
-        base.Damage(attackDetails);
-        if (isDead)
-        {
-            StateMachine.ChangeState(E1DeadState);
-        }
-
-        else if (isStunned && StateMachine.CurrentState != E1StunState)
-        {
-            StateMachine.ChangeState(E1StunState);
-        }
-
+    private void Start() {  
+        StateMachine.Initialize(E1MoveState);
     }
 
     public override void OnDrawGizmos()

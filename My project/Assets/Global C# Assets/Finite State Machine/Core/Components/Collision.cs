@@ -1,23 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Collision : CoreComponent
-{
+public class Collision : CoreComponent {
     // Public settings for global usage
-    public Transform GroundCheck { get => groundCheck; private set => groundCheck = value; }
-    public Transform WallCheck { get => wallCheck; private set => wallCheck = value; }
-    public Transform LedgeCheck { get => ledgeCheck; private set => ledgeCheck = value; }
-    public Transform CeilingCheck { get => ceilingCheck; private set => ceilingCheck = value; }
+    public Transform GroundCheck { 
+        get => GenericNonImplementedError<Transform>.TryGet(groundCheck, core.transform.parent.name);
+        private set => groundCheck = value; 
+    }
+    public Transform WallCheck { 
+        get => GenericNonImplementedError<Transform>.TryGet(wallCheck, core.transform.parent.name);
+        private set => wallCheck = value; 
+    }
+    public Transform LedgeCheckHorizontal { 
+        get => GenericNonImplementedError<Transform>.TryGet(ledgeCheckHorizontal, core.transform.parent.name);
+        private set => ledgeCheckHorizontal = value; 
+    }
+    public Transform LedgeCheckVertical { 
+        get => GenericNonImplementedError<Transform>.TryGet(ledgeCheckVertical, core.transform.parent.name);
+        private set => ledgeCheckVertical = value; 
+    }
+    public Transform CeilingCheck { 
+        get => GenericNonImplementedError<Transform>.TryGet(ceilingCheck, core.transform.parent.name);
+        private set => ceilingCheck = value;
+    }
 
     public float GroundCheckRadius { get => groundCheckRadius; set => groundCheckRadius = value; }
     public float WallCheckDistance { get => wallCheckDistance; set => wallCheckDistance = value; }
     public LayerMask WhatIsGround { get => whatIsGround; set => whatIsGround = value; }
+    private Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
+    private Movement movement;
+
 
     // Transforms need from the player for surrounding checks
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform wallCheck;
-    [SerializeField] private Transform ledgeCheck;
+    [SerializeField] private Transform ledgeCheckHorizontal;
+    [SerializeField] private Transform ledgeCheckVertical;
     [SerializeField] private Transform ceilingCheck;
 
     // Check properties
@@ -26,18 +43,18 @@ public class Collision : CoreComponent
     [SerializeField] private LayerMask whatIsGround; 
 
     // Check the surroundings of the ground
-    public bool Ground { get => Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround); }
+    public bool Ground { get => Physics2D.OverlapCircle(GroundCheck.position, groundCheckRadius, whatIsGround); }
 
     // Check the surroundings of the walls in front of us
-    public bool WallFront { get => Physics2D.Raycast(wallCheck.position, Vector2.right * core.Movement.FacingDirection, wallCheckDistance, whatIsGround); }
+    public bool WallFront { get => Physics2D.Raycast(WallCheck.position, Vector2.right * Movement.FacingDirection, wallCheckDistance, whatIsGround); }
 
     // Check the surroundings of the walls behind of us
-    public bool WallBack { get => Physics2D.Raycast(wallCheck.position, Vector2.right * -core.Movement.FacingDirection, wallCheckDistance, whatIsGround); }
+    public bool WallBack { get => Physics2D.Raycast(WallCheck.position, Vector2.right * -Movement.FacingDirection, wallCheckDistance, whatIsGround); }
 
     // Designed to check whether there is a ledge or not
-    public bool Ledge { get => Physics2D.Raycast(ledgeCheck.position, Vector2.right * core.Movement.FacingDirection, wallCheckDistance, whatIsGround); }
-
+    public bool LedgeHorizontal { get => Physics2D.Raycast(LedgeCheckHorizontal.position, Vector2.right * Movement.FacingDirection, wallCheckDistance, whatIsGround); }
+    public bool LedgeVertical { get => Physics2D.Raycast(LedgeCheckVertical.position, Vector2.down, wallCheckDistance, whatIsGround); }
     // Designed to check for the ceiling 
-    public bool Ceiling { get => Physics2D.OverlapCircle(ceilingCheck.position, groundCheckRadius, whatIsGround); }
+    public bool Ceiling { get => Physics2D.OverlapCircle(CeilingCheck.position, groundCheckRadius, whatIsGround); }
 
 }

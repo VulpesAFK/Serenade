@@ -29,9 +29,9 @@ public class PlayerMoveState : PlayerGroundedState
         base.LogicUpdate();
 
         // t Check if the sprite needs to be flipped
-        core.Movement.CheckIfShouldFlip(xInput);
+        Movement?.CheckIfShouldFlip(xInput);
         // t Move the x axis to the player with the velocity
-        core.Movement.SetVelocityX(playerData.MovementVelocity * xInput);
+        Movement?.SetVelocityX(playerData.MovementVelocity * xInput);
 
         if (!isExitingState)
         {

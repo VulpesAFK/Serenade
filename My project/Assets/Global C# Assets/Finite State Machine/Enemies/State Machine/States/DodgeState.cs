@@ -11,6 +11,11 @@ public class DodgeState : EnemyState
     protected bool isGrounded;
     protected bool isDodgeOver;
 
+    private Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
+    private Movement movement;
+    private Collision Collision { get => collision ??= core.GetCoreComponent<Collision>(); }
+    private Collision collision;
+
     public DodgeState(Entity entity, EnemyStateMachine stateMachine, string animBoolName, EnemyDodgeData stateData) : base(entity, stateMachine, animBoolName)
     {
         this.stateData = stateData;
@@ -21,7 +26,10 @@ public class DodgeState : EnemyState
 
         performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
         isPlayerInMaxAggroRange = entity.CheckPlayerInMaxAggroRange();
-        isGrounded = entity.CheckGround();
+        if (Collision)
+        {
+            isGrounded = Collision.Ground;
+        }
     }
 
     public override void Enter()
@@ -29,7 +37,7 @@ public class DodgeState : EnemyState
         base.Enter();
         isDodgeOver = false;
 
-        entity.SetVelocity(stateData.DodgeVelocity, stateData.DodgeAngle, -entity.FacingDirection);
+        Movement?.SetVelocity(stateData.DodgeVelocity, stateData.DodgeAngle, -Movement.FacingDirection);
     }
 
     public override void Exit()

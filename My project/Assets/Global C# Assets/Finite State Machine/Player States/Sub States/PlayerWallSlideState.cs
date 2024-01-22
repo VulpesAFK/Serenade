@@ -16,7 +16,7 @@ public class PlayerWallSlideState : PlayerTouchingWallState
         if (!isExitingState)
         {
             // Slow the descent downwards
-            core.Movement.SetVelocityY(-playerData.WallSlideVelocity);
+            Movement?.SetVelocityY(-playerData.WallSlideVelocity);
 
             if (grabInput && yInput == 0) { stateMachine.ChangeState(player.WallGrabState); }
 
