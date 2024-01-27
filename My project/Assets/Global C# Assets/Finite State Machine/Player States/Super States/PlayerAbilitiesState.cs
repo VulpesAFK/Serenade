@@ -1,3 +1,4 @@
+using UnityEngine;
 public class PlayerAbilitiesState : PlayerState
 {
     // Bools to help to save the abilties inheriting to be saved
@@ -5,6 +6,7 @@ public class PlayerAbilitiesState : PlayerState
 
     // Check the surrounding made specifically the made
     private bool isGrounded;
+    private bool isTouchingWall;
 
     protected Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
     private Movement movement;
@@ -16,16 +18,15 @@ public class PlayerAbilitiesState : PlayerState
     public override void DoChecks() {
         base.DoChecks();
 
-        if (Collision)
-        {
+        if (Collision) {
             isGrounded = Collision.Ground;
+            isTouchingWall = Collision.WallFront;
         }
     }
 
     public override void Enter() {
         base.Enter();
 
-        // Return control to state when any ability inheriting is finish
         isAbilityDone = false;
     }
 
@@ -38,12 +39,5 @@ public class PlayerAbilitiesState : PlayerState
 
         if (FinishedAbilityOnGround) stateMachine.ChangeState(player.IdleState);
         else if (FinishedAbilityInAir) stateMachine.ChangeState(player.InAirState);
-
-        // if (isAbilityDone)
-        // {
-        //     if (isGrounded && core.Movement.CurrentVelocity.y < 0.01f) { stateMachine.ChangeState(player.IdleState); }
-
-        //     else { stateMachine.ChangeState(player.InAirState); }
-        // }
     }
 }

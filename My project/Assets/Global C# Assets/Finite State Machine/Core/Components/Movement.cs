@@ -17,9 +17,7 @@ public class Movement : CoreComponent
         CanSetVelocity = true;
     }
 
-    public override void LogicUpdate() {
-        CurrentVelocity = RB.velocity;
-    }
+    public override void LogicUpdate() => CurrentVelocity = RB.velocity;
 
     public void SetVelocityX(float velocity) {
         workSpace.Set(velocity, CurrentVelocity.y);
@@ -47,10 +45,8 @@ public class Movement : CoreComponent
         SetFinalVelocity();
     }
 
-    private void SetFinalVelocity()
-    {
-        if (CanSetVelocity)
-        {
+    private void SetFinalVelocity() {
+        if (CanSetVelocity) {
             RB.velocity = workSpace;
             CurrentVelocity = workSpace;
         }

@@ -19,12 +19,10 @@ public class PlayerTouchingWallState : PlayerState
     public PlayerTouchingWallState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) {
         
     } 
-
     public override void DoChecks() {
         base.DoChecks();
 
-        if (Collision)
-        {
+        if (Collision) {
             isGrounded = Collision.Ground;
             isTouchingWall = Collision.WallFront;
             isTouchingLedge = Collision.LedgeHorizontal;

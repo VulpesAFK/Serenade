@@ -159,7 +159,7 @@ public class PlayerInAirState : PlayerState
         }
 
         // Check whether touching the wall and that the player is facing the wall at its peak height reach
-        else if (isTouchingWall && xInput == Movement?.FacingDirection && Movement?.CurrentVelocity.y <= 0.0f)
+        else if (isTouchingWall && xInput == Movement?.FacingDirection && Movement?.CurrentVelocity.y <= 0.01f)
         {
             // Switch to a new state
             stateMachine.ChangeState(player.WallSlideState);

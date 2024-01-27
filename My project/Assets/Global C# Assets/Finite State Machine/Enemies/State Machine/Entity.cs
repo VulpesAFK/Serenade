@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Entity : MonoBehaviour
@@ -27,10 +25,6 @@ public class Entity : MonoBehaviour
 
     private Movement Movement { get => movement ??= Core.GetCoreComponent<Movement>(); }
     private Movement movement;
-    private Collision Collision { get => collision ??= Core.GetCoreComponent<Collision>(); }
-    private Collision collision;
-
-
 
     public virtual void Awake()
     {

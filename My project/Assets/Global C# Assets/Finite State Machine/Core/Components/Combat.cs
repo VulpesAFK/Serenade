@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Combat : CoreComponent, IDamageable, IKnockbackable
 {
+    [SerializeField] private GameObject damageParticle;
     private bool isKnockbackActive;
     private float knockbackStartTime;
     private float maxKnockBackTime = 0.2f;
@@ -14,7 +15,8 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable
     private Collision collision;
     private Stats Stats { get => stats ??= core.GetCoreComponent<Stats>(); }
     private Stats stats;
-
+    private ParticleManager ParticleManager { get => particleManager ??= core.GetCoreComponent<ParticleManager>(); }
+    private ParticleManager particleManager;
 
     public override void LogicUpdate()
     {
@@ -24,6 +26,7 @@ public class Combat : CoreComponent, IDamageable, IKnockbackable
     {
         Debug.Log($"{core.transform.parent.name} has been damaged");
         Stats?.DecreaseHealth(amount);
+        ParticleManager?.StartParticlesWithRandomRotation(damageParticle);
     }
 
     public void Knockback(Vector2 angle, float strength, int direction)
