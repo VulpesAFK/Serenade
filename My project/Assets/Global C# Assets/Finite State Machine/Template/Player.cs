@@ -36,8 +36,14 @@ public class Player : MonoBehaviour
     public PlayerAttackState PrimaryAttackState { get; private set; }
     public PlayerAttackState SecondaryAttackState { get; private set; }
 
+    private Weapon primaryWeapon; 
+    private Weapon secondaryWeapon;
     private void Awake() {
         Core = GetComponentInChildren<Core>();
+
+        primaryWeapon = transform.Find("Primary Weapon").GetComponent<Weapon>();
+        secondaryWeapon = transform.Find("Secondary Weapon").GetComponent<Weapon>();
+
 
         StateMachine = new PlayerStateMachine();
 
@@ -54,8 +60,8 @@ public class Player : MonoBehaviour
         DashState = new PlayerDashState(this, StateMachine, playerData, "inAir");
         CrouchIdleState = new PlayerCrouchIdleState(this, StateMachine, playerData, "crouchIdle");
         CrouchMoveState = new PlayerCrouchMoveState(this, StateMachine, playerData, "crouchMove");
-        PrimaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
-        SecondaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
+        PrimaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack", primaryWeapon);
+        SecondaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack", secondaryWeapon);
     }
 
     private void Start() 

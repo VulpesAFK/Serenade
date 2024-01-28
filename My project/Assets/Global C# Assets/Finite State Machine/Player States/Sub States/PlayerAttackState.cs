@@ -4,10 +4,19 @@ using UnityEngine;
 
 public class PlayerAttackState : PlayerAbilitiesState
 {
-
-    public PlayerAttackState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
-    {
-
+    private Weapon weapon;
+    public PlayerAttackState(Player player,
+        PlayerStateMachine stateMachine,
+        PlayerData playerData,
+        string animBoolName,
+        Weapon weapon
+    ) : base(player, stateMachine, playerData, animBoolName) {
+        this.weapon = weapon;
     }
 
+    public override void Enter()
+    {
+        base.Enter();
+        weapon.Enter();
+    }
 }
