@@ -6,7 +6,12 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [SerializeField] private int numberOfAttacks;
-    
+
+    // A public properties variable that will return and set a value with called or manipulated
+    public int CurrentAttackCounter {
+        get => currentAttackCounter;
+        private set => currentAttackCounter = value >= numberOfAttacks? 0 : value;
+    }
     private Animator anim;
     private GameObject baseGameObject;
     public event Action OnExit;
@@ -18,12 +23,12 @@ public class Weapon : MonoBehaviour
         print($"{transform.name} enter");
 
         anim.SetBool("active", true);
-        anim.SetInteger("counter", currentAttackCounter);
+        anim.SetInteger("counter", CurrentAttackCounter);
     }
     private void Exit() {
         OnExit?.Invoke();
 
-        currentAttackCounter += 1;
+        CurrentAttackCounter++;
 
         anim.SetBool("active", false);
     }
