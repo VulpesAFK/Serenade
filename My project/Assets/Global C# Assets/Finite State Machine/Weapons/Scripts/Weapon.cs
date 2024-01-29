@@ -5,18 +5,26 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    [SerializeField] private int numberOfAttacks;
+    
     private Animator anim;
     private GameObject baseGameObject;
     public event Action OnExit;
+
+    private int currentAttackCounter;
 
     private WeaponAnimationEventHandler eventHandler;
     public void Enter() {
         print($"{transform.name} enter");
 
         anim.SetBool("active", true);
+        anim.SetInteger("counter", currentAttackCounter);
     }
     private void Exit() {
         OnExit?.Invoke();
+
+        currentAttackCounter += 1;
+
         anim.SetBool("active", false);
     }
 
