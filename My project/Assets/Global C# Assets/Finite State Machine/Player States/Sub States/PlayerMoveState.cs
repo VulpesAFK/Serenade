@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FoxTail.Serenade.Experimental.FiniteStateMachine.Construct;
 
 public class PlayerMoveState : PlayerGroundedState
 {
@@ -41,10 +42,10 @@ public class PlayerMoveState : PlayerGroundedState
                 // t Switch to the idle state
                 stateMachine.ChangeState(player.IdleState);
             }
-            else if (yInput == -1)
-            {
-                stateMachine.ChangeState(player.CrouchMoveState);
-            }
+            // else if (yInput == -1)
+            // {
+            //     stateMachine.ChangeState(player.CrouchMoveState);
+            // }
         }
         
     }

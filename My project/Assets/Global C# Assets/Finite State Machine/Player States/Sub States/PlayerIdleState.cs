@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FoxTail.Serenade.Experimental.FiniteStateMachine.Construct;
 
 public class PlayerIdleState : PlayerGroundedState
 {
@@ -20,7 +21,9 @@ public class PlayerIdleState : PlayerGroundedState
         bool conditionalCrouch = !isExitingState && yInput == -1;
 
         if (conditionalMovement) stateMachine.ChangeState(player.MoveState);
-        else if (conditionalCrouch) stateMachine.ChangeState(player.CrouchIdleState);
+
+
+        // else if (conditionalCrouch) stateMachine.ChangeState(player.CrouchIdleState);
 
         // if (!isExitingState)
         // {

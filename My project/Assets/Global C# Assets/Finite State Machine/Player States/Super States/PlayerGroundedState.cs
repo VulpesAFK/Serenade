@@ -1,3 +1,5 @@
+using FoxTail.Serenade.Experimental.FiniteStateMachine.Construct;
+
 public class PlayerGroundedState : PlayerState
 {
     // Variables to store inputs from the player input handler
@@ -55,32 +57,33 @@ public class PlayerGroundedState : PlayerState
         bool isAbleToGrabWallFromGround = isTouchingWall && grabInput && isTouchingLedge;
         bool isAbleToDashFromGround = dashInput && player.DashState.CheckIfCanDash() && !isTouchingCeiling;
 
-        if (player.InputHandler.AttackInput[(int)CombatInputs.primary] && !isTouchingCeiling)
-        {
-            stateMachine.ChangeState(player.PrimaryAttackState);
-        }
+        // TODO: Fix this dumb stuff
+        // if (player.InputHandler.AttackInput[(int)CombatInputs.primary] && !isTouchingCeiling)
+        // {
+        //     stateMachine.ChangeState(player.PrimaryAttackState);
+        // }
 
-        else if (player.InputHandler.AttackInput[(int)CombatInputs.secondary] && !isTouchingCeiling)
-        {
-            stateMachine.ChangeState(player.SecondaryAttackState);
-        }
+        // else if (player.InputHandler.AttackInput[(int)CombatInputs.secondary] && !isTouchingCeiling)
+        // {
+        //     stateMachine.ChangeState(player.SecondaryAttackState);
+        // }
 
 
-        else if (isAbleToJumpFromGround) { stateMachine.ChangeState(player.JumpState); }
+        // else if (isAbleToJumpFromGround) { stateMachine.ChangeState(player.JumpState); }
 
-        else if (!isGrounded) {
-            // Coyote time for a more lenient jump
-            player.InAirState.StartCoyoteTime();
-            stateMachine.ChangeState(player.InAirState);
-        }
+        // else if (!isGrounded) {
+        //     // Coyote time for a more lenient jump
+        //     player.InAirState.StartCoyoteTime();
+        //     stateMachine.ChangeState(player.InAirState);
+        // }
 
-        else if (isAbleToGrabWallFromGround) {
-            // Prevent jumping after wall grabbing
-            player.JumpState.DecreaseAmountOfJumpsLeft();
-            stateMachine.ChangeState(player.WallGrabState);
-        }
+        // else if (isAbleToGrabWallFromGround) {
+        //     // Prevent jumping after wall grabbing
+        //     player.JumpState.DecreaseAmountOfJumpsLeft();
+        //     stateMachine.ChangeState(player.WallGrabState);
+        // }
 
-        else if (isAbleToDashFromGround) { stateMachine.ChangeState(player.DashState); }
+        // else if (isAbleToDashFromGround) { stateMachine.ChangeState(player.DashState); }
         
     }
 
