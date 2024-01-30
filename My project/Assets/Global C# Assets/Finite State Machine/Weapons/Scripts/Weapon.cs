@@ -41,7 +41,7 @@ public class Weapon : MonoBehaviour
         CurrentAttackCounter++;
 
         anim.SetBool("active", false);
-        attackCounterResetTimer.StartTime();
+        attackCounterResetTimer.StartTime(Time.time);
     }
 
     private void Awake() {
