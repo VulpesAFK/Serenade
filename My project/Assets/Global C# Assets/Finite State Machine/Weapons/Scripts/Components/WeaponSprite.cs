@@ -12,12 +12,24 @@ namespace FoxTail
         private int currentWeaponSpriteIndex;
         [SerializeField] private WeaponSprites[] weaponSprites;
 
-        private void HandleEnter() {
+        protected override void HandleEnter() {
+            base.HandleEnter();
+
             currentWeaponSpriteIndex = 0;
         }
 
         private void HandleBaseSpriteChange(SpriteRenderer SR) {
-            weaponSpriteRenderer.sprite = weaponSprites[weapon.CurrentAttackCounter].Sprites[currentWeaponSpriteIndex];
+            if (!isAttackActive) {
+                weaponSpriteRenderer.sprite = null;
+                return;
+            }
+            var currentAttackSprites = weaponSprites[weapon.CurrentAttackCounter].Sprites;
+            if (currentWeaponSpriteIndex >= currentAttackSprites.Length) {
+                Debug.LogWarning($"{weapon.name} weapon sprite length mismatch");
+                return;
+            }
+
+            weaponSpriteRenderer.sprite = currentAttackSprites[currentWeaponSpriteIndex];
             currentWeaponSpriteIndex++;
         }
         protected override void Awake()
@@ -32,12 +44,14 @@ namespace FoxTail
             // weaponSpriteRenderer = weapon.WeaponSpriteGameObject.GetComponent<SpriteRenderer>();
         }
 
-        private void OnEnable() {
+        protected override void OnEnable() {
+            base.OnEnable();
             baseSpriteRenderer.RegisterSpriteChangeCallback(HandleBaseSpriteChange);
             weapon.OnEnter += HandleEnter;
         }
 
-        private void OnDisable() {
+        protected override void OnDisable() {
+            base.OnDisable();
             baseSpriteRenderer.UnregisterSpriteChangeCallback(HandleBaseSpriteChange);
             weapon.OnEnter -= HandleEnter;
         }
