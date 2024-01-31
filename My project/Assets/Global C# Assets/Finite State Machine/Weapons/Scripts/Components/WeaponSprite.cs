@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FoxTail
@@ -10,7 +7,8 @@ namespace FoxTail
         private SpriteRenderer baseSpriteRenderer;
         private SpriteRenderer weaponSpriteRenderer;
         private int currentWeaponSpriteIndex;
-        [SerializeField] private WeaponSprites[] weaponSprites;
+
+        private WeaponSpriteData data;
 
         protected override void HandleEnter() {
             base.HandleEnter();
@@ -23,7 +21,7 @@ namespace FoxTail
                 weaponSpriteRenderer.sprite = null;
                 return;
             }
-            var currentAttackSprites = weaponSprites[weapon.CurrentAttackCounter].Sprites;
+            var currentAttackSprites = data.AttackData[weapon.CurrentAttackCounter].Sprites;
             if (currentWeaponSpriteIndex >= currentAttackSprites.Length) {
                 Debug.LogWarning($"{weapon.name} weapon sprite length mismatch");
                 return;
@@ -55,11 +53,5 @@ namespace FoxTail
             baseSpriteRenderer.UnregisterSpriteChangeCallback(HandleBaseSpriteChange);
             weapon.OnEnter -= HandleEnter;
         }
-    }
-
-    [Serializable]
-    public class WeaponSprites
-    {
-        [field: SerializeField] public Sprite[] Sprites { get; private set; }
     }
 }

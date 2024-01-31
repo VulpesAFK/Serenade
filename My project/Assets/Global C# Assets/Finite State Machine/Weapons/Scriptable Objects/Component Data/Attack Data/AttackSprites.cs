@@ -6,8 +6,8 @@ using UnityEngine;
 namespace FoxTail
 {
     [Serializable]
-    public class ComponentData
+    public class AttackSprites
     {
-
+        [field: SerializeField] public Sprite[] Sprites { get; private set; }
     }
 }

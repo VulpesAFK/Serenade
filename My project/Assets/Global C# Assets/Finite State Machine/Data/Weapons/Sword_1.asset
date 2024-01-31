@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b79d359e5a1406429138f677701d5f9, type: 3}
-  m_Name: Sword 1
+  m_Script: {fileID: 11500000, guid: 5846d7babdd3ab742a975cb293efb6a8, type: 3}
+  m_Name: Sword_1
   m_EditorClassIdentifier: 
-  MovementSpeed:
-  - 3
-  - 4
-  - 2
+  <NumberOfAttacks>k__BackingField: 0
