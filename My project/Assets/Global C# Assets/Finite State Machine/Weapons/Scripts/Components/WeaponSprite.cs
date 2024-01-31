@@ -37,6 +37,8 @@ namespace FoxTail
             baseSpriteRenderer = transform.Find("Base").GetComponent<SpriteRenderer>();
             weaponSpriteRenderer = transform.Find("Weapon Sprite").GetComponent<SpriteRenderer>();
 
+            data = weapon.Data.GetData<WeaponSpriteData>();
+
             // TODO: Fix this when we create weapon data
             // baseSpriteRenderer = weapon.BaseGameObject.GetComponent<SpriteRenderer>();
             // weaponSpriteRenderer = weapon.WeaponSpriteGameObject.GetComponent<SpriteRenderer>();

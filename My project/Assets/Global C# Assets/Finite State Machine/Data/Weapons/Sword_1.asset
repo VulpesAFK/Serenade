@@ -12,4 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5846d7babdd3ab742a975cb293efb6a8, type: 3}
   m_Name: Sword_1
   m_EditorClassIdentifier: 
-  <NumberOfAttacks>k__BackingField: 0
+  <NumberOfAttacks>k__BackingField: 3
+  <componentData>k__BackingField:
+  - rid: 4970177006297415682
+  references:
+    version: 2
+    RefIds:
+    - rid: 4970177006297415682
+      type: {class: WeaponSpriteData, ns: FoxTail, asm: Assembly-CSharp}
+      data:
+        <AttackData>k__BackingField:
+        - <Sprites>k__BackingField:
+          - {fileID: -22833799, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
+          - {fileID: 1102499648, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
+          - {fileID: 1682582134, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
+          - {fileID: 1066623767, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
+          - {fileID: 1528268250, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
+        - <Sprites>k__BackingField:
+          - {fileID: -190955303, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
+          - {fileID: 2020446323, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
+          - {fileID: -1322930950, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
+          - {fileID: -1789067988, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
+          - {fileID: 1965681768, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
+        - <Sprites>k__BackingField:
+          - {fileID: 1052007656, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
+          - {fileID: 2042014778, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
+          - {fileID: -1849558539, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
+          - {fileID: -567397352, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
+          - {fileID: -833205978, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}

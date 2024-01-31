@@ -12,4 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5846d7babdd3ab742a975cb293efb6a8, type: 3}
   m_Name: Sword_2
   m_EditorClassIdentifier: 
-  <NumberOfAttacks>k__BackingField: 0
+  <NumberOfAttacks>k__BackingField: 3
+  <componentData>k__BackingField:
+  - rid: 4970177006297415683
+  references:
+    version: 2
+    RefIds:
+    - rid: 4970177006297415683
+      type: {class: WeaponSpriteData, ns: FoxTail, asm: Assembly-CSharp}
+      data:
+        <AttackData>k__BackingField:
+        - <Sprites>k__BackingField:
+          - {fileID: -988447570, guid: acc4584a9ecfda842b3bdb1bd3f1409c, type: 3}
+          - {fileID: 262881116, guid: acc4584a9ecfda842b3bdb1bd3f1409c, type: 3}
+          - {fileID: 1892967842, guid: acc4584a9ecfda842b3bdb1bd3f1409c, type: 3}
+          - {fileID: -1069941563, guid: acc4584a9ecfda842b3bdb1bd3f1409c, type: 3}
+          - {fileID: -1906315611, guid: acc4584a9ecfda842b3bdb1bd3f1409c, type: 3}
+        - <Sprites>k__BackingField:
+          - {fileID: -1595052161, guid: acc4584a9ecfda842b3bdb1bd3f1409c, type: 3}
+          - {fileID: 1073354668, guid: acc4584a9ecfda842b3bdb1bd3f1409c, type: 3}
+          - {fileID: 1758385180, guid: acc4584a9ecfda842b3bdb1bd3f1409c, type: 3}
+          - {fileID: -1643757491, guid: acc4584a9ecfda842b3bdb1bd3f1409c, type: 3}
+          - {fileID: -1489295916, guid: acc4584a9ecfda842b3bdb1bd3f1409c, type: 3}
+        - <Sprites>k__BackingField:
+          - {fileID: -1414224905, guid: acc4584a9ecfda842b3bdb1bd3f1409c, type: 3}
+          - {fileID: -474764059, guid: acc4584a9ecfda842b3bdb1bd3f1409c, type: 3}
+          - {fileID: -142519118, guid: acc4584a9ecfda842b3bdb1bd3f1409c, type: 3}
+          - {fileID: -1157355133, guid: acc4584a9ecfda842b3bdb1bd3f1409c, type: 3}
+          - {fileID: 109381634, guid: acc4584a9ecfda842b3bdb1bd3f1409c, type: 3}
