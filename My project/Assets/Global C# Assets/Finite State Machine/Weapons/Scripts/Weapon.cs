@@ -3,16 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FoxTail.Unlinked;
+using FoxTail;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField] private int numberOfAttacks;
+    [field: SerializeField]public WeaponData Data { get; private set; }
     [SerializeField] private float attackCounterResetCooldown;
 
     // A public properties variable that will return and set a value with called or manipulated
     public int CurrentAttackCounter {
         get => currentAttackCounter;
-        private set => currentAttackCounter = value >= numberOfAttacks? 0 : value;
+        private set => currentAttackCounter = value >= Data.NumberOfAttacks? 0 : value;
     }
     private Animator anim;
     public GameObject BaseGameObject { get; private set; }
