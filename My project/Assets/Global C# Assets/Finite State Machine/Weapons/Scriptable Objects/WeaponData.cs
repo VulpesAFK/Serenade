@@ -10,13 +10,15 @@ namespace FoxTail
     public class WeaponData : ScriptableObject
     {
         [field: SerializeField] public int NumberOfAttacks { get; private set; }
-        [field: SerializeReference] public List<ComponentData> componentData { get; private set; }
+        [field: SerializeReference] public List<ComponentData> ComponentData { get; private set; }
 
         public TYPE GetData<TYPE>() {
-            return componentData.OfType<TYPE>().FirstOrDefault();
+            return ComponentData.OfType<TYPE>().FirstOrDefault();
         }
 
         [ContextMenu("Add Sprite Data")]
-        private void AddSpriteData() => componentData.Add(new WeaponSpriteData());
+        private void AddSpriteData() => ComponentData.Add(new WeaponSpriteData());
+        [ContextMenu("Add Movement Data")]
+        private void AddMovementData() => ComponentData.Add(new WeaponMovementData());
     }
 }

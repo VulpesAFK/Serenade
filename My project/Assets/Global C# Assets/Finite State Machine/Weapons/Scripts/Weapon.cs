@@ -24,6 +24,7 @@ public class Weapon : MonoBehaviour
 
     private int currentAttackCounter;
     private Timer attackCounterResetTimer;
+    public Core Core { get; private set; }
 
     public WeaponAnimationEventHandler EventHandler { get; private set; }
     public void Enter() {
@@ -35,6 +36,10 @@ public class Weapon : MonoBehaviour
         anim.SetInteger("counter", CurrentAttackCounter);
 
         OnEnter?.Invoke();
+    }
+
+    public void SetCore(Core core) {
+        Core = core;
     }
     private void Exit() {
         OnExit?.Invoke();

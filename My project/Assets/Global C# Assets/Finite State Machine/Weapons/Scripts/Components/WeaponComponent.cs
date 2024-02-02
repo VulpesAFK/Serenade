@@ -9,6 +9,7 @@ namespace FoxTail
     {
         protected Weapon weapon;
         protected WeaponAnimationEventHandler EventHandler => weapon.EventHandler;
+        protected Core Core => weapon.Core;
         protected bool isAttackActive;
 
         protected virtual void Awake() {
