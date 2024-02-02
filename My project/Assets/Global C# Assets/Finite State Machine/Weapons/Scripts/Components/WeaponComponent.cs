@@ -8,12 +8,15 @@ namespace FoxTail
     public abstract class WeaponComponent : MonoBehaviour
     {
         protected Weapon weapon;
-        protected WeaponAnimationEventHandler EventHandler => weapon.EventHandler;
+        //TODO - Fix later
+        //protected WeaponAnimationEventHandler EventHandler => weapon.EventHandler;
+        protected WeaponAnimationEventHandler eventHandler;
         protected Core Core => weapon.Core;
         protected bool isAttackActive;
 
         protected virtual void Awake() {
             weapon = GetComponent<Weapon>();
+            eventHandler = GetComponentInChildren<WeaponAnimationEventHandler>();
         }
 
         protected virtual void HandleEnter() {

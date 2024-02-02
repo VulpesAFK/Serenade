@@ -30,16 +30,16 @@ namespace FoxTail
         {
             base.OnEnable();
 
-            EventHandler.OnStartMovement += HandleStartMovement;
-            EventHandler.OnFinishMovement += HandleFinishMovement;
+            eventHandler.OnStartMovement += HandleStartMovement;
+            eventHandler.OnFinishMovement += HandleFinishMovement;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
 
-            EventHandler.OnStartMovement -= HandleStartMovement;
-            EventHandler.OnFinishMovement -= HandleFinishMovement;
+            eventHandler.OnStartMovement -= HandleStartMovement;
+            eventHandler.OnFinishMovement -= HandleFinishMovement;
         }
     }
 }
