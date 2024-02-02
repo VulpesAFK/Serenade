@@ -37,4 +37,20 @@ namespace FoxTail
             weapon.OnExit -= HandleExit;
         }
     }
+
+    // Abstract class that allows for data to be automatically inputted
+    // Requires a seperate class due weapon data connected with component data and not this 
+    // If this weapon component inherits the data then it is now allow with a correct parent 
+    public abstract class WeaponComponent<TYPE> : WeaponComponent where TYPE : ComponentData {
+        // Save the specific data type as data
+        protected TYPE data;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            data = weapon.Data.GetData<TYPE>();
+        }
+
+    }
 }
