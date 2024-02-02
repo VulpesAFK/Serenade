@@ -25,7 +25,7 @@ public class Weapon : MonoBehaviour
     private int currentAttackCounter;
     private Timer attackCounterResetTimer;
 
-    private WeaponAnimationEventHandler eventHandler;
+    public WeaponAnimationEventHandler EventHandler { get; private set; }
     public void Enter() {
         print($"{transform.name} enter");
 
@@ -49,7 +49,7 @@ public class Weapon : MonoBehaviour
         BaseGameObject = transform.Find("Base").gameObject;
         WeaponSpriteGameObject = transform.Find("Weapon Sprite").gameObject;
         anim = BaseGameObject.GetComponent<Animator>();
-        eventHandler =  BaseGameObject.GetComponent<WeaponAnimationEventHandler>();
+        EventHandler =  BaseGameObject.GetComponent<WeaponAnimationEventHandler>();
         attackCounterResetTimer = new Timer(attackCounterResetCooldown);
     }
 
@@ -61,12 +61,12 @@ public class Weapon : MonoBehaviour
 
     # region Weapon Animation Handler => thpis Event Subscription
     private void OnEnable() {
-        eventHandler.OnFinish += Exit;
+        EventHandler.OnFinish += Exit;
         attackCounterResetTimer.onTimerDone += ResetAttackCounter;
     }
 
     private void OnDisable() {
-        eventHandler.OnFinish -= Exit;
+        EventHandler.OnFinish -= Exit;
         attackCounterResetTimer.onTimerDone -= ResetAttackCounter;
     }
     # endregion

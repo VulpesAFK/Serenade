@@ -8,6 +8,7 @@ namespace FoxTail
     public abstract class WeaponComponent : MonoBehaviour
     {
         protected Weapon weapon;
+        protected WeaponAnimationEventHandler EventHandler => weapon.EventHandler;
         protected bool isAttackActive;
 
         protected virtual void Awake() {
