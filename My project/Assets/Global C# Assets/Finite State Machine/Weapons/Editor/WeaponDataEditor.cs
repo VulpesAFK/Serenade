@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -11,7 +10,6 @@ namespace FoxTail
     // Initalize that this editor is used only on an type of data using the defined type of
     [CustomEditor(typeof(WeaponData))]
     public class WeaponDataEditor : Editor {
-
         // Used as a means of defining a universal type of data in the C# built-in system
         // Can store the information of other classes and not just the object that contain them 
         private static List<Type> dataComponentType = new List<Type>();
