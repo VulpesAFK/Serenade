@@ -64,7 +64,7 @@ public class Weapon : MonoBehaviour
 
     private void ResetAttackCounter() => CurrentAttackCounter = 0;
 
-    # region Weapon Animation Handler => thpis Event Subscription
+    # region Weapon Animation Handler => this Event Subscription
     private void OnEnable() {
         EventHandler.OnFinish += Exit;
         attackCounterResetTimer.onTimerDone += ResetAttackCounter;
