@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace FoxTail
 {
-    public class WeaponSprite : WeaponComponent<WeaponSpriteData>
+    public class WeaponSprite : WeaponComponent<WeaponSpriteData, AttackSprites>
     {
         private SpriteRenderer baseSpriteRenderer;
         private SpriteRenderer weaponSpriteRenderer;
@@ -19,7 +19,7 @@ namespace FoxTail
                 weaponSpriteRenderer.sprite = null;
                 return;
             }
-            var currentAttackSprites = data.AttackData[weapon.CurrentAttackCounter].Sprites;
+            var currentAttackSprites = currentAttackData.Sprites;
             if (currentWeaponSpriteIndex >= currentAttackSprites.Length) {
                 Debug.LogWarning($"{weapon.name} weapon sprite length mismatch");
                 return;

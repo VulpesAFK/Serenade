@@ -4,13 +4,12 @@ using UnityEngine;
 
 namespace FoxTail
 {
-    public class WeaponMovement : WeaponComponent<WeaponMovementData>
+    public class WeaponMovement : WeaponComponent<WeaponMovementData, AttackMovement>
     {
         private Movement movement;
         private Movement Movement => movement ??= Core.GetCoreComponent<Movement>();
 
         private void HandleStartMovement() {
-            var currentAttackData = data.AttackData[weapon.CurrentAttackCounter];
             Movement.SetVelocity(currentAttackData.Velocity, currentAttackData.Direction, Movement.FacingDirection);
         }
 
