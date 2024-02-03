@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // Script tied to the animator will be used to trigger and tie together the weapon to the weaponry components

@@ -53,18 +53,20 @@ public class Weapon : MonoBehaviour
     private void Awake() {
         BaseGameObject = transform.Find("Base").gameObject;
         WeaponSpriteGameObject = transform.Find("Weapon Sprite").gameObject;
+
         anim = BaseGameObject.GetComponent<Animator>();
         EventHandler =  BaseGameObject.GetComponent<WeaponAnimationEventHandler>();
         attackCounterResetTimer = new Timer(attackCounterResetCooldown);
     }
 
-    private void Update() {
-        attackCounterResetTimer.Tick();
-    }
-
+    // All in relationship ticking and restarting the attack counter
+    private void Update() => attackCounterResetTimer.Tick();
     private void ResetAttackCounter() => CurrentAttackCounter = 0;
 
-    # region Weapon Animation Handler => this Event Subscription
+    // Trigger to animation event triggers of the animations to the main weaponry scripts this => Event Handler -> Weapon -> Attack State
+    // Connect when the animation has finished its single animation
+    // Connect the restart counter to make sure the combo resets after some time
+    # region OnEnable() & OnDisable() Functions
     private void OnEnable() {
         EventHandler.OnFinish += Exit;
         attackCounterResetTimer.onTimerDone += ResetAttackCounter;
