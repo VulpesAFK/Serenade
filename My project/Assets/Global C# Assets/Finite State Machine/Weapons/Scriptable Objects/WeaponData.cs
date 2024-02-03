@@ -16,9 +16,17 @@ namespace FoxTail
             return ComponentData.OfType<TYPE>().FirstOrDefault();
         }
 
-        [ContextMenu("Add Sprite Data")]
-        private void AddSpriteData() => ComponentData.Add(new WeaponSpriteData());
-        [ContextMenu("Add Movement Data")]
-        private void AddMovementData() => ComponentData.Add(new WeaponMovementData());
+        // Add passed in component into the list of component data to be used by the weapons
+        // Check to prevent the occurance of duplilcation 
+        public void AddDataToInspector(ComponentData data) {
+            // Looking at all the data in the component data and check if the types of the component is the some and the data passes
+            // T => shows each value type in the component data
+            if (ComponentData.FirstOrDefault(t => t.GetType() == data.GetType()) != null) {
+                Debug.LogError($"{data} has already been added to this weaponry system");
+                return;
+            }
+
+            ComponentData.Add(data);
+        }
     }
 }

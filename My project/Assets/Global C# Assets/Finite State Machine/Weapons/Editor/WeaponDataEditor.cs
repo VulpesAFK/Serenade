@@ -16,20 +16,34 @@ namespace FoxTail
         // Can store the information of other classes and not just the object that contain them 
         private static List<Type> dataComponentType = new List<Type>();
 
+        // instantiate and fetch and cast the target inspector as the same variable type
+        private WeaponData data;
+        private void OnEnable() => data = target as WeaponData;
+
+        # region Button instantiation & interaction
         // This Unity function that holds the basic standard value of the editor 
         // Manipulate to show the objects we want
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
 
+            // Loop through all componenets in the list and display into the inspector
             foreach (var dataComponent in dataComponentType) {
+                // Checks if there is a press to then 
                 if (GUILayout.Button(dataComponent.Name)) {
-
+                    // Allows to instantiate an object of that type to be stored knowing that it is a component data
+                    var componenet = Activator.CreateInstance(dataComponent) as ComponentData;
+                    // Double check safety
+                    if (componenet == null) return;
+                    data.AddDataToInspector(componenet);
                 } 
             }
         }
+        # endregion 
 
+        # region Collect all assemblies & filter
         // Usage of C# reflections to automatically add all componenets to be available on the weaponry component
+        // Makes it available
         [DidReloadScripts]
         private static void OnRecompile() {
             // Search all the app domain and assemblies and retrieve 
@@ -48,5 +62,6 @@ namespace FoxTail
             // Add finally to the final static main list
             dataComponentType = filteredTypes.ToList();
         }
+        # endregion
     }
 }
