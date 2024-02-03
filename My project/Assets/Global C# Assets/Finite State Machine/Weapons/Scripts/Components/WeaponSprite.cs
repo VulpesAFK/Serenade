@@ -2,13 +2,11 @@ using UnityEngine;
 
 namespace FoxTail
 {
-    public class WeaponSprite : WeaponComponent
+    public class WeaponSprite : WeaponComponent<WeaponSpriteData>
     {
         private SpriteRenderer baseSpriteRenderer;
         private SpriteRenderer weaponSpriteRenderer;
         private int currentWeaponSpriteIndex;
-
-        private WeaponSpriteData data;
 
         protected override void HandleEnter() {
             base.HandleEnter();
@@ -36,8 +34,6 @@ namespace FoxTail
 
             baseSpriteRenderer = transform.Find("Base").GetComponent<SpriteRenderer>();
             weaponSpriteRenderer = transform.Find("Weapon Sprite").GetComponent<SpriteRenderer>();
-
-            data = weapon.Data.GetData<WeaponSpriteData>();
 
             // TODO: Fix this when we create weapon data
             // baseSpriteRenderer = weapon.BaseGameObject.GetComponent<SpriteRenderer>();

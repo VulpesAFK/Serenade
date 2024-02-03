@@ -4,18 +4,10 @@ using UnityEngine;
 
 namespace FoxTail
 {
-    public class WeaponMovement : WeaponComponent
+    public class WeaponMovement : WeaponComponent<WeaponMovementData>
     {
         private Movement movement;
         private Movement Movement => movement ??= Core.GetCoreComponent<Movement>();
-        private WeaponMovementData data;
-
-        protected override void Awake()
-        {
-            base.Awake();
-
-            data = weapon.Data.GetData<WeaponMovementData>();
-        }
 
         private void HandleStartMovement() {
             var currentAttackData = data.AttackData[weapon.CurrentAttackCounter];
