@@ -10,4 +10,6 @@ namespace FoxTail
     {
 
     }
+
+    public class ComponentData<TYPE_ONE> : ComponentData where TYPE_ONE : AttackData
 }
