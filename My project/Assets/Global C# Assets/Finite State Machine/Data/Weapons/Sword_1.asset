@@ -56,12 +56,27 @@ MonoBehaviour:
       type: {class: ActionHitBoxData, ns: FoxTail, asm: Assembly-CSharp}
       data:
         <AttackData>k__BackingField:
-        - <HitBox>k__BackingField:
+        - Debug: 0
+          <HitBox>k__BackingField:
+            serializedVersion: 2
+            x: 0.27
+            y: -0.78
+            width: 1.44
+            height: 1.08
+        - Debug: 0
+          <HitBox>k__BackingField:
+            serializedVersion: 2
+            x: 0.27
+            y: -0.78
+            width: 1.8
+            height: 1.08
+        - Debug: 1
+          <HitBox>k__BackingField:
             serializedVersion: 2
             x: 0
-            y: 0
-            width: 0
-            height: 0
+            y: -0.99
+            width: 1.61
+            height: 2.15
         <DetectableLayers>k__BackingField:
           serializedVersion: 2
-          m_Bits: 0
+          m_Bits: 1024

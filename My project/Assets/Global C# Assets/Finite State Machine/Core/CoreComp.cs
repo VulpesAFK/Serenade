@@ -11,9 +11,6 @@ namespace FoxTail
         // Variable to store the private component that wiil be checked whether it exist and if it is not null
         private TYPE_ONE component;
 
-        //NOTE - This is slightly different to the tutorial
-        // May requrie a self-check later
-
         // Fetch and store the conponent with the spefic type assuming that that type is not null and exist
         public TYPE_ONE Component => component ??= core.GetCoreComponent<TYPE_ONE>();
 

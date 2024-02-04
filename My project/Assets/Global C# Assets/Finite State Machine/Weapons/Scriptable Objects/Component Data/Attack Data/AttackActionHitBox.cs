@@ -7,6 +7,9 @@ namespace FoxTail
 {
     [Serializable]
     public class AttackActionHitBox : AttackData {
+        // Gizmo activation
+        public bool Debug;
+
         // These are properties that will have to be defined for each weaponry attack
         [field: SerializeField] public Rect HitBox { get; private set; }
     }
