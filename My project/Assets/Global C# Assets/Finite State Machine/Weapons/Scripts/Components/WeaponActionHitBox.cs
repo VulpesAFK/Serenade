@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FoxTail
 {
-    public class AttackActionHitBox : AttackData
+    public class WeaponActionHitBox
     {
 
     }

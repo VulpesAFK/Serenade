@@ -28,7 +28,7 @@ public class Weapon : MonoBehaviour
 
     public WeaponAnimationEventHandler EventHandler { get; private set; }
     public void Enter() {
-        print($"{transform.name} enter");
+        Debug.Log($"{transform.name} enter");
 
         attackCounterResetTimer.StopTimer();
 
@@ -59,9 +59,11 @@ public class Weapon : MonoBehaviour
         attackCounterResetTimer = new Timer(attackCounterResetCooldown);
     }
 
+    # region Attack Counter Logic
     // All in relationship ticking and restarting the attack counter
     private void Update() => attackCounterResetTimer.Tick();
     private void ResetAttackCounter() => CurrentAttackCounter = 0;
+    # endregion
 
     // Trigger to animation event triggers of the animations to the main weaponry scripts this => Event Handler -> Weapon -> Attack State
     // Connect when the animation has finished its single animation
