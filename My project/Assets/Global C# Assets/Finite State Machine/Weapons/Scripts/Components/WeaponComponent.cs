@@ -19,6 +19,10 @@ namespace FoxTail
             eventHandler = GetComponentInChildren<WeaponAnimationEventHandler>();
         }
 
+        protected virtual void Start() {
+            
+        }
+
         protected virtual void HandleEnter() {
             isAttackActive = true;
         }

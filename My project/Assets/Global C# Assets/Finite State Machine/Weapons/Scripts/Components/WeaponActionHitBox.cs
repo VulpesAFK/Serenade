@@ -6,8 +6,17 @@ namespace FoxTail
 {
     public class WeaponActionHitBox : WeaponComponent<ActionHitBoxData, AttackActionHitBox>
     {
+        private CoreComp<Movement> movement;
+
+        protected override void Start()
+        {
+            base.Start();
+
+            movement = new CoreComp<Movement>(Core);
+        }
+
         private void HandleAttackAction() {
-            Debug.Log("Handle attack");
+            Debug.Log($"!! {movement.Component.FacingDirection}");
         }
 
         # region Assignment from Weapon Animation Event Handler to the main component
