@@ -10,10 +10,17 @@ public class WeaponAnimationEventHandler : MonoBehaviour
     public event Action OnStartMovement;
     public event Action OnFinishMovement;
 
+    //TODO - Correct this to allow for multi-frame hitboxing detection
+    public event Action OnAttackAction;
+
+
     // Signals the end of the weaponry animation frames
     private void AnimationFinishedTrigger() => OnFinish?.Invoke();
 
     // Signals the start and the end of the movement scriptable
     private void StartMovementTrigger() => OnStartMovement?.Invoke();
     private void StopMovementTrigger() => OnFinishMovement?.Invoke();
+
+    //TODO - Fix this trigger to allow for multi-frame using a start and an end frame event
+    private void AttackActionTrigger() => OnAttackAction?.Invoke();
 }
