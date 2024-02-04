@@ -7,7 +7,7 @@ namespace FoxTail
     public class WeaponActionHitBox : WeaponComponent<ActionHitBoxData, AttackActionHitBox>
     {
         private void HandleAttackAction() {
-            
+            Debug.Log("Handle attack");
         }
 
         # region Assignment from Weapon Animation Event Handler to the main component
