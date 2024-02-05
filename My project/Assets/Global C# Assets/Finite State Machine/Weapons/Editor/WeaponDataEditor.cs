@@ -25,6 +25,10 @@ namespace FoxTail
         {
             base.OnInspectorGUI();
 
+            if (GUILayout.Button("Force Update Component Numbers")) {
+                foreach (var item in data.ComponentData) { item.InitializeAttackData(data.NumberOfAttacks); }
+            }
+
             // Loop through all componenets in the list and display into the inspector
             foreach (var dataComponent in dataComponentType) {
                 // Checks if there is a press to then 
@@ -33,6 +37,8 @@ namespace FoxTail
                     var componenet = Activator.CreateInstance(dataComponent) as ComponentData;
                     // Double check safety
                     if (componenet == null) return;
+                    // Make sure the length of hte component is the same
+                    componenet.InitializeAttackData(data.NumberOfAttacks);
                     data.AddDataToInspector(componenet);
                 } 
             }
@@ -41,6 +47,9 @@ namespace FoxTail
             // Will loop through all the buttons on the compiled list
             if (GUILayout.Button("Force Update Component Names")) {
                 foreach (var item in data.ComponentData) { item.SetCompomentName(); }
+            }
+            if (GUILayout.Button("Force Update Attack Names")) {
+                foreach (var item in data.ComponentData) { item.SetAttackDataNames(); }
             }
         }
         # endregion 
