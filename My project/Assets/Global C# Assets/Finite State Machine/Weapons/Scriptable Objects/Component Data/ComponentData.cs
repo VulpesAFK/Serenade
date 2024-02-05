@@ -8,7 +8,13 @@ namespace FoxTail
     [Serializable]
     public class ComponentData
     {
+        // Name of the total component
+        [SerializeField] private string componentName;
 
+        // Setting name function
+        public void SetCompomentName() {
+
+        }
     }
 
     [Serializable]
