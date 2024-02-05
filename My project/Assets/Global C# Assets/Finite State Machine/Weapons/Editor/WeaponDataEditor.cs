@@ -18,7 +18,7 @@ namespace FoxTail
         private WeaponData data;
         private void OnEnable() => data = target as WeaponData;
 
-        # region Button instantiation & interaction
+        # region OnInspectorGUI() Functions
         // This Unity function that holds the basic standard value of the editor 
         // Manipulate to show the objects we want
         public override void OnInspectorGUI()
@@ -36,10 +36,16 @@ namespace FoxTail
                     data.AddDataToInspector(componenet);
                 } 
             }
+
+            // Create a button that will allow for all component and attack data name restarts
+            // Will loop through all the buttons on the compiled list
+            if (GUILayout.Button("Force Update Component Names")) {
+                foreach (var item in data.ComponentData) { item.SetCompomentName(); }
+            }
         }
         # endregion 
 
-        # region Collect all assemblies & filter
+        # region OnRecompile() Functions
         // Usage of C# reflections to automatically add all componenets to be available on the weaponry component
         // Makes it available
         [DidReloadScripts]

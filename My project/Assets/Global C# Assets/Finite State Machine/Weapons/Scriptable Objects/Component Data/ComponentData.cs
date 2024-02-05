@@ -12,9 +12,7 @@ namespace FoxTail
         [SerializeField] private string componentName;
 
         // Setting name function
-        public void SetCompomentName() {
-
-        }
+        public void SetCompomentName() => componentName = GetType().Name;
     }
 
     [Serializable]
