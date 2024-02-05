@@ -7,6 +7,6 @@ namespace FoxTail
     public class AttackData
     {
         // Name of the indiviual attack data name
-        [SerializeField] private string componentName;
+        [SerializeField, HideInInspector] private string componentName;
     }   
 }

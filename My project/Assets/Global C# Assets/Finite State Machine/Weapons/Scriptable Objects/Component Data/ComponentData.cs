@@ -9,7 +9,7 @@ namespace FoxTail
     public class ComponentData
     {
         // Name of the total component
-        [SerializeField] private string componentName;
+        [SerializeField, HideInInspector] private string componentName;
 
         // Setting name function
         public void SetCompomentName() => componentName = GetType().Name;
