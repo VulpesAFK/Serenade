@@ -52,7 +52,7 @@ namespace FoxTail
             base.InitializeAttackData(numberOfAttack);
 
             // Storing the current length of the componennt length 
-            var oldLength = AttackData.Length;
+            var oldLength = attackData != null? attackData.Length : 0;
             
             // Return nothing if the length is already the same
             if (oldLength == numberOfAttack) return;

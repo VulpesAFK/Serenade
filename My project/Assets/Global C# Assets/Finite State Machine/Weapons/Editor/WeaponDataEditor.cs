@@ -16,7 +16,14 @@ namespace FoxTail
 
         // instantiate and fetch and cast the target inspector as the same variable type
         private WeaponData data;
+
+        // Used whether to display the buttons on the insepctor or not
+        private bool showForcedUpdateButtons;
+        private bool showAddComponentButtons; 
+
+        # region OnEnable()
         private void OnEnable() => data = target as WeaponData;
+        # endregion
 
         # region OnInspectorGUI() Functions
         // This Unity function that holds the basic standard value of the editor 
@@ -29,28 +36,44 @@ namespace FoxTail
                 foreach (var item in data.ComponentData) { item.InitializeAttackData(data.NumberOfAttacks); }
             }
 
-            // Loop through all componenets in the list and display into the inspector
-            foreach (var dataComponent in dataComponentType) {
-                // Checks if there is a press to then 
-                if (GUILayout.Button(dataComponent.Name)) {
-                    // Allows to instantiate an object of that type to be stored knowing that it is a component data
-                    var componenet = Activator.CreateInstance(dataComponent) as ComponentData;
-                    // Double check safety
-                    if (componenet == null) return;
-                    // Make sure the length of hte component is the same
-                    componenet.InitializeAttackData(data.NumberOfAttacks);
-                    data.AddDataToInspector(componenet);
-                } 
-            }
+            // Add component fold out
+            # region Add Componenets Boolean;
+            // Foldout bollean
+            showAddComponentButtons = EditorGUILayout.Foldout(showAddComponentButtons, "Add components");
 
-            // Create a button that will allow for all component and attack data name restarts
-            // Will loop through all the buttons on the compiled list
-            if (GUILayout.Button("Force Update Component Names")) {
-                foreach (var item in data.ComponentData) { item.SetCompomentName(); }
+            if (showAddComponentButtons) {
+                // Loop through all componenets in the list and display into the inspector
+                foreach (var dataComponent in dataComponentType) {
+                    // Checks if there is a press to then 
+                    if (GUILayout.Button(dataComponent.Name)) {
+                        // Allows to instantiate an object of that type to be stored knowing that it is a component data
+                        var componenet = Activator.CreateInstance(dataComponent) as ComponentData;
+                        // Double check safety
+                        if (componenet == null) return;
+                        // Make sure the length of hte component is the same
+                        componenet.InitializeAttackData(data.NumberOfAttacks);
+                        data.AddDataToInspector(componenet);
+                    } 
+                }
             }
-            if (GUILayout.Button("Force Update Attack Names")) {
-                foreach (var item in data.ComponentData) { item.SetAttackDataNames(); }
+            # endregion
+
+            // Forced update fold out
+            # region Force Buttons Boolean;
+            showForcedUpdateButtons = EditorGUILayout.Foldout(showForcedUpdateButtons, "Forced components");
+
+            if (showForcedUpdateButtons) {
+                // Create a button that will allow for all component and attack data name restarts
+                // Will loop through all the buttons on the compiled list
+                if (GUILayout.Button("Force Update Component Names")) {
+                    foreach (var item in data.ComponentData) { item.SetCompomentName(); }
+                }
+
+                if (GUILayout.Button("Force Update Attack Names")) {
+                    foreach (var item in data.ComponentData) { item.SetAttackDataNames(); }
+                }
             }
+            # endregion
         }
         # endregion 
 
