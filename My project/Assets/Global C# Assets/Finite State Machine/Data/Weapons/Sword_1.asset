@@ -23,20 +23,24 @@ MonoBehaviour:
     - rid: 6989500920985550848
       type: {class: WeaponSpriteData, ns: FoxTail, asm: Assembly-CSharp}
       data:
-        <AttackData>k__BackingField:
-        - <Sprites>k__BackingField:
+        componentName: WeaponSpriteData
+        attackData:
+        - attackName: List<AttackSprites> Value 1
+          <Sprites>k__BackingField:
           - {fileID: -22833799, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
           - {fileID: 1102499648, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
           - {fileID: 1682582134, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
           - {fileID: 1066623767, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
           - {fileID: 1528268250, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
-        - <Sprites>k__BackingField:
+        - attackName: List<AttackSprites> Value 2
+          <Sprites>k__BackingField:
           - {fileID: -190955303, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
           - {fileID: 2020446323, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
           - {fileID: -1322930950, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
           - {fileID: -1789067988, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
           - {fileID: 1965681768, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
-        - <Sprites>k__BackingField:
+        - attackName: List<AttackSprites> Value 3
+          <Sprites>k__BackingField:
           - {fileID: 1052007656, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
           - {fileID: 2042014778, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
           - {fileID: -1849558539, guid: 28c077f2380b4fd4ea6268a0c351a954, type: 3}
@@ -45,38 +49,46 @@ MonoBehaviour:
     - rid: 6989500920985550852
       type: {class: WeaponMovementData, ns: FoxTail, asm: Assembly-CSharp}
       data:
-        <AttackData>k__BackingField:
-        - <Direction>k__BackingField: {x: 1, y: 0}
+        componentName: WeaponMovementData
+        attackData:
+        - attackName: List<AttackMovement> Value 1
+          <Direction>k__BackingField: {x: 1, y: 0}
           <Velocity>k__BackingField: 4
-        - <Direction>k__BackingField: {x: 1, y: 0}
+        - attackName: List<AttackMovement> Value 2
+          <Direction>k__BackingField: {x: 1, y: 0}
           <Velocity>k__BackingField: 6
-        - <Direction>k__BackingField: {x: 1, y: 5}
-          <Velocity>k__BackingField: 6
+        - attackName: List<AttackMovement> Value 3
+          <Direction>k__BackingField: {x: 1, y: 2}
+          <Velocity>k__BackingField: 5
     - rid: 6989500962054078465
       type: {class: ActionHitBoxData, ns: FoxTail, asm: Assembly-CSharp}
       data:
-        <AttackData>k__BackingField:
-        - Debug: 0
+        componentName: ActionHitBoxData
+        attackData:
+        - attackName: List<AttackActionHitBox> Value 1
+          Debug: 1
           <HitBox>k__BackingField:
             serializedVersion: 2
-            x: 0.27
-            y: -0.78
-            width: 1.44
-            height: 1.08
-        - Debug: 0
+            x: 0.42
+            y: -0.88
+            width: 1.37
+            height: 1.44
+        - attackName: List<AttackActionHitBox> Value 1
+          Debug: 1
           <HitBox>k__BackingField:
             serializedVersion: 2
-            x: 0.27
-            y: -0.78
-            width: 1.8
-            height: 1.08
-        - Debug: 1
+            x: 0.42
+            y: -0.88
+            width: 1.37
+            height: 1.44
+        - attackName: List<AttackActionHitBox> Value 3
+          Debug: 1
           <HitBox>k__BackingField:
             serializedVersion: 2
-            x: 0
-            y: -0.99
-            width: 1.61
-            height: 2.15
+            x: 0.39
+            y: -0.85
+            width: 1.47
+            height: 2.14
         <DetectableLayers>k__BackingField:
           serializedVersion: 2
           m_Bits: 1024

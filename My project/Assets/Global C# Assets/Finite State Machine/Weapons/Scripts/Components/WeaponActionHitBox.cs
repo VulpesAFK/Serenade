@@ -23,8 +23,8 @@ namespace FoxTail
         private void HandleAttackAction() {
             // Handle the offset with the needed information
             offset.Set (
-                transform.position.x + (currentAttackData.HitBox.x * movement.Component.FacingDirection),
-                transform.position.y + currentAttackData.HitBox.y
+                transform.position.x + (currentAttackData.HitBox.center.x * movement.Component.FacingDirection),
+                transform.position.y + currentAttackData.HitBox.center.y
             );
 
             // Links to the current attack data and data can be found in the main weaponry components
