@@ -14,6 +14,9 @@ namespace FoxTail
         // Setting name function
         public void SetCompomentName() => componentName = GetType().Name;
 
+        // Variable to check for each to see what component script matches the data
+        public Type ComponentDependeny { get; protected set; }
+
         // Set the names function on initialization
         public ComponentData() {
             SetCompomentName();
@@ -45,6 +48,7 @@ namespace FoxTail
                 AttackData[i].SetAttackName(i + 1);
             }
         }
+
         // Function to make sure the length of the array for each componenent in the data is the same as the number of attacks
         // Remove some attack data if there is too much
         // Add and resize the array if there is too little 

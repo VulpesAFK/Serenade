@@ -7,7 +7,7 @@ namespace FoxTail
 {
     public class WeaponActionHitBox : WeaponComponent<ActionHitBoxData, AttackActionHitBox>
     {
-        private event Action<Collider2D[]> onDetectedCollider2D;
+        public event Action<Collider2D[]> onDetectedCollider2D;
 
         // Core method to fetch all necessary core componenets with generics
         private CoreComp<Movement> movement;
@@ -33,10 +33,6 @@ namespace FoxTail
             if (detected.Length == 0) return;
             // Pass into the broadcasted the list of all entities hit to all listeners to handle
             onDetectedCollider2D?.Invoke(detected);
-
-            foreach (var item in detected) {
-                print(item.name);
-            }
         }
 
 

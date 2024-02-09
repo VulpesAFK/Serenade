@@ -53,9 +53,9 @@ public class MeleeAttackState : AttackState
 
             if (damageable != null) damageable.Damage(stateData.AttackDamage);
 
-            IKnockbackable knockbackable = collider.GetComponent<IKnockbackable>();
+            IKnockBackable knockbackable = collider.GetComponent<IKnockBackable>();
 
-            if (knockbackable != null) knockbackable.Knockback(stateData.KnockbackAngle, stateData.KnockbackStrength, Movement.FacingDirection);
+            if (knockbackable != null) knockbackable.KnockBack(stateData.KnockbackAngle, stateData.KnockbackStrength, Movement.FacingDirection);
         }
     }
 }
