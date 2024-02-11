@@ -53,6 +53,7 @@ namespace FoxTail
                         // Make sure the length of hte component is the same
                         componenet.InitializeAttackData(data.NumberOfAttacks);
                         data.AddDataToInspector(componenet);
+                        EditorUtility.SetDirty(data);
                     } 
                 }
             }

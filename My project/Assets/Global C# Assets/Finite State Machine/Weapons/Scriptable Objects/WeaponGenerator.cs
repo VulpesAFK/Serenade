@@ -7,7 +7,7 @@ using UnityEngine;
 namespace FoxTail {
     public class WeaponGenerator : MonoBehaviour {
 
-        // TODO - Switch this declaration to an awake function just to allow for better automation
+         // TODO - Switch this declaration to an awake function just to allow for better automation
         // Reference to the main weapon that will be manipulated with the correct component scripts
         [SerializeField] private Weapon weapon;
         [SerializeField] private WeaponData data;

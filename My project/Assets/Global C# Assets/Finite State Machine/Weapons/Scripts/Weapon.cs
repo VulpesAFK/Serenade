@@ -21,10 +21,23 @@ public class Weapon : MonoBehaviour
 
     public event Action OnExit;
     public event Action OnEnter;
+    public event Action<bool> OnCurrentInputChange;
 
     private int currentAttackCounter;
     private Timer attackCounterResetTimer;
     public Core Core { get; private set; }
+
+    private bool currentInput;
+    public bool CurrentInput {
+        get => currentInput;
+        set
+        {
+            if (currentInput != value) {
+                currentInput = value;
+                OnCurrentInputChange?.Invoke(currentInput);
+            }
+        }
+    }
 
     public WeaponAnimationEventHandler EventHandler { get; private set; }
 
@@ -49,6 +62,7 @@ public class Weapon : MonoBehaviour
         OnEnter?.Invoke();
     }
     # endregion
+
 
     public void SetCore(Core core) {
         Core = core;

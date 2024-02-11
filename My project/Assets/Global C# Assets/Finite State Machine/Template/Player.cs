@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     // External properties from the core functions
     public Core Core { get; private set; }
-    // v All references needed to components and external scripts for input and animation
+    // All references needed to components and external scripts for input and animation
     public PlayerStateMachine StateMachine { get; private set; }
     public Animator Anim { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
@@ -14,10 +14,10 @@ public class Player : MonoBehaviour
     public Transform DashDirectionIndicator { get; private set; }
     public BoxCollider2D MovementCollider { get; private set; }
 
-    // v Player data for fixed properties
+    // Player data for fixed properties
     [SerializeField] private PlayerData playerData;
 
-    // v Reference to a vector2 to hold a custom vector to be assigned to the rigidbody2d
+    // Reference to a vector2 to hold a custom vector to be assigned to the rigidbody2d
     private Vector2 workSpace;
 
     public PlayerIdleState IdleState { get; private set; }
@@ -62,31 +62,31 @@ public class Player : MonoBehaviour
         DashState = new PlayerDashState(this, StateMachine, playerData, "inAir");
         CrouchIdleState = new PlayerCrouchIdleState(this, StateMachine, playerData, "crouchIdle");
         CrouchMoveState = new PlayerCrouchMoveState(this, StateMachine, playerData, "crouchMove");
-        PrimaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack", primaryWeapon);
-        SecondaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack", secondaryWeapon);
+        PrimaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack", primaryWeapon, CombatInputs.primary);
+        SecondaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack", secondaryWeapon, CombatInputs.secondary);
     }
 
     private void Start() 
     {
-        // t Fetching the animator from the player
+        // Fetching the animator from the player
         Anim = GetComponent<Animator>();
-        // t Fetching the script handling input
+        // Fetching the script handling input
         InputHandler = GetComponent<PlayerInputHandler>();
-        // t Fetching the rigidbody2d
+        // Fetching the rigidbody2d
         RB = GetComponent<Rigidbody2D>();
 
         MovementCollider = GetComponent<BoxCollider2D>();
 
         DashDirectionIndicator = transform.Find("Dash Direction Indicator");
 
-        // t Set the default animation to the default idle state
+        // Set the default animation to the default idle state
         StateMachine.Initialize(IdleState);
     }
 
     private void Update() 
     {
         Core.LogicUpdate();
-        // t Update all logic tied to the logic update in the current running state
+        // Update all logic tied to the logic update in the current running state
         StateMachine.CurrentState.LogicUpdate();
     }
 

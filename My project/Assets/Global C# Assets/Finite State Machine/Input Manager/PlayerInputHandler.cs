@@ -9,28 +9,28 @@ public class PlayerInputHandler : MonoBehaviour
     private PlayerInput playerInput;
     private Camera cam;
 
-    // v Raw vector2 of the current movement input
+    // Raw vector2 of the current movement input
     public Vector2 RawMovementInput { get; private set; }
-    // v Normalized input of the movement input via the x axis
+    // Normalized input of the movement input via the x axis
     public int NormInputX { get; private set; }
-    // v Normalized input of the movement input via the y axis
+    // Normalized input of the movement input via the y axis
     public int NormInputY { get; private set; }
-    // v Bool for the jump input pressed down
+    // Bool for the jump input pressed down
     public bool JumpInput { get; private set; }
-    // v Bool for the jump input when it's placed up 
+    // Bool for the jump input when it's placed up 
     public bool JumpInputStop { get; private set; }
-    // v Bool to store the grab input 
+    // Bool to store the grab input 
     public bool GrabInput { get; private set; }
 
-    // v Bool storing the dash input
+    // Bool storing the dash input
     public bool DashInput { get; private set; }
-    // v Bool when the dash input is pressed up
+    // Bool when the dash input is pressed up
     public bool DashInputStop { get; private set; }
 
-    // v Time for when the dash is used
+    // Time for when the dash is used
     private float DashInputStartTime;
 
-    // v Position angle for dash
+    // Position angle for dash
     public Vector2 RawDashDirectionInput { get; private set; }
     public Vector2Int DashDirectionInput { get; private set; }
 
@@ -46,63 +46,63 @@ public class PlayerInputHandler : MonoBehaviour
         AttackInput = new bool[count];
     }
 
-    // f Function storing the necessary processes for movement
+    // Function storing the necessary processes for movement
     public void OnMoveInput(InputAction.CallbackContext context)
     {
-        // t Read the raw movement vector2 from keyboard or controller input
+        // Read the raw movement vector2 from keyboard or controller input
         RawMovementInput = context.ReadValue<Vector2>();
 
-        // t Provide a threshold for the player input via the x axis
+        // Provide a threshold for the player input via the x axis
         NormInputX = Mathf.RoundToInt(RawMovementInput.x);
 
-        // t Provide a threshold for the player input via the y axis
+        // Provide a threshold for the player input via the y axis
         NormInputY = Mathf.RoundToInt(RawMovementInput.y);
 
     }
 
-    // f Function to store all logic for the jump input
+    // Function to store all logic for the jump input
     public void OnJumpInput(InputAction.CallbackContext context)
     {
-        // t Check if the player has pressed the space or controller button
+        // Check if the player has pressed the space or controller button
         if (context.started)
         {
-            // t Declare the jump input to be true
+            // Declare the jump input to be true
             JumpInput = true;
-            // t Declare when the released
+            // Declare when the released
             JumpInputStop = false;
         }
 
-        // t Check if the player has relased the space or controller button
+        // Check if the player has relased the space or controller button
         if (context.canceled)
         {
-            // t Switch bool to false as jump input is off
+            // Switch bool to false as jump input is off
             JumpInput = false;
-            // t Short pressed jump input has been set true
+            // Short pressed jump input has been set true
             JumpInputStop = true;
         }
     }
 
-    // F Function to store all logic for the dash input
+    // Function to store all logic for the dash input
     public void OnDashInput(InputAction.CallbackContext context)
     {
-        // t The moment the dsah input is pressed down
+        // The moment the dsah input is pressed down
         if (context.started)
         {
-            // t Input has been pressed on
+            // Input has been pressed on
             DashInput = true;
             DashInputStop = false;
         }
 
-        // t When the dash is released
+        // When the dash is released
         else if (context.canceled)
         {
-            // t Set bool to false when the button has been released
+            // Set bool to false when the button has been released
             DashInputStop = true;
             DashInput = false;
         }
     }
 
-    // f Function to work out the direction of the dash
+    // Function to work out the direction of the dash
     public void OnDashDirectionInput(InputAction.CallbackContext context)
     {
         RawDashDirectionInput = context.ReadValue<Vector2>();
@@ -117,16 +117,16 @@ public class PlayerInputHandler : MonoBehaviour
 
 
 
-    // f Function to chceck if the player is grabbing the wall 
+    // Function to chceck if the player is grabbing the wall 
     public void OnGrabInput(InputAction.CallbackContext context)
     {
-        // t Set true as the player presses the grab input 
+        // Set true as the player presses the grab input 
         if (context.started)
         {
             GrabInput = true;
         }
 
-        // t Set false when the player cancels the hold of the button
+        // Set false when the player cancels the hold of the button
         if (context.canceled)
         {
             GrabInput = false;
@@ -159,13 +159,13 @@ public class PlayerInputHandler : MonoBehaviour
         }
     }
 
-    // f Function to externally set the jump input off and to be used for other states
+    // Function to externally set the jump input off and to be used for other states
     public void UseJumpInput()
     {
         JumpInput = false;
     }
 
-    // f Function used to allow for all dash users to set input false
+    // Function used to allow for all dash users to set input false
     public void UseDashInput()
     {
         DashInput = false;
