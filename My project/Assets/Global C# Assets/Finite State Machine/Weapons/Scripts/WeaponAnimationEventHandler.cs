@@ -17,6 +17,7 @@ public class WeaponAnimationEventHandler : MonoBehaviour
     public event Action<AttackPhases> OnEnterAttackPhase;
 
     public event Action OnMinHoldPassed; 
+    public event Action OnUseInput;
 
 
     // Signals the end of the weaponry animation frames
@@ -32,4 +33,5 @@ public class WeaponAnimationEventHandler : MonoBehaviour
     // Bow action events
     private void EnterAttackPhase(AttackPhases phase) => OnEnterAttackPhase?.Invoke(phase);
     private void MinHoldPassedTrigger() => OnMinHoldPassed?.Invoke();
+    private void UseInputTrigger() => OnUseInput?.Invoke();
 }
