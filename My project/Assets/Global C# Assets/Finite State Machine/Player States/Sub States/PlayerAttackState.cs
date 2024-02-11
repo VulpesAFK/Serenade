@@ -31,6 +31,9 @@ public class PlayerAttackState : PlayerAbilitiesState
     }
 
     private void ExitHandler() {
+
+        player.InputHandler.UseAttackInput(inputIndex);
+        
         AnimationFinishTrigger();
         isAbilityDone = true;
     }
