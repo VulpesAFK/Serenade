@@ -7,7 +7,7 @@ using FoxTail;
 
 public class Weapon : MonoBehaviour
 {
-    [field: SerializeField]public WeaponData Data { get; private set; }
+    public WeaponData Data { get; private set; }
     [SerializeField] private float attackCounterResetCooldown;
 
     // A public properties variable that will return and set a value with called or manipulated
@@ -27,6 +27,17 @@ public class Weapon : MonoBehaviour
     public Core Core { get; private set; }
 
     public WeaponAnimationEventHandler EventHandler { get; private set; }
+
+    // Important settings for required weaponry settings
+    # region Awake() & Enter() Functions
+    private void Awake() {
+        BaseGameObject = transform.Find("Base").gameObject;
+        WeaponSpriteGameObject = transform.Find("Weapon Sprite").gameObject;
+
+        anim = BaseGameObject.GetComponent<Animator>();
+        EventHandler =  BaseGameObject.GetComponent<WeaponAnimationEventHandler>();
+        attackCounterResetTimer = new Timer(attackCounterResetCooldown);
+    }
     public void Enter() {
         Debug.Log($"{transform.name} enter");
 
@@ -37,9 +48,13 @@ public class Weapon : MonoBehaviour
 
         OnEnter?.Invoke();
     }
+    # endregion
 
     public void SetCore(Core core) {
         Core = core;
+    }
+    public void SetData(WeaponData data) {
+        Data = data;
     }
     private void Exit() {
         OnExit?.Invoke();
@@ -50,14 +65,6 @@ public class Weapon : MonoBehaviour
         attackCounterResetTimer.StartTime(Time.time);
     }
 
-    private void Awake() {
-        BaseGameObject = transform.Find("Base").gameObject;
-        WeaponSpriteGameObject = transform.Find("Weapon Sprite").gameObject;
-
-        anim = BaseGameObject.GetComponent<Animator>();
-        EventHandler =  BaseGameObject.GetComponent<WeaponAnimationEventHandler>();
-        attackCounterResetTimer = new Timer(attackCounterResetCooldown);
-    }
 
     # region Attack Counter Logic
     // All in relationship ticking and restarting the attack counter

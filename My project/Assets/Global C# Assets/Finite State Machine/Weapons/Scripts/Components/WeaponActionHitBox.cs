@@ -43,18 +43,15 @@ namespace FoxTail
             base.Start();
             // Link with the main core
             movement = new CoreComp<Movement>(Core);
-        }
-        # endregion
-
-        # region OnEnable() & OnDisable() Functions
-        protected override void OnEnable() {
-            base.OnEnable();
             // Enable the trigger from the animation to the main function listener
             eventHandler.OnAttackAction += HandleAttackAction;
         }
+        # endregion
 
-        protected override void OnDisable() {
-            base.OnDisable();
+        # region OnDestory() Functions
+
+        protected override void OnDestroy() {
+            base.OnDestroy();
             // Unsubscribe for safty reason incase this object was destroyed in some reason
             eventHandler.OnAttackAction -= HandleAttackAction;
         }

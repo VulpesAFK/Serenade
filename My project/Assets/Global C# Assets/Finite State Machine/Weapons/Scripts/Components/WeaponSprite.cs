@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace FoxTail
@@ -8,10 +9,18 @@ namespace FoxTail
         private SpriteRenderer weaponSpriteRenderer;
         private int currentWeaponSpriteIndex;
 
+        private Sprite[] currentPhaseSprites;
+
         protected override void HandleEnter() {
             base.HandleEnter();
 
             currentWeaponSpriteIndex = 0;
+        }
+
+        private void HandleEnterAttackPhase(AttackPhases phase) {
+            currentWeaponSpriteIndex = 0;
+
+            currentPhaseSprites = currentAttackData.PhaseSprites.FirstOrDefault(data => data.Phase == phase).Sprites;
         }
 
         private void HandleBaseSpriteChange(SpriteRenderer SR) {
@@ -19,37 +28,32 @@ namespace FoxTail
                 weaponSpriteRenderer.sprite = null;
                 return;
             }
-            var currentAttackSprites = currentAttackData.Sprites;
-            if (currentWeaponSpriteIndex >= currentAttackSprites.Length) {
+
+            if (currentWeaponSpriteIndex >= currentPhaseSprites.Length) {
                 Debug.LogWarning($"{weapon.name} weapon sprite length mismatch");
                 return;
             }
 
-            weaponSpriteRenderer.sprite = currentAttackSprites[currentWeaponSpriteIndex];
+            weaponSpriteRenderer.sprite = currentPhaseSprites[currentWeaponSpriteIndex];
             currentWeaponSpriteIndex++;
         }
-        protected override void Awake()
-        {
-            base.Awake();
+        protected override void Start() {
+            base.Start();
 
-            baseSpriteRenderer = transform.Find("Base").GetComponent<SpriteRenderer>();
-            weaponSpriteRenderer = transform.Find("Weapon Sprite").GetComponent<SpriteRenderer>();
+            baseSpriteRenderer = weapon.BaseGameObject.GetComponent<SpriteRenderer>();
+            weaponSpriteRenderer = weapon.WeaponSpriteGameObject.GetComponent<SpriteRenderer>();
 
-            // TODO: Fix this when we create weapon data
-            // baseSpriteRenderer = weapon.BaseGameObject.GetComponent<SpriteRenderer>();
-            // weaponSpriteRenderer = weapon.WeaponSpriteGameObject.GetComponent<SpriteRenderer>();
-        }
-
-        protected override void OnEnable() {
-            base.OnEnable();
+            data = weapon.Data.GetData<WeaponSpriteData>();
             baseSpriteRenderer.RegisterSpriteChangeCallback(HandleBaseSpriteChange);
-            weapon.OnEnter += HandleEnter;
+
+            eventHandler.OnEnterAttackPhase += HandleEnterAttackPhase;
         }
 
-        protected override void OnDisable() {
-            base.OnDisable();
+        protected override void OnDestroy() {
+            base.OnDestroy();
             baseSpriteRenderer.UnregisterSpriteChangeCallback(HandleBaseSpriteChange);
-            weapon.OnEnter -= HandleEnter;
+
+            eventHandler.OnEnterAttackPhase -= HandleEnterAttackPhase;
         }
     }
 }

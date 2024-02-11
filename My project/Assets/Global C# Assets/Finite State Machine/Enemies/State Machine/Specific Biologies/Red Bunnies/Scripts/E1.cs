@@ -37,6 +37,16 @@ public class E1 : Entity
         E1StunState = new E1StunState(this, StateMachine, "stun", enemyStunData, this);
         E1DeadState = new E1DeadState(this, StateMachine, "dead", enemyDeadData, this);
 
+        stats.Poise.OnCurrentValueZero += HandlePoiseZero;
+
+    }
+
+    private void HandlePoiseZero() {
+        StateMachine.ChangeState(E1StunState);
+    }
+
+    private void OnDestroy() {
+        stats.Poise.OnCurrentValueZero -= HandlePoiseZero;
     }
 
     private void Start() {  

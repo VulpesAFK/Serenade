@@ -7,5 +7,10 @@ namespace FoxTail
     public class ActionHitBoxData : ComponentData<AttackActionHitBox> {
         // Data that will be defined for all of the attack hitbox data assigned
         [field: SerializeField] public LayerMask DetectableLayers { get; private set; }
+
+        protected override void SetCompomentDependencies()
+        {
+            ComponentDependeny = typeof(WeaponActionHitBox);
+        }
     }
 }

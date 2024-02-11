@@ -41,8 +41,17 @@ public class E2 : Entity
         E2DodgeState = new E2DodgeState(this, StateMachine, "dodge", enemyDodgeData, this);
         E2RangeState = new E2RangeState(this, StateMachine, "range", rangeAttackPosition, enemyRangeAttackData, this);
 
+        stats.Poise.OnCurrentValueZero += HandlePoiseZero;
+
     }
 
+    private void HandlePoiseZero() {
+        StateMachine.ChangeState(E2StunState);
+    }
+
+    private void OnDestroy() {
+        stats.Poise.OnCurrentValueZero -= HandlePoiseZero;
+    }
     private void Start() {
         StateMachine.Initialize(E2IdleState);
     }

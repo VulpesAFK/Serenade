@@ -21,6 +21,8 @@ public class Entity : MonoBehaviour
     protected bool isStunned;
     protected bool isDead;
 
+    protected Stats stats;
+
     public int lastDamageDirection { get; private set; }
 
     private Movement Movement { get => movement ??= Core.GetCoreComponent<Movement>(); }
@@ -37,6 +39,8 @@ public class Entity : MonoBehaviour
 
         currentHealth = EntityData.MaxHealth;
         currentStunResistance = EntityData.StunResistance;
+        
+        stats = Core.GetCoreComponent<Stats>();
     }
 
     public virtual void Update()

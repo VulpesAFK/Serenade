@@ -6,7 +6,7 @@ using UnityEngine;
 namespace FoxTail
 {
     [Serializable]
-    public class ComponentData
+    public abstract class ComponentData
     {
         // Name of the total component
         [SerializeField, HideInInspector] private string componentName;
@@ -20,19 +20,23 @@ namespace FoxTail
         // Set the names function on initialization
         public ComponentData() {
             SetCompomentName();
+            SetCompomentDependencies();
         }
 
         // Inheritance function just to allow for a connetion to the weapon editor and generic child
         public virtual void SetAttackDataNames() { }
 
         public virtual void InitializeAttackData(int numberOfAttack) { }
+
+        // Made to model the rough same functions as a interface to force a required override
+        protected abstract void SetCompomentDependencies();
     }
 
     [Serializable]
     // Same reason for having to have the same class name
     // Usage in the weapon component will requrie a generic specification in which will render this generics too messy 
     // Inherit a none class and then state the generics 
-    public class ComponentData<TYPE_ONE> : ComponentData where TYPE_ONE : AttackData {
+    public abstract class ComponentData<TYPE_ONE> : ComponentData where TYPE_ONE : AttackData {
         // Allows for any properties to require it to be called
         [SerializeField] private TYPE_ONE[] attackData;
 
@@ -52,9 +56,10 @@ namespace FoxTail
         // Function to make sure the length of the array for each componenent in the data is the same as the number of attacks
         // Remove some attack data if there is too much
         // Add and resize the array if there is too little 
+        # region InitializeAttackData(int numberOfAttack) Function
         public override void InitializeAttackData(int numberOfAttack) {
             base.InitializeAttackData(numberOfAttack);
-
+            
             // Storing the current length of the componennt length 
             var oldLength = attackData != null? attackData.Length : 0;
             
@@ -75,5 +80,6 @@ namespace FoxTail
 
             SetAttackDataNames();
         }
+        # endregion
     }
 }

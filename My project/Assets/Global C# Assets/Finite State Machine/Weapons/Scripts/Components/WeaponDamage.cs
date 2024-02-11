@@ -7,6 +7,7 @@ namespace FoxTail
     public class WeaponDamage : WeaponComponent<DamageData, AttackDamage>
     {
         private WeaponActionHitBox hitBox;
+        
         private void HandleDetectCollider2D(Collider2D[] colliders) {
             foreach (var item in colliders) {
                 if (item.TryGetComponent(out IDamageable damageable)) {
@@ -15,20 +16,16 @@ namespace FoxTail
             }
         }
 
-        protected override void Awake()
+        protected override void Start()
         {
-            base.Awake();
+            base.Start();
 
             hitBox = GetComponent<WeaponActionHitBox>();
-        }
-
-        protected override void OnEnable() {
-            base.OnEnable();
             hitBox.onDetectedCollider2D += HandleDetectCollider2D;
         }
 
-        protected override void OnDisable() {
-            base.OnDisable();
+        protected override void OnDestroy() {
+            base.OnDestroy();
 
             hitBox.onDetectedCollider2D -= HandleDetectCollider2D;
         }

@@ -9,6 +9,7 @@ namespace FoxTail
     [CreateAssetMenu(fileName = "newWeaponData", menuName = "Data/Weapon Data/Basic Weapon Data")]
     public class WeaponData : ScriptableObject
     {
+        [field: SerializeField] public RuntimeAnimatorController AnimationController { get; private set; }
         [field: SerializeField] public int NumberOfAttacks { get; private set; }
         [field: SerializeReference] public List<ComponentData> ComponentData { get; private set; }
 
@@ -27,6 +28,11 @@ namespace FoxTail
             }
 
             ComponentData.Add(data);
+        }
+
+        // Fetch all the dependencies set by each componenet
+        public List<Type> GetAllDependencies() {
+            return ComponentData.Select(component => component.ComponentDependeny).ToList();
         }
     }
 }

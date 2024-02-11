@@ -19,8 +19,11 @@ namespace FoxTail
             eventHandler = GetComponentInChildren<WeaponAnimationEventHandler>();
         }
 
+        public virtual void InIt() { }
+
         protected virtual void Start() {
-            
+            weapon.OnEnter += HandleEnter;
+            weapon.OnExit += HandleExit;
         }
 
         protected virtual void HandleEnter() {
@@ -31,12 +34,7 @@ namespace FoxTail
             isAttackActive = false;
         }
 
-        protected virtual void OnEnable() {
-            weapon.OnEnter += HandleEnter;
-            weapon.OnExit += HandleExit;
-        }
-
-        protected virtual void OnDisable() {
+        protected virtual void OnDestroy() {
             weapon.OnEnter -= HandleEnter;
             weapon.OnExit -= HandleExit;
         }
@@ -56,8 +54,9 @@ namespace FoxTail
         // Save as the variable that will hold the properties for the individual animations
         protected TYPE_TWO currentAttackData;
 
-        protected override void Awake() {
-            base.Awake();
+        public override void InIt()
+        {
+            base.InIt();
             // Assign the data to the variable with the generic data type assigned
             data = weapon.Data.GetData<TYPE_ONE>();
         }

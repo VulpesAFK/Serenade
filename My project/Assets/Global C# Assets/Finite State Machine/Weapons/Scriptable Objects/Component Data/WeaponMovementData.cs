@@ -6,6 +6,8 @@ namespace FoxTail
 {
     public class WeaponMovementData : ComponentData<AttackMovement>
     {
-        
+        protected override void SetCompomentDependencies() {
+            ComponentDependeny = typeof(WeaponMovement);
+        }
     }
 }

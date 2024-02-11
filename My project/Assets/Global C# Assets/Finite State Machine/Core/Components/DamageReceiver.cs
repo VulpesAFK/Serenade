@@ -8,21 +8,22 @@ namespace FoxTail
     {
         [SerializeField] private GameObject damageParticle;
 
-        private CoreComp<Stats> stats;
-        private CoreComp<ParticleManager> particleManager;
+        private Stats stats;
+        private ParticleManager particleManager;
 
         protected override void Awake()
         {
             base.Awake();
 
-            stats = new CoreComp<Stats>(core);
-            particleManager = new CoreComp<ParticleManager>(core);
+            stats = core.GetCoreComponent<Stats>();
+            particleManager = core.GetCoreComponent<ParticleManager>();
+
         }
         public void Damage(float amount)
         {
             Debug.Log($"{core.transform.parent.name} has been damaged");
-            stats.Component?.DecreaseHealth(amount);
-            particleManager.Component?.StartParticlesWithRandomRotation(damageParticle);
+            stats.Health.Decrease(amount);
+            particleManager.StartParticlesWithRandomRotation(damageParticle);
         }
 
     }
