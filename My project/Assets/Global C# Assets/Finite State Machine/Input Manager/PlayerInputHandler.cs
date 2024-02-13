@@ -170,6 +170,8 @@ public class PlayerInputHandler : MonoBehaviour
     {
         DashInput = false;
     }
+
+    public void UseAttackInput(int i) => AttackInput[i] = false;
 }
 
 public enum CombatInputs

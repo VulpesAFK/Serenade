@@ -54,3 +54,9 @@ TagManager:
   - name: Player
     uniqueID: 543329069
     locked: 0
+  - name: InactiveProj
+    uniqueID: 3401480717
+    locked: 0
+  - name: ActiveProj
+    uniqueID: 3256144871
+    locked: 0
