@@ -14,7 +14,8 @@ public class PlayerAttackState : PlayerAbilitiesState
 
         inputIndex = (int)input;
 
-        weapon.OnExit += ExitHandler;
+        weapon.OnExit += HandleExit;
+        weapon.OnUseInput += HandleUseInput;
     }
 
     public override void LogicUpdate()
@@ -30,9 +31,12 @@ public class PlayerAttackState : PlayerAbilitiesState
         weapon.Enter();
     }
 
-    private void ExitHandler() {
-        player.InputHandler.UseAttackInput(inputIndex);
+    private void HandleExit() {
         AnimationFinishTrigger();
         isAbilityDone = true;
+    }
+
+    private void HandleUseInput() {
+        player.InputHandler.UseAttackInput(inputIndex);
     }
 }

@@ -21,6 +21,8 @@ public class Weapon : MonoBehaviour
 
     public event Action OnExit;
     public event Action OnEnter;
+    public event Action OnUseInput;
+
     public event Action<bool> OnCurrentInputChange;
 
     private int currentAttackCounter;
@@ -92,12 +94,16 @@ public class Weapon : MonoBehaviour
     # region OnEnable() & OnDisable() Functions
     private void OnEnable() {
         EventHandler.OnFinish += Exit;
+        EventHandler.OnUseInput += HandleUseInput;
         attackCounterResetTimer.onTimerDone += ResetAttackCounter;
     }
 
     private void OnDisable() {
         EventHandler.OnFinish -= Exit;
+        EventHandler.OnUseInput -= HandleUseInput;
         attackCounterResetTimer.onTimerDone -= ResetAttackCounter;
     }
     # endregion
+
+    private void HandleUseInput() => OnUseInput?.Invoke();
 }
