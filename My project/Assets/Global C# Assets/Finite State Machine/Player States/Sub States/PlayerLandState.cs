@@ -24,7 +24,7 @@ public class PlayerLandState : PlayerGroundedState
             
             else 
             {
-                Movement?.SetVelocityX(0f);
+                //FIXME - Movement?.SetVelocityX(0f);
                 
                 // t The animation ends and the trigger is set
                 if(isAnimationFinished)

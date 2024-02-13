@@ -3,19 +3,21 @@ public class PlayerGroundedState : PlayerState
     // Variables to store inputs from the player input handler
     protected int xInput;
     protected int yInput;
-    private bool grabInput;
-    private bool jumpInput;
-    private bool dashInput;
+
+    protected bool isTouchingCeiling;
 
     // Surrounding check variables to store the player surroundings
     protected Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
     private Movement movement;
     private Collision Collision { get => collision ??= core.GetCoreComponent<Collision>(); }
     private Collision collision;
+
+    private bool grabInput;
+    private bool jumpInput;
     private bool isGrounded;
     private bool isTouchingWall;
     private bool isTouchingLedge;
-    protected bool isTouchingCeiling;
+    private bool dashInput;
 
     public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) {
 
@@ -24,8 +26,7 @@ public class PlayerGroundedState : PlayerState
     public override void DoChecks() {
         base.DoChecks();
 
-        if (Collision)
-        {
+        if (Collision) {
             isGrounded = Collision.Ground;
             isTouchingWall = Collision.WallFront;
             isTouchingLedge = Collision.LedgeHorizontal;
@@ -38,6 +39,10 @@ public class PlayerGroundedState : PlayerState
 
         player.JumpState.ResetAmountOfJumpsLeft();
         player.DashState.ResetCanDash();
+    }
+
+    public override void Exit() {
+        base.Exit();
     }
 
     public override void LogicUpdate() {
