@@ -149,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 87422908}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.377, y: 0, z: 0}
+  m_LocalPosition: {x: -0.21, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -207,6 +207,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &406874444
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 406874446}
+  - component: {fileID: 406874445}
+  m_Layer: 0
+  m_Name: TesterComps
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &406874445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406874444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe1167452867ee345b5605cdaf7fa23b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Projectile: {fileID: 1052106993}
+  DamageDataPackage:
+    <Amount>k__BackingField: 15
+--- !u!4 &406874446
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406874444}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &595771100
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,8 +505,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1473561547
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -3747,6 +3794,7 @@ GameObject:
   - component: {fileID: 1052106995}
   - component: {fileID: 1052106997}
   - component: {fileID: 1052106996}
+  - component: {fileID: 1052106998}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -3865,7 +3913,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1280
   <InactiveSortingLayerName>k__BackingField: InactiveProj
-  <CheckDistance>k__BackingField: 2
+  <CheckDistance>k__BackingField: 0.58
 --- !u!114 &1052106997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3880,13 +3928,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <HitBoxRect>k__BackingField:
     serializedVersion: 2
-    x: -0.62
-    y: -0.15
-    width: 0.9
-    height: 0.21
+    x: -0.56
+    y: -0.07
+    width: 1.13
+    height: 0.08
   <LayerMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 1280
+--- !u!114 &1052106998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052106989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c881e9d661a40904d89b26e90527479f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <LayerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &1385334595
 GameObject:
   m_ObjectHideFlags: 0
@@ -3991,9 +4054,10 @@ GameObject:
   - component: {fileID: 1735348684}
   - component: {fileID: 1735348683}
   - component: {fileID: 1735348682}
+  - component: {fileID: 1735348687}
   - component: {fileID: 1735348686}
   m_Layer: 10
-  m_Name: Square
+  m_Name: Damageable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4132,7 +4196,7 @@ Transform:
   m_GameObject: {fileID: 1735348681}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.17, y: 4, z: 0}
+  m_LocalPosition: {x: -5.04, y: 0.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4150,6 +4214,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce5db0fdece082d48bc3935212d494be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1735348687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735348681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5e954d493240724e9d50106ddfa6692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4158,3 +4234,4 @@ SceneRoots:
   - {fileID: 595771102}
   - {fileID: 1052106991}
   - {fileID: 1735348685}
+  - {fileID: 406874446}

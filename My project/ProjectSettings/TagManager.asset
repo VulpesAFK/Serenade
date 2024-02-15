@@ -48,11 +48,11 @@ TagManager:
   - name: Background
     uniqueID: 2378719983
     locked: 0
-  - name: Foreground
-    uniqueID: 1473561547
-    locked: 0
   - name: InactiveProj
     uniqueID: 3401480717
+    locked: 0
+  - name: Foreground
+    uniqueID: 1473561547
     locked: 0
   - name: ActiveProj
     uniqueID: 3256144871
