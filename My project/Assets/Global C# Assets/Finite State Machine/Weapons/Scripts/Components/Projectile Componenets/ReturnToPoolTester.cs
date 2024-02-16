@@ -23,9 +23,9 @@ namespace FoxTail {
             objectPool.ReturnObject(projectile);
         }
 
-        public void SetObjectPool<T>(ObjectPool<T> pool) where T : Component
+        public void SetObjectPool<TYPE>(ObjectPool<TYPE> pool) where TYPE : Component
         {
-            objectPool = pool;
+            objectPool = pool as ObjectPool<WeaponProjectile>;
         }
     }
 }

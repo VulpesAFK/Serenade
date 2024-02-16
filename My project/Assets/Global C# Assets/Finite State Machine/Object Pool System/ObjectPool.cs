@@ -8,47 +8,54 @@ namespace FoxTail {
 
         private Dictionary<string, object> pools = new Dictionary<string, object>();
 
-        public ObjectPool<T> GetPool<T>(T prefab) where T : Component
+        public ObjectPool<TYPE> GetPool<TYPE>(TYPE prefab) where TYPE : Component
         {
             if (!pools.ContainsKey(prefab.name))
             {
-                pools[prefab.name] = new ObjectPool<T>(prefab, StartCount);
+                pools[prefab.name] = new ObjectPool<TYPE>(prefab, StartCount);
             }
 
-            return (ObjectPool<T>)pools[prefab.name];
+            return (ObjectPool<TYPE>)pools[prefab.name];
         }
 
-        public void ReturnObject<T>(T obj) where T : Component
+        public void ReturnObject<TYPE>(TYPE obj) where TYPE : Component
         {
             var objPool = GetPool(obj);
             objPool.ReturnObject(obj);
         }
     }
 
-    public class ObjectPool<T> where T : Component
+    public class ObjectPool<TYPE> where TYPE : Component
     {
-        private readonly T prefab;
-        private readonly Queue<T> poolStack = new Queue<T>();
+        private readonly TYPE prefab;
+        private readonly Queue<TYPE> poolStack = new Queue<TYPE>();
 
-        public ObjectPool(T prefab, int startCount = 0)
+        public ObjectPool(TYPE prefab, int startCount = 0)
         {
             this.prefab = prefab;
 
             for (var i = 0; i < startCount; i++)
             {
-                var obj = Object.Instantiate(prefab);
-                obj.name = prefab.name;
-                obj.gameObject.SetActive(false);
+                var obj = InstantiateNewObject();
                 poolStack.Enqueue(obj);
             }
         }
 
-        public T GetObject()
+        private TYPE InstantiateNewObject() {
+            var obj = Object.Instantiate(prefab);
+            obj.name = prefab.name;
+
+            var objectPoolItem = obj.GetComponent<IObjectPoolItem>();
+            objectPoolItem.SetObjectPool(this);
+
+            return obj;
+        }
+
+        public TYPE GetObject()
         {
             if (!poolStack.TryDequeue(out var obj))
             {
-                obj =  Object.Instantiate(prefab);
-                obj.name = prefab.name;
+                obj = InstantiateNewObject();
                 return obj;
             }
 
@@ -56,7 +63,7 @@ namespace FoxTail {
             return obj;
         }
 
-        public void ReturnObject(T obj)
+        public void ReturnObject(TYPE obj)
         {
             obj.gameObject.SetActive(false);
             poolStack.Enqueue(obj);

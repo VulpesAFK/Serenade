@@ -13,12 +13,8 @@ namespace FoxTail {
         public DamageDataPackage DamageDataPackage;
 
         public float ShotCooldown;
-        private ObjectPool objectPool;
+        private ObjectPool objectPool = new ObjectPool();
         private float lastFireTime;
-        private ObjectPool<WeaponProjectile> pool;
-        private void Awake() {
-            objectPool = FindObjectOfType<ObjectPool>();
-        }
 
         private void Start() {
             if (!ProjectilePrefab) {
@@ -26,12 +22,11 @@ namespace FoxTail {
                 return;
             }
 
-            pool = objectPool.GetPool(ProjectilePrefab);
             FireProjectile();
         }
 
         private void FireProjectile() {
-            var projectile = pool.GetObject();
+            var projectile = objectPool.GetPool(ProjectilePrefab).GetObject();
 
             projectile.Reset();
 
