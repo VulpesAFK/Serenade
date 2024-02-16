@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 406874446}
   - component: {fileID: 406874445}
   m_Layer: 0
-  m_Name: TesterComps
+  m_Name: Projectile Tester
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -236,9 +236,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1167452867ee345b5605cdaf7fa23b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectile: {fileID: 1052106993}
+  ProjectilePrefab: {fileID: 1052106993}
   DamageDataPackage:
     <Amount>k__BackingField: 15
+  ShotCooldown: 30
 --- !u!4 &406874446
 Transform:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ namespace FoxTail {
         public DamageDataPackage DamageDataPackage;
 
         public float ShotCooldown;
-        private ObjectPool objectPool = new ObjectPool();
+        private ObjectPools objectPools = new ObjectPools();
         private float lastFireTime;
 
         private void Start() {
@@ -26,7 +26,7 @@ namespace FoxTail {
         }
 
         private void FireProjectile() {
-            var projectile = objectPool.GetPool(ProjectilePrefab).GetObject();
+            var projectile = objectPools.GetPool(ProjectilePrefab).GetObject();
 
             projectile.Reset();
 
@@ -44,6 +44,12 @@ namespace FoxTail {
             {
                 FireProjectile();
             }
+        }
+
+        [ContextMenu("Destroy Pools")]
+        private void DestroyPools() {
+            lastFireTime = Mathf.Infinity;
+            objectPools.Release();
         }
     }
 }
