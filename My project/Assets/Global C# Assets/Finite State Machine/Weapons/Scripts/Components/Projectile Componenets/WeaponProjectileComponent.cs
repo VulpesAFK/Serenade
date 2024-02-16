@@ -13,6 +13,7 @@ namespace FoxTail
         protected virtual void Awake() {
             projectile = GetComponent<WeaponProjectile>();
             projectile.OnInIt += InIt;
+            projectile.OnReset += Reset;
             projectile.OnReceiveDataPackage += HandleReceiveDataPackage;
         }
 
@@ -30,6 +31,7 @@ namespace FoxTail
 
         protected virtual void OnDestroy() {
             projectile.OnInIt -= InIt;
+            projectile.OnReset -= Reset;
             projectile.OnReceiveDataPackage -= HandleReceiveDataPackage;
         }
 
@@ -38,7 +40,12 @@ namespace FoxTail
 
         }
 
-        /*
+        protected virtual void Reset()
+        {
+
+        }
+
+        /* 
             * Handles receiving specific data packages from the weapon 
             * Implemented in any component that needs packages and automatically subscribes then to it 
         */

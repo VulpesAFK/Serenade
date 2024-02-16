@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FoxTail
-{
+namespace FoxTail {
     /*
         * Projectile component is a component that does not come from the prefab connected but through the weapon spawning it
         * IE. Many bows will have the same arrow prefab but different damage amounts so damage amount is sent  when spawned

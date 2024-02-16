@@ -117,8 +117,6 @@ namespace FoxTail
         protected override void InIt()
         {
             base.InIt();
-
-            isStuck = false;
         }
 
         protected override void Awake()
@@ -160,6 +158,13 @@ namespace FoxTail
                 onDisableNotifier.OnDisableEvent -= HandleDisableNotifier;
             }
 
+        }
+
+        protected override void Reset()
+        {
+            base.Reset();
+
+            SetStuck();
         }
     }
 }

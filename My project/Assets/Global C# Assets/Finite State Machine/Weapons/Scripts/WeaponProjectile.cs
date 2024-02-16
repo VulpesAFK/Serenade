@@ -14,10 +14,16 @@ namespace FoxTail
         public event Action OnInIt;
         public event Action<ProjectileDataPackage> OnReceiveDataPackage;
         public Rigidbody2D Rigidbody2D { get; private set; }
+        public event Action OnReset;
 
         public void InIt()
         {
             OnInIt?.Invoke();
+        }
+
+        public void Reset()
+        {
+            OnReset?.Invoke();
         }
 
         public void SendDataPackage(ProjectileDataPackage dataPackage)

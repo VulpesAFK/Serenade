@@ -22,6 +22,7 @@ namespace FoxTail
         {
             base.InIt();
 
+            rb.gravityScale = 0f;
             distanceNotifier.InIt(transform.position, Distance);
         }
         protected override void Awake()
@@ -29,13 +30,6 @@ namespace FoxTail
             base.Awake();
 
             distanceNotifier.OnNotify += HandleNotify;
-        }
-
-        protected override void Start()
-        {
-            base.Start();
-
-            rb.gravityScale = 0;
         }
 
         protected override void Update()
