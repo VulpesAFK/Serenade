@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace FoxTail
 {
@@ -8,6 +9,9 @@ namespace FoxTail
     [RequireComponent(typeof(WeaponProjectileHitBox))]
     public class WeaponProjectileStickToLayer : WeaponProjectileComponent
     {
+        [SerializeField] public UnityEvent setStuck;
+        [SerializeField] public UnityEvent setUnstuck;
+
         [field: SerializeField] public LayerMask LayerMask { get; private set; }
         [field: SerializeField] public string InactiveSortingLayerName { get; private set; }
         [field: SerializeField] public float CheckDistance { get; private set; }
@@ -94,6 +98,8 @@ namespace FoxTail
             sr.sortingLayerName = InactiveSortingLayerName;
             rb.velocity = Vector2.zero;
             rb.bodyType = RigidbodyType2D.Static;
+
+            setStuck?.Invoke();
         }
 
         private void SetUnstuck() {
@@ -103,6 +109,8 @@ namespace FoxTail
             sr.sortingLayerName = activeSortingLayerName;
 
             rb.bodyType = RigidbodyType2D.Dynamic;
+
+            setUnstuck?.Invoke();
         }
 
         private void HandleDisableNotifier() {

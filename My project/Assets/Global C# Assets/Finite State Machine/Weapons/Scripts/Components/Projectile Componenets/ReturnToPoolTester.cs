@@ -4,6 +4,7 @@ using UnityEngine;
 namespace FoxTail {
     public class ReturnToPoolTester : WeaponProjectileComponent {
         private ObjectPoolItem objectPoolItem;
+        private float timeToReturn;
 
         protected override void Awake()
         {
@@ -21,7 +22,7 @@ namespace FoxTail {
 
         private IEnumerator ReturnToPool()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(timeToReturn);
             objectPoolItem.ReturnItem();
         }
     }
