@@ -24,8 +24,14 @@ namespace FoxTail {
                 * If pool referemve is set then return to the pool
                 * Destory else
             */
-            if (objectPool != null) objectPool.ReturnObject(component);
-            else Destroy(gameObject);
+            if (objectPool != null) 
+            {
+                objectPool.ReturnObject(component);
+            }
+            else
+            {
+                 Destroy(gameObject);
+            }
         }
 
         private IEnumerator ReturnItemWithDelay(float delay)

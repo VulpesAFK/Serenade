@@ -10,7 +10,7 @@ namespace FoxTail {
     public abstract class ObjectPool
     {
         public abstract void Release();
-        public abstract void ReturnObject(Component component);
+        public abstract void ReturnObject(Component comp);
     }
 
     /*

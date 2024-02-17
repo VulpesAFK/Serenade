@@ -117,8 +117,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7395326598674484635}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.42, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -140,7 +140,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 0
+  m_GravityScale: 4
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ApplyContinuously>k__BackingField: 0
-  <Speed>k__BackingField: 25
+  <Speed>k__BackingField: 35
 --- !u!114 &8484729336959646836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,8 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e40bab2e7d03a5459037fcafca30a9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Gravity>k__BackingField: 3
-  <Distance>k__BackingField: 10
+  <Distance>k__BackingField: 4
 --- !u!114 &6194374398801799327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +219,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: -0.56
     y: -0.07
-    width: 1.13
+    width: 1.34
     height: 0.08
   <LayerMask>k__BackingField:
     serializedVersion: 2
@@ -252,26 +251,38 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  setUnstuck:
-    m_PersistentCalls:
-      m_Calls:
       - m_Target: {fileID: 5832274548733779325}
         m_TargetAssemblyTypeName: FoxTail.ObjectPoolItem, Assembly-CSharp
         m_MethodName: ReturnItem
-        m_Mode: 1
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 5
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  setUnstuck:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6310560813639823313}
+        m_TargetAssemblyTypeName: FoxTail.WeaponProjectileComponent, Assembly-CSharp
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 3
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   <LayerMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 1280
+    m_Bits: 256
   <InactiveSortingLayerName>k__BackingField: InactiveProj
-  <CheckDistance>k__BackingField: 0.58
+  <CheckDistance>k__BackingField: 2
 --- !u!114 &6310560813639823313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,11 +295,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c881e9d661a40904d89b26e90527479f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5832274548733779325}
+        m_TargetAssemblyTypeName: FoxTail.ObjectPoolItem, Assembly-CSharp
+        m_MethodName: ReturnItem
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   <LayerMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 1024
   <SetInactiveAfterDamage>k__BackingField: 0
-  <Cooldown>k__BackingField: 0
+  <Cooldown>k__BackingField: 3
 --- !u!114 &5832274548733779325
 MonoBehaviour:
   m_ObjectHideFlags: 0

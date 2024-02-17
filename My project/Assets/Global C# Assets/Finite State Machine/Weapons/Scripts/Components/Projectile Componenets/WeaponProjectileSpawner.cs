@@ -29,6 +29,7 @@ namespace FoxTail {
                 currentProjectile.Reset();
 
                 currentProjectile.SendDataPackage(projectileSpawnInfo.DamageData);
+                currentProjectile.SendDataPackage(projectileSpawnInfo.KnockBackData);
 
                 currentProjectile.InIt();
             }

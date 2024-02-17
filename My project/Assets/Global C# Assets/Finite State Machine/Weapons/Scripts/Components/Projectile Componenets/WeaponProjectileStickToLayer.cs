@@ -40,21 +40,9 @@ namespace FoxTail
 
             SetStuck();
 
-            //NOTE - REMOVE
-            // var lineHit = Physics2D.Raycast(transform.position, transform.right, CheckDistance, LayerMask);
-
-            // sr.sortingLayerName = InactiveSortingLayerName;
-            // rb.velocity = Vector2.zero;
-            // rb.bodyType = RigidbodyType2D.Static;
-
-            // isStuck = true;
-
             var lineHit = Physics2D.Raycast(_transform.position, _transform.right, CheckDistance, LayerMask);
 
             if (lineHit) {
-
-                //NOTE - REMOVE
-                // transform.position = lineHit.point;
 
                 SetReferenceTransformAndPoint(lineHit.transform, lineHit.point);
                 return;
@@ -65,16 +53,11 @@ namespace FoxTail
                 if(!LayerMaskUtilities.IsLayerInMask(hit, LayerMask)) {
                     continue;
                 }
-                //NOTE - REMOVE
-                // transform.position = hit.point;
 
                 SetReferenceTransformAndPoint(hit.transform, hit.point);
 
                 return;
             }
-
-            //NOTE - REMOVE
-            // sr.sortingLayerName = activeSortingLayerName;
 
             SetUnstuck();
         }
@@ -178,7 +161,7 @@ namespace FoxTail
         {
             base.Reset();
 
-            SetStuck();
+            SetUnstuck();
         }
     }
 }

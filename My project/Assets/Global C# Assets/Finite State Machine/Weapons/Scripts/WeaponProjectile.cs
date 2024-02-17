@@ -12,9 +12,9 @@ namespace FoxTail
     {
         // Used to notify all projectile componenets that InIt has been called
         public event Action OnInIt;
+        public event Action OnReset;
         public event Action<ProjectileDataPackage> OnReceiveDataPackage;
         public Rigidbody2D Rigidbody2D { get; private set; }
-        public event Action OnReset;
 
         public void InIt()
         {

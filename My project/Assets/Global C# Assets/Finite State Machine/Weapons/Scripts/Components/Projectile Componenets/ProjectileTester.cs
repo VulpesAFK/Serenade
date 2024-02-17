@@ -32,9 +32,9 @@ namespace FoxTail {
 
             projectile.transform.position = transform.position;
             projectile.transform.rotation = transform.rotation;
-            ProjectilePrefab.SendDataPackage(DamageDataPackage);
+            projectile.SendDataPackage(DamageDataPackage);
 
-            ProjectilePrefab.InIt();
+            projectile.InIt();
 
             lastFireTime = Time.time;
         }

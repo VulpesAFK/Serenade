@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace FoxTail {
     /*
@@ -6,6 +7,8 @@ namespace FoxTail {
         * Damage is provided from the damage projectile package 
     */
     public class WeaponProjectileDamage : WeaponProjectileComponent {
+        public UnityEvent OnDamage;
+
         [field: SerializeField] public LayerMask LayerMask { get; private set; }
         [field: SerializeField] public bool SetInactiveAfterDamage { get; private set; }
         [field: SerializeField] public float Cooldown { get; private set; }
@@ -24,18 +27,23 @@ namespace FoxTail {
         }
 
         private void HandleRaycastHit2D(RaycastHit2D[] hits) {
-            if (!Active) return;
+            if (!Active) 
+                return;
 
-            if (Time.time < lastDamageTime + Cooldown) return;
+            if (Time.time < lastDamageTime + Cooldown) 
+                return;
 
-            foreach (var hit in hits) {
+            foreach (var hit in hits) 
+            {
                 if (!LayerMaskUtilities.IsLayerInMask(hit, LayerMask))
                     continue;
 
-                if (!hit.transform.TryGetComponent(out IDamageable damageable)) 
+                if (!hit.collider.transform.gameObject.TryGetComponent(out IDamageable damageable)) 
                     continue;
 
                 damageable.Damage(amount);
+
+                OnDamage?.Invoke();
 
                 lastDamageTime = Time.time;
 

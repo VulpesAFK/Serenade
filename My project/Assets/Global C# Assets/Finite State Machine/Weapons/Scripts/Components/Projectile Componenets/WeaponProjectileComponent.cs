@@ -49,7 +49,7 @@ namespace FoxTail
 
         protected virtual void InIt()
         {
-
+            SetActive(true);
         }
 
         protected virtual void Reset()
