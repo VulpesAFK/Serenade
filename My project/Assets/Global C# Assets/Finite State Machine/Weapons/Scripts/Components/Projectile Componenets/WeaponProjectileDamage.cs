@@ -20,8 +20,6 @@ namespace FoxTail {
         protected override void InIt()
         {
             base.InIt();
-            
-            SetActive(true);
 
             lastDamageTime = Mathf.NegativeInfinity;
         }
