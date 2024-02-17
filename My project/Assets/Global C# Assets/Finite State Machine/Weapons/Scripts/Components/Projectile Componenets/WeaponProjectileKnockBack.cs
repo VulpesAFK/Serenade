@@ -36,6 +36,8 @@ namespace FoxTail {
                 knockBackable.KnockBack(angle, strength, direction);
 
                 OnKnockBack?.Invoke();
+
+                return;
             }
         }
 
