@@ -8,25 +8,25 @@ public class Projectile : MonoBehaviour
     private float speed;
     private float travelDistance;
     private float xStartPosition;
-    private Rigidbody2D RB;
+    [SerializeField] private float gravity;
+    [SerializeField] private float damageRadius;
+    private Rigidbody2D rb;
     private bool isGravityOn;
     private bool hasHitGround;
 
-    [SerializeField] private float gravity;
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private LayerMask whatIsPlayer;
     [SerializeField] private Transform damagePosition;
-    [SerializeField] private float damageRadius;
 
     private void Start() {
-        RB = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
 
-        RB.gravityScale = 0;
-        RB.velocity = transform.right * speed;
-
-        xStartPosition = transform.position.x;
+        rb.gravityScale = 0;
+        rb.velocity = transform.right * speed;
 
         isGravityOn = false;
+        xStartPosition = transform.position.x;
+
     }
 
     private void Update() {
@@ -36,7 +36,7 @@ public class Projectile : MonoBehaviour
 
             if(isGravityOn)
             {
-                float angle = Mathf.Atan2(RB.velocity.y, RB.velocity.x) * Mathf.Rad2Deg;
+                float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             }
         }
@@ -57,14 +57,14 @@ public class Projectile : MonoBehaviour
             if(groundHit)
             {
                 hasHitGround = true;
-                RB.gravityScale = 0;
-                RB.velocity = Vector2.zero;
+                rb.gravityScale = 0;
+                rb.velocity = Vector2.zero;
             }
 
             if (Mathf.Abs(xStartPosition - transform.position.x) >= travelDistance && !isGravityOn)
             {
                 isGravityOn = true;
-                RB.gravityScale = gravity;
+                rb.gravityScale = gravity;
             }
         }
         

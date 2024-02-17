@@ -19,6 +19,11 @@ namespace FoxTail {
 
             return (ObjectPool<TYPE>)pools[prefab.name];
         }
+
+        public TYPE GetObject<TYPE>(TYPE prefab, int startCount = 1) where TYPE : Component
+        {
+            return GetPool(prefab, startCount).GetObject();
+        }
         
         public void ReturnObject<TYPE>(TYPE obj) where TYPE : Component {
             var objPool = GetPool(obj);

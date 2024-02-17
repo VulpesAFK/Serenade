@@ -9,13 +9,13 @@ namespace FoxTail
     // Requires some external material scripts
     public class WeaponProjectileDelayedGravity : WeaponProjectileComponent
     {
-        [field: SerializeField] public float Gravity { get; private set; } = 4f;
         [field: SerializeField] public float Distance { get; private set; } = 10f;
 
         private DistanceNotifier distanceNotifier = new DistanceNotifier();
+        private float gravity;
 
         private void HandleNotify() {
-            rb.gravityScale = Gravity;
+            rb.gravityScale = gravity;
         }
 
         protected override void InIt()
@@ -29,6 +29,7 @@ namespace FoxTail
         {
             base.Awake();
 
+            gravity = rb.gravityScale;
             distanceNotifier.OnNotify += HandleNotify;
         }
 

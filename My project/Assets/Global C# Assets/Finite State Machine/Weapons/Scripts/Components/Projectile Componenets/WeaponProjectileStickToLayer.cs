@@ -31,6 +31,8 @@ namespace FoxTail
         private Vector3 offsetPosition;
         private Quaternion offsetRotation;
 
+        private float gravityScale;
+
         private void HandleRaycastHit2D(RaycastHit2D[] hits) {
             if (isStuck) {
                 return;
@@ -110,6 +112,8 @@ namespace FoxTail
 
             rb.bodyType = RigidbodyType2D.Dynamic;
 
+            rb.gravityScale = gravityScale;
+
             setUnstuck?.Invoke();
         }
 
@@ -122,14 +126,11 @@ namespace FoxTail
             subscribedToDisableNotifier = false;
         }
 
-        protected override void InIt()
-        {
-            base.InIt();
-        }
-
         protected override void Awake()
         {
             base.Awake();
+
+            gravityScale = rb.gravityScale;
 
             _transform = transform;
 
@@ -147,6 +148,11 @@ namespace FoxTail
             base.Update();
 
             if (!isStuck) {
+                return;
+            }
+
+            if (!referenceTransform) {
+                SetUnstuck();
                 return;
             }
 
