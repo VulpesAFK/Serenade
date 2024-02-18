@@ -14,6 +14,7 @@ public class WeaponAnimationEventHandler : MonoBehaviour
     //TODO - Correct this to allow for multi-frame hitboxing detection
     public event Action OnAttackAction;
 
+    public event Action<bool> OnSetOptionalSpriteActive;
     public event Action<AttackPhases> OnEnterAttackPhase;
 
     public event Action OnMinHoldPassed; 
@@ -35,4 +36,7 @@ public class WeaponAnimationEventHandler : MonoBehaviour
     private void EnterAttackPhase(AttackPhases phase) => OnEnterAttackPhase?.Invoke(phase);
     private void MinHoldPassedTrigger() => OnMinHoldPassed?.Invoke();
     private void UseInputTrigger() => OnUseInput?.Invoke();
+
+    private void SetOptionalSpriteEnable() => OnSetOptionalSpriteActive?.Invoke(true);
+    private void SetOptionalSpriteDisable() => OnSetOptionalSpriteActive?.Invoke(false);
 }
