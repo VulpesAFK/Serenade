@@ -19,6 +19,7 @@ MonoBehaviour:
   - rid: 6989501258034053120
   - rid: 6989501258034053121
   - rid: 6989501258034053122
+  - rid: 6989501258034053123
   references:
     version: 2
     RefIds:
@@ -58,6 +59,13 @@ MonoBehaviour:
             <ProjectilePrefab>k__BackingField: {fileID: 6325369295423037467, guid: 9d83d07d8bc7c6c4b8ac64d1dd303a6d, type: 3}
             <DamageData>k__BackingField:
               <Amount>k__BackingField: 15
+            <KnockBackData>k__BackingField:
+              Strength: 20
+              Angle: {x: 1, y: 1}
+            <PoiseDamageData>k__BackingField:
+              <Amount>k__BackingField: 40
+            <SpriteDataPackage>k__BackingField:
+              <Sprite>k__BackingField: {fileID: 887727323, guid: 87e559a8390e5284b8e82e3d485302b7, type: 3}
     - rid: 6989501258034053122
       type: {class: WeaponMovementData, ns: FoxTail, asm: Assembly-CSharp}
       data:
@@ -66,3 +74,11 @@ MonoBehaviour:
         - attackName: List<AttackMovement> Value 1
           <Direction>k__BackingField: {x: 0, y: 0}
           <Velocity>k__BackingField: 0
+    - rid: 6989501258034053123
+      type: {class: OptionalSpriteData, ns: FoxTail, asm: Assembly-CSharp}
+      data:
+        componentName: OptionalSpriteData
+        attackData:
+        - attackName: List<AttackOptionalSprite> Value 1
+          <UseOptionalSprite>k__BackingField: 1
+          <Sprite>k__BackingField: {fileID: 887727323, guid: 87e559a8390e5284b8e82e3d485302b7, type: 3}
