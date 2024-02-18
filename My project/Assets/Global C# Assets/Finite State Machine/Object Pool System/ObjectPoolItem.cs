@@ -49,5 +49,9 @@ namespace FoxTail {
         public void Release() {
             objectPool = null;
         }
+
+        private void OnDisable() {
+            StopAllCoroutines();
+        }
     }
 }

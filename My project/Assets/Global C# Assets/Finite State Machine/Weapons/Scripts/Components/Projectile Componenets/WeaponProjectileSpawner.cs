@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 namespace FoxTail {
     public class WeaponProjectileSpawner : WeaponComponent<ProjectileSpawnerData, AttackProjectileSpawner>
     {
+        public event Action<WeaponProjectile> OnSpawnProjectile;
         private Vector2 spawnPos;
         private Vector2 spawnDir;
 
@@ -32,6 +34,8 @@ namespace FoxTail {
                 currentProjectile.SendDataPackage(projectileSpawnInfo.KnockBackData);
                 currentProjectile.SendDataPackage(projectileSpawnInfo.PoiseDamageData);
                 currentProjectile.SendDataPackage(projectileSpawnInfo.SpriteDataPackage);
+
+                OnSpawnProjectile?.Invoke(currentProjectile);
 
                 currentProjectile.InIt();
             }

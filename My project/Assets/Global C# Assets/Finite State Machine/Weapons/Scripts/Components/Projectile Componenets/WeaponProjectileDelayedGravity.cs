@@ -14,6 +14,8 @@ namespace FoxTail
         private DistanceNotifier distanceNotifier = new DistanceNotifier();
         private float gravity;
 
+        [HideInInspector] public float DistanceMultiplier = 1;
+
         private void HandleNotify() {
             rb.gravityScale = gravity;
         }
@@ -23,7 +25,8 @@ namespace FoxTail
             base.InIt();
 
             rb.gravityScale = 0f;
-            distanceNotifier.InIt(transform.position, Distance);
+            distanceNotifier.InIt(transform.position, Distance * DistanceMultiplier);
+            DistanceMultiplier = 1;
         }
         protected override void Awake()
         {

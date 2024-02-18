@@ -20,6 +20,8 @@ MonoBehaviour:
   - rid: 6989501258034053121
   - rid: 6989501258034053122
   - rid: 6989501258034053123
+  - rid: 6989501281757298688
+  - rid: 6989501281757298689
   references:
     version: 2
     RefIds:
@@ -82,3 +84,47 @@ MonoBehaviour:
         - attackName: List<AttackOptionalSprite> Value 1
           <UseOptionalSprite>k__BackingField: 1
           <Sprite>k__BackingField: {fileID: 887727323, guid: 87e559a8390e5284b8e82e3d485302b7, type: 3}
+    - rid: 6989501281757298688
+      type: {class: DrawData, ns: FoxTail, asm: Assembly-CSharp}
+      data:
+        componentName: DrawData
+        attackData:
+        - attackName: List<AttackDraw> Value 1
+          <DrawCurve>k__BackingField:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 0.71595573
+              value: 0.37072983
+              inSlope: 1.2819114
+              outSlope: 1.2819114
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0.33333334
+              outWeight: 0.33333334
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 2
+              outSlope: 2
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          <DrawTime>k__BackingField: 0.2666667
+    - rid: 6989501281757298689
+      type: {class: DrawToProjectileData, ns: FoxTail, asm: Assembly-CSharp}
+      data:
+        componentName: DrawToProjectileData

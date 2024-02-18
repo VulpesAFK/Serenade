@@ -12,6 +12,7 @@ namespace FoxTail
         //protected WeaponAnimationEventHandler EventHandler => weapon.EventHandler;
         protected WeaponAnimationEventHandler eventHandler;
         protected Core Core => weapon.Core;
+        protected float attackStartTime => weapon.AttackStartTime;
         protected bool isAttackActive;
 
         protected virtual void Awake() {

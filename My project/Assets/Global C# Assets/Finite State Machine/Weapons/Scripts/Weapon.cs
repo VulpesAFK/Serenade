@@ -15,6 +15,7 @@ public class Weapon : MonoBehaviour
         get => currentAttackCounter;
         private set => currentAttackCounter = value >= Data.NumberOfAttacks? 0 : value;
     }
+    public float AttackStartTime { get; private set; }
     private Animator anim;
     public GameObject BaseGameObject { get; private set; }
     public GameObject WeaponSpriteGameObject { get; private set; }
@@ -55,6 +56,8 @@ public class Weapon : MonoBehaviour
     }
     public void Enter() {
         Debug.Log($"{transform.name} enter");
+
+        AttackStartTime = Time.time;
 
         attackCounterResetTimer.StopTimer();
 
