@@ -35,19 +35,5 @@ public class PlayerCrouchIdleState : PlayerGroundedState
 
         if (CrouchMovement) stateMachine.ChangeState(player.CrouchMoveState);
         else if (ReleaseFromCrouch) stateMachine.ChangeState(player.IdleState);
-
-
-        // if (!isExitingState)
-        // {
-        //     if (xInput != 0)
-        //     {
-        //         stateMachine.ChangeState(player.CrouchMoveState);
-        //     }
-
-        //     else if (yInput != -1 && !isTouchingCeiling)
-        //     {
-        //         stateMachine.ChangeState(player.IdleState);
-        //     }
-        // }
     }
 }

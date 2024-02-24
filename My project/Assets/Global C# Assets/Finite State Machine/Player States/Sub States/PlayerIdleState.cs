@@ -21,20 +21,5 @@ public class PlayerIdleState : PlayerGroundedState
 
         if (conditionalMovement) stateMachine.ChangeState(player.MoveState);
         else if (conditionalCrouch) stateMachine.ChangeState(player.CrouchIdleState);
-
-        // if (!isExitingState)
-        // {
-        //     // If there is x input and the player is not exiting the previous state
-        //     if (xInput != 0 ) 
-        //     {
-        //         // Switching to the movement state
-        //         stateMachine.ChangeState(player.MoveState);
-        //     }
-
-        //     else if (yInput == -1)
-        //     {
-        //         stateMachine.ChangeState(player.CrouchIdleState);
-        //     }
-        // }
     }
 }
