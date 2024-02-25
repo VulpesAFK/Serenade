@@ -8645,10 +8645,10 @@ PrefabInstance:
     - target: {fileID: 1690171275502649006, guid: 87c400e965b0a404b9b9e02f672e263a, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -23754252, guid: 847d04c4b146d064899ebc0bdc7f2064, type: 3}
     - target: {fileID: 1690171275502649006, guid: 87c400e965b0a404b9b9e02f672e263a, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3404190654895051104, guid: 87c400e965b0a404b9b9e02f672e263a, type: 3}
       propertyPath: data
@@ -8694,6 +8694,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8013975267522309181, guid: 87c400e965b0a404b9b9e02f672e263a, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 24bdf7814d501e54f8665aec06160285, type: 2}
     m_RemovedComponents:
     - {fileID: 289834011830396447, guid: 87c400e965b0a404b9b9e02f672e263a, type: 3}
     m_RemovedGameObjects: []
@@ -10487,10 +10491,10 @@ PrefabInstance:
     - target: {fileID: 4493957912023969861, guid: 87c400e965b0a404b9b9e02f672e263a, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1018722473, guid: 9d3a7abe255dca2409860931d69a008b, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 4493957912023969861, guid: 87c400e965b0a404b9b9e02f672e263a, type: 3}
       propertyPath: m_WasSpriteAssigned
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7259877948558358268, guid: 87c400e965b0a404b9b9e02f672e263a, type: 3}
       propertyPath: m_LocalPosition.x
