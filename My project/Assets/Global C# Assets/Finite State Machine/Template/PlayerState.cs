@@ -19,7 +19,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
         // Reference to whether the state has finished when the cycle has finished
         protected bool isAnimationFinished;
         // Reference to when the state has ended when switched
-        protected bool isExitingState;
+        public bool isExitingState { get; protected set; }
 
         // Name of the bool condition
         private string animBoolName;

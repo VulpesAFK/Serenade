@@ -1,40 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
+using FoxTail.Serenade.Experimental.FiniteStateMachine.Construct;
+using FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates;
 using UnityEngine;
 
-public class PlayerLandState : PlayerGroundedState
+namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
 {
-    public PlayerLandState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+    public class PlayerLandState : PlayerGroundedState
     {
-
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        if (!isExitingState)
+        public PlayerLandState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
         {
-            // t Input on the x axis
-            if (xInput != 0)
-            {
-                //t Switch to the move state
-                stateMachine.ChangeState(player.MoveState);
-            }
-            
-            else 
-            {
-                Movement?.SetVelocityX(0f);
-                
-                // t The animation ends and the trigger is set
-                if(isAnimationFinished)
-                {
-                    // t Switch to the idle state when the land is finish
-                    stateMachine.ChangeState(player.IdleState);
-                }
 
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+
+            if (!isExitingState)
+            {
+                // t Input on the x axis
+                if (xInput != 0)
+                {
+                    //t Switch to the move state
+                    stateMachine.ChangeState(player.MoveState);
+                }
+                
+                else 
+                {
+                    Movement?.SetVelocityX(0f);
+                    
+                    // t The animation ends and the trigger is set
+                    if(isAnimationFinished)
+                    {
+                        // t Switch to the idle state when the land is finish
+                        stateMachine.ChangeState(player.IdleState);
+                    }
+
+                }
             }
         }
     }
-
 }

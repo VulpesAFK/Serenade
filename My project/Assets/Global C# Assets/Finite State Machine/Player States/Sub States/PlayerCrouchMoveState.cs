@@ -1,54 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
+using FoxTail.Serenade.Experimental.FiniteStateMachine.Construct;
+using FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates;
+using FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates;
 using UnityEngine;
 
-public class PlayerCrouchMoveState : PlayerGroundedState
+namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
 {
-    public PlayerCrouchMoveState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+    public class PlayerCrouchMoveState : PlayerGroundedState
     {
-
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-
-        player.SetColliderHeight(playerData.CrouchColliderHeight);
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-
-        player.SetColliderHeight(playerData.StandColliderHeight);
-    }
-
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        // Conditions
-        bool StopMovement = !isExitingState && xInput == 0;
-        bool NonCrouchMovement = !isExitingState && yInput != -1 && !isTouchingCeiling;
-
-        if (!isExitingState)
+        public PlayerCrouchMoveState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
         {
-            Movement?.SetVelocityX(playerData.CrouchMovementVelocity * Movement.FacingDirection);
-            Movement?.CheckIfShouldFlip(xInput);
+
         }
 
-        if (StopMovement) stateMachine.ChangeState(player.CrouchIdleState);
-        else if (NonCrouchMovement) stateMachine.ChangeState(player.MoveState);
+        public override void Enter()
+        {
+            base.Enter();
 
-            // if (xInput == 0)
-            // {
-            //     stateMachine.ChangeState(player.CrouchIdleState);
-            // }
+            player.SetColliderHeight(playerData.CrouchColliderHeight);
+        }
 
-            // else if (yInput != -1 && !isTouchingCeiling)
-            // {
-            //     stateMachine.ChangeState(player.MoveState);
-            // }
+        public override void Exit()
+        {
+            base.Exit();
+
+            player.SetColliderHeight(playerData.StandColliderHeight);
+        }
+
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+            if (!isExitingState)
+            {
+                Movement?.CheckIfShouldFlip(xInput);
+                Movement?.SetVelocityX(playerData.CrouchMovementVelocity * Movement.FacingDirection);
+            }
+        }
     }
 }

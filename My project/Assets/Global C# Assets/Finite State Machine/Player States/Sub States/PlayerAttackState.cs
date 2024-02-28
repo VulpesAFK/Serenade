@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using FoxTail.Serenade.Experimental.FiniteStateMachine.Construct;
+using FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates;
 using UnityEngine;
 
-public class PlayerAttackState : PlayerAbilitiesState
+namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
 {
-
-    public PlayerAttackState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+    public class PlayerAttackState : PlayerAbilitiesState
     {
 
-    }
+        public PlayerAttackState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+        {
 
+        }
+
+    }
 }

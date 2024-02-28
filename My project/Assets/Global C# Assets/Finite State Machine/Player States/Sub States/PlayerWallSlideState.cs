@@ -1,26 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using FoxTail.Serenade.Experimental.FiniteStateMachine.Construct;
+using FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates;
 using UnityEngine;
 
-public class PlayerWallSlideState : PlayerTouchingWallState
+namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
 {
-    public PlayerWallSlideState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+    public class PlayerWallSlideState : PlayerTouchingWallState
     {
-        
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        if (!isExitingState)
+        public PlayerWallSlideState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
         {
-            // Slow the descent downwards
-            Movement?.SetVelocityY(-playerData.WallSlideVelocity);
-
-            if (grabInput && yInput == 0) { stateMachine.ChangeState(player.WallGrabState); }
-
+            
         }
 
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+
+            if (!isExitingState)
+            {
+                // Slow the descent downwards
+                Movement?.SetVelocityY(-playerData.WallSlideVelocity);
+
+                // if (grabInput && yInput == 0) { stateMachine.ChangeState(player.WallGrabState); }
+
+            }
+
+        }
     }
 }

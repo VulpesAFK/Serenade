@@ -1,57 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using FoxTail.Serenade.Experimental.FiniteStateMachine.Construct;
+using FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates;
 
-public class PlayerMoveState : PlayerGroundedState
+namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
 {
-    public PlayerMoveState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+    public class PlayerMoveState : PlayerGroundedState
     {
-
-    }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
-    }
-
-    public override void Enter()
-    {
-        base.Enter();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        // t Check if the sprite needs to be flipped
-        Movement?.CheckIfShouldFlip(xInput);
-        // t Move the x axis to the player with the velocity
-        Movement?.SetVelocityX(playerData.MovementVelocity * xInput);
-
-        if (!isExitingState)
+        public PlayerMoveState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
         {
-            // t If the player input is null and there is no manual exit
-            if (xInput == 0) 
-            {
-                // t Switch to the idle state
-                stateMachine.ChangeState(player.IdleState);
-            }
-            // else if (yInput == -1)
-            // {
-            //     stateMachine.ChangeState(player.CrouchMoveState);
-            // }
-        }
-        
-    }
 
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+
+            Movement?.CheckIfShouldFlip(xInput);
+            Movement?.SetVelocityX(playerData.MovementVelocity * xInput);
+            
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+        }
     }
 }
