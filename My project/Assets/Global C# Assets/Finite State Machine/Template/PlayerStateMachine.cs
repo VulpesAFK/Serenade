@@ -1,13 +1,19 @@
 using System.Collections.Generic;
 using System;
+using UnityEngine;
+using FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates;
 
 namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
 {
     public class PlayerStateMachine {
 
         public PlayerState CurrentState { get; private set; }
-        private Dictionary<Type, List<Transition>> dictionaryTransitions = new Dictionary<Type, List<Transition>>();
-        private List<Transition> currentTransitions = new List<Transition>();
+        private Dictionary<Type, List<Transition>> dictionarySubTransitions = new Dictionary<Type, List<Transition>>();
+        private List<Transition> currentSubTransitions = new List<Transition>();
+
+        private Dictionary<Type, List<Transition>> dictionarySuperTransitions = new Dictionary<Type, List<Transition>>();
+        private List<Transition> currentSuperTransitions = new List<Transition>();
+
         private static List<Transition> emptyTransition = new List<Transition>();
 
         /*
@@ -35,8 +41,14 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
             CurrentState?.Exit();
             CurrentState = newState;
 
-            dictionaryTransitions.TryGetValue(CurrentState.GetType(), out currentTransitions);
-            if (currentTransitions == null) currentTransitions = emptyTransition;
+            dictionarySubTransitions.TryGetValue(CurrentState.GetType(), out currentSubTransitions);
+
+            //REVIEW - Attempting value fetching from the sub state super state
+            dictionarySuperTransitions.TryGetValue(CurrentState.GetType().BaseType, out currentSuperTransitions);
+
+            if (currentSubTransitions == null) currentSubTransitions = emptyTransition;
+
+            if (currentSuperTransitions == null) currentSuperTransitions = emptyTransition;
 
             CurrentState?.Enter();
 
@@ -47,18 +59,42 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
             * If the starting A key is null then create
             * Add to the list of B destination with allocated A
         */
-        public void AddTransition(PlayerState from, PlayerState to, Func<bool> condition) {
+        public void AddSubTransition(PlayerState from, PlayerState to, Func<bool> condition) {
             /*
                 * Checks if the from transition state exist with an attempt to fetch the transition list from it
                 * Failure will create a new transition with the from type as the main key
             */
-            if (dictionaryTransitions.TryGetValue(from.GetType(), out var transitions) == false) {
+            if (dictionarySubTransitions.TryGetValue(from.GetType(), out var transitions) == false) {
                 /*
                     * Instantiate a new list of transitions
                     * New key under with all transitions
                 */
                 transitions = new List<Transition>();
-                dictionaryTransitions[from.GetType()] = transitions;
+                dictionarySubTransitions[from.GetType()] = transitions;
+            }
+            // * Add the transition using the attempted transition list fetch
+            transitions.Add(new Transition(to, condition));
+        } 
+
+        //REVIEW - Attempting to add super state to the main
+        public void AddSuperTransition(PlayerState from, PlayerState to, Func<bool> condition) {
+
+            Debug.Log(from.GetType().BaseType);
+            Debug.Log(typeof(PlayerState));
+
+            /*
+                * If the base states are the same then return back
+                * No need to add transitions from the base state
+            */
+            if (from.GetType().BaseType == typeof(PlayerState)) return;
+
+            if (dictionarySuperTransitions.TryGetValue(from.GetType().BaseType, out var transitions) == false) {
+                /*
+                    * Instantiate a new list of transitions
+                    * New key under with all transitions
+                */  
+                transitions = new List<Transition>();
+                dictionarySuperTransitions[from.GetType().BaseType] = transitions;
             }
             // * Add the transition using the attempted transition list fetch
             transitions.Add(new Transition(to, condition));
@@ -83,7 +119,12 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
             * If any conditons from A to B are true then return 
         */
         private Transition GetTransition() {
-            foreach (var transition in currentTransitions) {
+            //REVIEW - Add a revire of all transition of the super state
+            foreach (var transition in currentSuperTransitions) {
+                if (transition.Condition()) return transition;
+            }
+
+            foreach (var transition in currentSubTransitions) {
                 if (transition.Condition()) return transition;
             }
             return null;

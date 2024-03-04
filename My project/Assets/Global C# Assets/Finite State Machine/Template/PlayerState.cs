@@ -6,6 +6,10 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
     {
         // Reference to the core components
         protected Core core;
+        
+        // Reference for the abilties state 
+
+        public bool isAbilityDone { get; protected set; }
 
         // Reference for all player methods
         protected Player player;
@@ -17,7 +21,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
         protected float startTime;
 
         // Reference to whether the state has finished when the cycle has finished
-        protected bool isAnimationFinished;
+        public bool isAnimationFinished { get; protected set; }
         // Reference to when the state has ended when switched
         public bool isExitingState { get; protected set; }
 

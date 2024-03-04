@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using FoxTail.Serenade.Experimental.FiniteStateMachine.Construct;
+using FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates;
 using FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class Player : MonoBehaviour
 {
@@ -18,19 +20,25 @@ public class Player : MonoBehaviour
     public BoxCollider2D MovementCollider { get; private set; }
 
     // v Player data for fixed properties
+
+    //REVIEW - Edit Me Later
+    private Movement Movement { get => movement ??= Core.GetCoreComponent<Movement>(); }
+    private Movement movement;
+    private Collision Collision { get => collision ??= Core.GetCoreComponent<Collision>(); }
+    private Collision collision;
+
+
     [SerializeField] private PlayerData playerData;
 
     // v Reference to a vector2 to hold a custom vector to be assigned to the rigidbody2d
     private Vector2 workSpace;
-
     public PlayerIdleState IdleState { get; private set; }
     public PlayerMoveState MoveState { get; private set; }
     public PlayerCrouchIdleState CrouchIdleState { get; private set; }
     public PlayerCrouchMoveState CrouchMoveState { get; private set; }
-
-    // public PlayerJumpState JumpState { get; private set; }
-    // public PlayerInAirState InAirState { get; private set; }
-    // public PlayerLandState LandState { get; private set; }
+    public PlayerJumpState JumpState { get; private set; }
+    public PlayerInAirState InAirState { get; private set; }
+    public PlayerLandState LandState { get; private set; }
     // public PlayerWallSlideState WallSlideState { get; private set; }
     // public PlayerWallGrabState WallGrabState { get; private set; }
     // public PlayerWallClimbState WallClimbState { get; private set; }
@@ -49,44 +57,87 @@ public class Player : MonoBehaviour
         MoveState = new PlayerMoveState(this, StateMachine, playerData, "move");
         CrouchIdleState = new PlayerCrouchIdleState(this, StateMachine, playerData, "crouchIdle");
         CrouchMoveState = new PlayerCrouchMoveState(this, StateMachine, playerData, "crouchMove");
+        JumpState  = new PlayerJumpState(this, StateMachine, playerData, "inAir");
+        InAirState = new PlayerInAirState(this, StateMachine, playerData, "inAir");
+        LandState = new PlayerLandState(this, StateMachine, playerData, "land");
+
 
 
 
         //REVIEW - FIX THIS HAYWIRE OF TRANSITIONS AND FUNCTION LAMBDA CONDITIONS
+        //SECTION - Making Input handling central to the player and not state dependant
+        //TODO - WATCH BARDENT VIDEO ON JUMP TO VERIFY THE FUNCTIONS ON HOW IT WORKS AT THE MAIN NECESSARY FUNCTION ON THE PRIME FUNCTIONS TRANSITION: IDLE/MOVE -> JUMP -> INAIR -> LAND -> MOVE/IDLE, COYOTE JUMPING METHOD AND !! INPUT REMEMBERANCE
 
-        // * Idle
-        Func<bool> IdleToMove() => () => !IdleState.isExitingState && IdleState.xInput != 0;
-        Func<bool> IdleToCrouchIdle() => () => !IdleState.isExitingState && IdleState.yInput == -1;
+        /*
+            * Idle
+            ! Completed
+        */
+        Func<bool> IdleToMove() => () => !IdleState.isExitingState && InputHandler.NormInputX != 0;
+        Func<bool> IdleToCrouchIdle() => () => !IdleState.isExitingState && InputHandler.NormInputY == -1;
 
-        StateMachine.AddTransition(IdleState, MoveState, IdleToMove());
-        StateMachine.AddTransition(IdleState, CrouchIdleState, IdleToCrouchIdle());
+        StateMachine.AddSubTransition(IdleState, MoveState, IdleToMove());
+        StateMachine.AddSubTransition(IdleState, CrouchIdleState, IdleToCrouchIdle());
 
-        // * Move
-        Func<bool> MoveToIdle() => () => !MoveState.isExitingState && MoveState.xInput == 0;
-        Func<bool> MoveToCrouchMove() => () => !MoveState.isExitingState && MoveState.yInput == -1;
+        /* 
+            * Move 
+            ! Completed
+        */
+        Func<bool> MoveToIdle() => () => !MoveState.isExitingState && InputHandler.NormInputX == 0;
+        Func<bool> MoveToCrouchMove() => () => !MoveState.isExitingState && InputHandler.NormInputY == -1;
 
-        StateMachine.AddTransition(MoveState, IdleState, MoveToIdle());
-        StateMachine.AddTransition(MoveState, CrouchMoveState, MoveToCrouchMove());
+        StateMachine.AddSubTransition(MoveState, IdleState, MoveToIdle());
+        StateMachine.AddSubTransition(MoveState, CrouchMoveState, MoveToCrouchMove());
 
-        // * CrouchIdle
-        Func<bool> CrouchIdleToIdle() => () => !CrouchIdleState.isExitingState && !CrouchIdleState.isTouchingCeiling && CrouchIdleState.yInput != -1;
-        Func<bool> CrouchIdleToCrouchMove() => () => !CrouchIdleState.isExitingState && CrouchIdleState.xInput != 0;
+        /* 
+            * CrouchIdle
+            ! Completed 
+        */
+        Func<bool> CrouchIdleToIdle() => () => !CrouchIdleState.isExitingState && !Collision.Ceiling && InputHandler.NormInputY != -1;
+        Func<bool> CrouchIdleToCrouchMove() => () => !CrouchIdleState.isExitingState && InputHandler.NormInputX != 0;
 
-        StateMachine.AddTransition(CrouchIdleState, IdleState, CrouchIdleToIdle());
-        StateMachine.AddTransition(CrouchIdleState, CrouchMoveState, CrouchIdleToCrouchMove());
+        StateMachine.AddSubTransition(CrouchIdleState, IdleState, CrouchIdleToIdle());
+        StateMachine.AddSubTransition(CrouchIdleState, CrouchMoveState, CrouchIdleToCrouchMove());
 
-        // * CrouchMove
-        Func<bool> CrouchMoveToCrouchIdle() => () => !CrouchMoveState.isExitingState && CrouchMoveState.xInput == 0;
-        Func<bool> CrouchMoveToMove() => () => !CrouchMoveState.isExitingState && CrouchMoveState.yInput != -1 && !CrouchMoveState.isTouchingCeiling;
+        /* 
+            * CrouchMove 
+            ! Completed
+        */
+        Func<bool> CrouchMoveToCrouchIdle() => () => !CrouchMoveState.isExitingState && InputHandler.NormInputX == 0;
+        Func<bool> CrouchMoveToMove() => () => !CrouchMoveState.isExitingState && InputHandler.NormInputY != -1 && !Collision.Ceiling;
 
-        StateMachine.AddTransition(CrouchMoveState, CrouchIdleState, CrouchMoveToCrouchIdle());
-        StateMachine.AddTransition(CrouchMoveState, MoveState, CrouchMoveToMove());
+        StateMachine.AddSubTransition(CrouchMoveState, CrouchIdleState, CrouchMoveToCrouchIdle());
+        StateMachine.AddSubTransition(CrouchMoveState, MoveState, CrouchMoveToMove());
 
+        /*
+            * Grounded State 
+            ? Incompleted 
+        */
+        Func<bool> GroundedStateToJump() => () => InputHandler.JumpInput && !Collision.Ceiling && JumpState.CanJump; 
+        Func<bool> GroundedStateToInAir() => () => !Collision.Ground; 
 
+        StateMachine.AddSuperTransition(IdleState, JumpState, GroundedStateToJump());  
+        StateMachine.AddSuperTransition(IdleState, InAirState, GroundedStateToInAir());  
 
-        // JumpState  = new PlayerJumpState(this, StateMachine, playerData, "inAir");
-        // InAirState = new PlayerInAirState(this, StateMachine, playerData, "inAir");
-        // LandState = new PlayerLandState(this, StateMachine, playerData, "land");
+        /* 
+            * Abilities State 
+            ! Completed
+        */
+        Func<bool> AbiltiesStateToInAir() => () => StateMachine.CurrentState.isAbilityDone && !(Collision.Ground && Movement?.CurrentVelocity.y < 0.01f);
+        Func<bool> AbiltiesStateToIdle() => () => StateMachine.CurrentState.isAbilityDone && Collision.Ground && Movement?.CurrentVelocity.y < 0.01f;
+
+        StateMachine.AddSuperTransition(JumpState, InAirState, AbiltiesStateToInAir());  
+        StateMachine.AddSuperTransition(JumpState, IdleState, AbiltiesStateToIdle());  
+
+        // * InAir State
+        Func<bool> InAirToLand() => () => Collision.Ground && Movement?.CurrentVelocity.y < 0.01f;
+        StateMachine.AddSubTransition(InAirState, LandState, InAirToLand());
+
+        // * Land State
+        Func<bool> LandToIdle() => () => !LandState.isExitingState && InputHandler.NormInputX == 0 && LandState.isAnimationFinished;
+        Func<bool> LandToMove() => () => !LandState.isExitingState && InputHandler.NormInputX != 0;
+        StateMachine.AddSubTransition(LandState, IdleState, LandToIdle());
+        StateMachine.AddSubTransition(LandState, MoveState, LandToMove());
+
         // WallSlideState = new PlayerWallSlideState(this, StateMachine, playerData, "wallSlide");
         // WallGrabState = new PlayerWallGrabState(this, StateMachine, playerData, "wallGrab");
         // WallClimbState = new PlayerWallClimbState(this, StateMachine, playerData, "wallClimb");

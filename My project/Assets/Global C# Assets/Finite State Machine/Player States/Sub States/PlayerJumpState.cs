@@ -14,8 +14,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
             amountOfJumpsLeft = playerData.AmountOfJumps;
         }
 
-        public override void Enter()
-        {
+        public override void Enter() {
             base.Enter();
 
             // t Set the use jump input to false as currently active
@@ -26,27 +25,14 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
             // t Set to true and allow for the abilities state to take over
             isAbilityDone = true;
             // t Decreased by one when they enter
-            amountOfJumpsLeft --;
+            DecreaseAmountOfJumpsLeft();
 
             // t Set to true to allow for the a possible variable jump height 
             // player.InAirState.SetIsJumping();
         }
 
-        public bool CanJump()
-        {
-            switch (amountOfJumpsLeft) {
-                case > 0: return true;
-                default:  return false;
-            }
-        }
-
+        public bool CanJump { get => amountOfJumpsLeft > 0 ? true : false; }
         public void ResetAmountOfJumpsLeft() => amountOfJumpsLeft = playerData.AmountOfJumps;
-
-
-        // f Decrease the amount of jumps by one 
-        public void DecreaseAmountOfJumpsLeft()
-        {
-            amountOfJumpsLeft --;
-        }
+        public void DecreaseAmountOfJumpsLeft() => amountOfJumpsLeft--;
     }
 }

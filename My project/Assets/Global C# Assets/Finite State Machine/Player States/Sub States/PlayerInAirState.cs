@@ -228,7 +228,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
                 // Set the timer to false
                 coyoteTime = false;
                 // Decrease the number of allowed jumps by one
-                // player.JumpState.DecreaseAmountOfJumpsLeft();
+                player.JumpState.DecreaseAmountOfJumpsLeft();
             }
         }
 

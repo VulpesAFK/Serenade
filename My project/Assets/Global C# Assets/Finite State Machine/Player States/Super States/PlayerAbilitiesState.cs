@@ -5,8 +5,6 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
 {
     public class PlayerAbilitiesState : PlayerState
     {
-        // Bools to help to save the abilties inheriting to be saved
-        protected bool isAbilityDone;
 
         // Check the surrounding made specifically the made
         private bool isGrounded;
@@ -32,17 +30,6 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
             base.Enter();
 
             isAbilityDone = false;
-        }
-
-        public override void LogicUpdate() {
-            base.LogicUpdate();
-
-            // Conditions
-            bool FinishedAbilityOnGround = isAbilityDone && isGrounded && Movement?.CurrentVelocity.y < 0.01f;
-            bool FinishedAbilityInAir = isAbilityDone && !(isGrounded && Movement?.CurrentVelocity.y < 0.01f);
-
-            if (FinishedAbilityOnGround) stateMachine.ChangeState(player.IdleState);
-            // else if (FinishedAbilityInAir) stateMachine.ChangeState(player.InAirState);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FoxTail.Serenade.Experimental.FiniteStateMachine.Enemy;
 using UnityEngine;
 
 public class E2IdleState : IdleState

@@ -8,7 +8,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
         public int xInput { get; protected set; }
         public int yInput { get; protected set; }
         private bool grabInput;
-        private bool jumpInput;
+        public bool jumpInput { get; protected set; }
         private bool dashInput;
 
         // Surrounding check variables to store the player surroundings
@@ -40,7 +40,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
         public override void Enter() {
             base.Enter();
 
-            // player.JumpState.ResetAmountOfJumpsLeft();
+            player.JumpState.ResetAmountOfJumpsLeft();
             // player.DashState.ResetCanDash();
         }
 
@@ -73,8 +73,8 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
 
             // else if (isAbleToJumpFromGround) { stateMachine.ChangeState(player.JumpState); }
 
-            // else if (!isGrounded) {
-            //     // Coyote time for a more lenient jump
+            if (!isGrounded) player.InAirState.StartCoyoteTime();
+            // if (!isGrounded) {
             //     player.InAirState.StartCoyoteTime();
             //     stateMachine.ChangeState(player.InAirState);
             // }

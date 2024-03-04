@@ -5,35 +5,27 @@ using FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates;
 using FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates;
 using UnityEngine;
 
-namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
-{
-    public class PlayerCrouchMoveState : PlayerGroundedState
-    {
-        public PlayerCrouchMoveState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
-        {
+namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates {
+    public class PlayerCrouchMoveState : PlayerGroundedState {
+        public PlayerCrouchMoveState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) { }
 
-        }
-
-        public override void Enter()
-        {
+        public override void Enter() {
             base.Enter();
 
             player.SetColliderHeight(playerData.CrouchColliderHeight);
         }
 
-        public override void Exit()
-        {
+        public override void Exit() {
             base.Exit();
 
             player.SetColliderHeight(playerData.StandColliderHeight);
         }
 
 
-        public override void LogicUpdate()
-        {
+        public override void LogicUpdate() {
             base.LogicUpdate();
-            if (!isExitingState)
-            {
+
+            if (!isExitingState) {
                 Movement?.CheckIfShouldFlip(xInput);
                 Movement?.SetVelocityX(playerData.CrouchMovementVelocity * Movement.FacingDirection);
             }
