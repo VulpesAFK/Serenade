@@ -56,7 +56,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
 
             // Conditions
             // bool isAbleToJumpFromGround = jumpInput && player.JumpState.CanJump() && !isTouchingCeiling;
-            bool isAbleToGrabWallFromGround = isTouchingWall && grabInput && isTouchingLedge;
+            // bool isAbleToGrabWallFromGround = isTouchingWall && grabInput && isTouchingLedge;
             // bool isAbleToDashFromGround = dashInput && player.DashState.CheckIfCanDash() && !isTouchingCeiling;
 
             // TODO: Fix this dumb stuff

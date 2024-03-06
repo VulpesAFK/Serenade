@@ -57,7 +57,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
             //     stateMachine.ChangeState(player.WallJumpState);
             // }
 
-            if (!isGrabbingWall) { stateMachine.ChangeState(player.IdleState); }
+            // if (!isGrabbingWall) { stateMachine.ChangeState(player.IdleState); }
 
             // else if (isInAir) { stateMachine.ChangeState(player.InAirState); }
 

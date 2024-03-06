@@ -53,8 +53,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
         }
 
         // f Hold the position of the player 
-        private void HoldPosition()
-        {
+        private void HoldPosition() {
             // t Force the position to be the stored positions
             player.transform.position = holdPosition;
 

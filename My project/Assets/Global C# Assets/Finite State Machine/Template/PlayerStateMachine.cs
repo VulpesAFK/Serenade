@@ -54,6 +54,8 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
 
         }
 
+
+        //REVIEW - MERGE THE CONCEPTS OF THE SUB TRANSITION AND THE SUPER INTO ONE 
         /*
             * Creates the general transition from A to B with added condition
             * If the starting A key is null then create
@@ -76,7 +78,6 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
             transitions.Add(new Transition(to, condition));
         } 
 
-        //REVIEW - Attempting to add super state to the main
         public void AddSuperTransition(PlayerState from, PlayerState to, Func<bool> condition) {
 
             Debug.Log(from.GetType().BaseType);
@@ -100,6 +101,8 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
             transitions.Add(new Transition(to, condition));
         }
 
+        
+
         /*
             * Class object to create the link from A to B with the condition
             * Set arguments to the variables when passed
@@ -119,7 +122,6 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
             * If any conditons from A to B are true then return 
         */
         private Transition GetTransition() {
-            //REVIEW - Add a revire of all transition of the super state
             foreach (var transition in currentSuperTransitions) {
                 if (transition.Condition()) return transition;
             }

@@ -124,6 +124,8 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
                 // stateMachine.ChangeState(player.SecondaryAttackState);
             }
 
+
+            //NOTE - COMPLETED
             else if (conditionToLand) {
                 // stateMachine.ChangeState(player.LandState);
             }
@@ -164,7 +166,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
                 // stateMachine.ChangeState(player.WallGrabState);
             }
 
-            // Check whether touching the wall and that the player is facing the wall at its peak height reach
+            //NOTE - COMPLETED
             else if (isTouchingWall && xInput == Movement?.FacingDirection && Movement?.CurrentVelocity.y <= 0.01f)
             {
                 // Switch to a new state
