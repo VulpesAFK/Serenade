@@ -30,26 +30,27 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
         {
             base.LogicUpdate();
 
-            // t Check whether we are not exiting from the state 
-            if (!isExitingState)
-            {
-                // t Hold the position of the player to the wall
-                HoldPosition();
+            // // t Check whether we are not exiting from the state 
+            // if (!isExitingState)
+            // {
+            //     // t Hold the position of the player to the wall
+            //     HoldPosition();
                 
-                // t If input is going upwards
-                if (yInput > 0.0f)
-                {
-                    // t Switch to the wall climb state
-                    // stateMachine.ChangeState(player.WallClimbState);
-                }
+            //     // t If input is going upwards
+            //     if (yInput > 0.0f)
+            //     {
+            //         // t Switch to the wall climb state
+            //         // stateMachine.ChangeState(player.WallClimbState);
+            //     }
 
-                // t If there is no y input and not grabbing
-                else if (yInput < 0.0f || !grabInput)
-                {
-                    // t Switch to the wall slide state 
-                    // stateMachine.ChangeState(player.WallSlideState);
-                }
-            }
+            //     // t If there is no y input and not grabbing
+            //     else if (yInput < 0.0f || !grabInput)
+            //     {
+            //         // t Switch to the wall slide state 
+            //         // stateMachine.ChangeState(player.WallSlideState);
+            //     }
+
+            if (!isExitingState) HoldPosition();
         }
 
         // f Hold the position of the player 

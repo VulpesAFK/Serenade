@@ -20,7 +20,7 @@ MonoBehaviour:
   WallSlideVelocity: 3
   WallClimbVelocity: 3
   WallJumpVelocity: 20
-  WallJumpTime: 0.4
+  WallJumpTime: 0.3
   WallJumpAngle: {x: 1, y: 2}
   StartOffset: {x: 0.4, y: 0.9}
   StopOffset: {x: 0.4, y: 0.75}

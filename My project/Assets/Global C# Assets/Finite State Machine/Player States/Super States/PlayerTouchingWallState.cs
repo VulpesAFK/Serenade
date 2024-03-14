@@ -32,8 +32,6 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
                 isTouchingWall = Collision.WallFront;
                 isTouchingLedge = Collision.LedgeHorizontal;
             }
-
-            // if (isTouchingWall && !isTouchingLedge) { player.LedgeClimbState.SetDetectedPosition(player.transform.position); }
         }
 
         public override void LogicUpdate() {

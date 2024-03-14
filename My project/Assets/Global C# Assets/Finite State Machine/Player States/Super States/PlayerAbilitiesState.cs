@@ -8,11 +8,11 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
 
         // Check the surrounding made specifically the made
         private bool isGrounded;
-        private bool isTouchingWall;
+        protected bool isTouchingWall;
 
         protected Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
         private Movement movement;
-        private Collision Collision { get => collision ??= core.GetCoreComponent<Collision>(); }
+        protected Collision Collision { get => collision ??= core.GetCoreComponent<Collision>(); }
         private Collision collision;
 
         public PlayerAbilitiesState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) { }

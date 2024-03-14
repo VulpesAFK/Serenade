@@ -137,7 +137,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
                 isTouchingWall = Collision.WallFront;
                 // Determine the direction of the jump depending on comparing a side
 
-                // player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
+                player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
 
                 // Switch to new state
 

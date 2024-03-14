@@ -18,7 +18,10 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
         public override void Enter()
         {
             base.Enter();
+            isTouchingWall = Collision.WallFront;
+                // Determine the direction of the jump depending on comparing a side
 
+            player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
             // t Use the input handler to signal that a jump has been used
             player.InputHandler.UseJumpInput();
             // t Reset the amount of jumps left just to make it equal again
@@ -37,7 +40,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
             base.LogicUpdate();
 
             // t Update the animator with the x and y axis to update the fall animation when the animation ends
-            player.Anim.SetFloat("yVelocity", Movement.CurrentVelocity.y);
+            player.Anim.SetFloat("yVelocity", Mathf.Max(Movement.CurrentVelocity.y, -10));
             player.Anim.SetFloat("xVelocity", Mathf.Abs(Movement.CurrentVelocity.x));
 
             // t If the time increasing is larger then the start of the animation and the fixed wall time to prevent quick back trekking

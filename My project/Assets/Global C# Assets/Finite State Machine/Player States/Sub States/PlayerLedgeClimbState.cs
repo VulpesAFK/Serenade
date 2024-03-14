@@ -18,12 +18,12 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
         private Vector2 stopPosition;
 
         // v Variable to hold whether the player is hanging off
-        private bool isHanging;
+        public bool isHanging;
         // v Variable to state which acting after handing off
-        private bool isClimbing;
+        public bool isClimbing;
 
 
-        private bool isTouchingCeiling;
+        public bool isTouchingCeiling;
 
         // v Store the x and y axis input
         private int xInput;
@@ -61,6 +61,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
         public override void Enter()
         {
             base.Enter();
+            SetDetectedPosition(player.transform.position);
 
             // t Freeze the player to its position
             Movement?.SetVelocityZero();
@@ -110,7 +111,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
                 else 
                 {
                 // t Set the new animation to idle
-                stateMachine.ChangeState(player.IdleState);
+                // stateMachine.ChangeState(player.IdleState);
                 }
             }
 

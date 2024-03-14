@@ -1,40 +1,24 @@
 using FoxTail.Serenade.Experimental.FiniteStateMachine.Construct;
+using UnityEngine;
 
 namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
 {
     public class PlayerGroundedState : PlayerState
     {
-        // Variables to store inputs from the player input handler
         public int xInput { get; protected set; }
-        public int yInput { get; protected set; }
-        private bool grabInput;
-        public bool jumpInput { get; protected set; }
-        private bool dashInput;
 
-        // Surrounding check variables to store the player surroundings
         protected Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
         private Movement movement;
         private Collision Collision { get => collision ??= core.GetCoreComponent<Collision>(); }
         private Collision collision;
         private bool isGrounded;
-        private bool isTouchingWall;
-        private bool isTouchingLedge;
-        public bool isTouchingCeiling { get; protected set; }
 
-        public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) {
-
-        }
+        public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) { }
 
         public override void DoChecks() {
             base.DoChecks();
 
-            if (Collision)
-            {
-                isGrounded = Collision.Ground;
-                isTouchingWall = Collision.WallFront;
-                isTouchingLedge = Collision.LedgeHorizontal;
-                isTouchingCeiling = Collision.Ceiling;
-            }
+            if (Collision) isGrounded = Collision.Ground;
         }
 
         public override void Enter() {
@@ -47,12 +31,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
         public override void LogicUpdate() {
             base.LogicUpdate();
 
-            // Checking the inputs from the player input handler
             xInput = player.InputHandler.NormInputX;
-            yInput = player.InputHandler.NormInputY;
-            jumpInput = player.InputHandler.JumpInput;
-            grabInput = player.InputHandler.GrabInput;
-            dashInput = player.InputHandler.DashInput;
 
             // Conditions
             // bool isAbleToJumpFromGround = jumpInput && player.JumpState.CanJump() && !isTouchingCeiling;

@@ -12,7 +12,6 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates {
             base.Enter();
 
             Movement?.SetVelocityZero();
-
             player.SetColliderHeight(playerData.CrouchColliderHeight);
         }
 

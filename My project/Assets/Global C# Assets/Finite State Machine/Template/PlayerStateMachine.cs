@@ -80,9 +80,6 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
 
         public void AddSuperTransition(PlayerState from, PlayerState to, Func<bool> condition) {
 
-            Debug.Log(from.GetType().BaseType);
-            Debug.Log(typeof(PlayerState));
-
             /*
                 * If the base states are the same then return back
                 * No need to add transitions from the base state
