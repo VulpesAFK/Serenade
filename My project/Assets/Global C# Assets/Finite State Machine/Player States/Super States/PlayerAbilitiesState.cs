@@ -5,9 +5,6 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
 {
     public class PlayerAbilitiesState : PlayerState
     {
-
-        // Check the surrounding made specifically the made
-        private bool isGrounded;
         protected bool isTouchingWall;
 
         protected Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
@@ -21,7 +18,6 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
             base.DoChecks();
 
             if (Collision) {
-                isGrounded = Collision.Ground;
                 isTouchingWall = Collision.WallFront;
             }
         }

@@ -15,7 +15,7 @@ MonoBehaviour:
   MovementVelocity: 10
   JumpVelocity: 15
   AmountOfJumps: 1
-  CoyoteTime: 0.05
+  CoyoteTime: 0.1
   VariableJumpHeightMultiplier: 0.5
   WallSlideVelocity: 3
   WallClimbVelocity: 3

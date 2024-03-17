@@ -22,16 +22,15 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
                 // Determine the direction of the jump depending on comparing a side
 
             player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
-            // t Use the input handler to signal that a jump has been used
+
             player.InputHandler.UseJumpInput();
-            // t Reset the amount of jumps left just to make it equal again
+
             // player.JumpState.ResetAmountOfJumpsLeft();
-            // t Set the velocity with a specific velocity and angle and facing direction
+
             Movement?.SetVelocity(playerData.WallJumpVelocity, playerData.WallJumpAngle, wallJumpDirection);
 
-            // t Test the opposite facing dircetion compared to the facing direction
             Movement?.CheckIfShouldFlip(wallJumpDirection);
-            // t Decrease the amount of jumps as the player is jumping
+       
             // player.JumpState.DecreaseAmountOfJumpsLeft();
         }
 

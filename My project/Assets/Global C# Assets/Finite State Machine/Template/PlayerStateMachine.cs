@@ -98,6 +98,19 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
             transitions.Add(new Transition(to, condition));
         }
 
+        public void AddTransition(bool isSuperState, PlayerState from, PlayerState to, Func<bool> condition) {
+            var transitionsDictionary = isSuperState? dictionarySuperTransitions : dictionarySubTransitions;
+
+            if (isSuperState && from.GetType().BaseType == typeof(PlayerState)) return;
+
+            if (transitionsDictionary.TryGetValue(isSuperState? from.GetType().BaseType : from.GetType(), out var transitions) == false) {
+                transitions = new List<Transition>();
+                transitionsDictionary[isSuperState? from.GetType().BaseType : from.GetType()] = transitions;
+            }
+
+            transitions.Add(new Transition(to, condition));
+        }
+
         
 
         /*

@@ -47,17 +47,11 @@ public class PlayerInputHandler : MonoBehaviour
     }
 
     // f Function storing the necessary processes for movement
-    public void OnMoveInput(InputAction.CallbackContext context)
-    {
-        // t Read the raw movement vector2 from keyboard or controller input
+    public void OnMoveInput(InputAction.CallbackContext context) {
         RawMovementInput = context.ReadValue<Vector2>();
 
-        // t Provide a threshold for the player input via the x axis
         NormInputX = Mathf.RoundToInt(RawMovementInput.x);
-
-        // t Provide a threshold for the player input via the y axis
         NormInputY = Mathf.RoundToInt(RawMovementInput.y);
-
     }
 
     // f Function to store all logic for the jump input

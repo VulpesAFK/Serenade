@@ -17,18 +17,15 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
         public override void Enter() {
             base.Enter();
 
-            // t Set the use jump input to false as currently active
             player.InputHandler.UseJumpInput();
-            // t Make the player move upwards with the added jump velocity 
+     
             Movement?.SetVelocityY(playerData.JumpVelocity);
 
-            // t Set to true and allow for the abilities state to take over
             isAbilityDone = true;
-            // t Decreased by one when they enter
+         
             DecreaseAmountOfJumpsLeft();
 
-            // t Set to true to allow for the a possible variable jump height 
-            // player.InAirState.SetIsJumping();
+            player.InAirState.SetIsJumping();
         }
 
         public bool CanJump { get => amountOfJumpsLeft > 0 ? true : false; }

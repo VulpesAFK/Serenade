@@ -78,6 +78,8 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
         public override void Enter()
         {
             base.Enter();
+
+            StartCoyoteTime();
         }
 
         public override void Exit()
@@ -133,11 +135,6 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
             else if (conditionToWallJumpFromAir) {
                 // Stop the timer from continuing 
                 StopWallJumpCoyoteTime();
-                // Check the ensure that it is up to date
-                isTouchingWall = Collision.WallFront;
-                // Determine the direction of the jump depending on comparing a side
-
-                player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
 
                 // Switch to new state
 
@@ -192,11 +189,6 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
             }
         }
 
-        public override void PhysicsUpdate()
-        {
-            base.PhysicsUpdate();
-        }
-
         // Determines the type of jump the player should have depending on the type of and timing of the hold
         private void CheckJumpMultiplier()
         {
@@ -222,17 +214,6 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
         }
 
         // Condition to allow for a normal jump coyote time
-        private void CheckCoyoteTime()
-        {
-            // If the conditions see that a timer is active and the time frame as based
-            if (coyoteTime && Time.time > startTime + playerData.CoyoteTime)
-            {
-                // Set the timer to false
-                coyoteTime = false;
-                // Decrease the number of allowed jumps by one
-                player.JumpState.DecreaseAmountOfJumpsLeft();
-            }
-        }
 
         // Conditions to check whether a wall jump coyote time should start 
         private void CheckWallJumpCoyoteTime()
@@ -245,14 +226,15 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
             }
         }
 
-        // Allow for the start of the coyote normal jump
-        public void StartCoyoteTime()
-        {
-            // Set to be active
-            coyoteTime = true;
+        private void CheckCoyoteTime() {
+            if (coyoteTime && Time.time > startTime + playerData.CoyoteTime) {
+                coyoteTime = false;
+                player.JumpState.DecreaseAmountOfJumpsLeft();
+            }
         }
 
-        // Allow for the start of the wall jump coyote jump
+        public void StartCoyoteTime() => coyoteTime = true;
+
         public void StartWallJumpCoyoteTime()
         {
             // Active the time to start
