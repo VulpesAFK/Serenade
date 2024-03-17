@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
 
         void At(string stateType, PlayerState from, PlayerState to, Func<bool> condition) => StateMachine.AddTransition((stateType == "super")? true : false, from, to, condition);
 
-        #region Idle Complete
+        #region Idle Complete Full
         Func<bool> IdleToMove() => () => !IdleState.isExitingState && InputHandler.NormInputX != 0;
         Func<bool> IdleToCrouchIdle() => () => !IdleState.isExitingState && InputHandler.NormInputY == -1;
 
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
         At("sub", IdleState, CrouchIdleState, IdleToCrouchIdle());
         #endregion
 
-        #region Move Complete
+        #region Move Complete Full
         Func<bool> MoveToIdle() => () => !MoveState.isExitingState && InputHandler.NormInputX == 0;
         Func<bool> MoveToCrouchMove() => () => !MoveState.isExitingState && InputHandler.NormInputY == -1;
 
@@ -94,7 +94,7 @@ public class Player : MonoBehaviour
         At("sub", MoveState, CrouchMoveState, MoveToCrouchMove());
         #endregion
         
-        #region CrouchIdle Complete
+        #region CrouchIdle Complete Sub-Full
         Func<bool> CrouchIdleToIdle() => () => !CrouchIdleState.isExitingState && !Collision.Ceiling && InputHandler.NormInputY != -1;
         Func<bool> CrouchIdleToCrouchMove() => () => !CrouchIdleState.isExitingState && InputHandler.NormInputX != 0;
 
@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
         At("sub", CrouchIdleState, CrouchMoveState, CrouchIdleToCrouchMove());
         #endregion
 
-        #region CrouchMove Complete
+        #region CrouchMove Complete Sub-Full
         Func<bool> CrouchMoveToCrouchIdle() => () => !CrouchMoveState.isExitingState && InputHandler.NormInputX == 0;
         Func<bool> CrouchMoveToMove() => () => !CrouchMoveState.isExitingState && InputHandler.NormInputY != -1 && !Collision.Ceiling;
 
