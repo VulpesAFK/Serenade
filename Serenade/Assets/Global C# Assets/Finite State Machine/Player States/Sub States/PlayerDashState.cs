@@ -18,7 +18,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
         private Vector2 lastAIPosition;
 
         private float lastDashTime;
-        public PlayerDashState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+        public PlayerDashState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData)
         {
             
         }

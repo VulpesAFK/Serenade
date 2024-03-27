@@ -21,7 +21,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
         private Collision Collision { get => collision ??= core.GetCoreComponent<Collision>(); }
         private Collision collision;
 
-        public PlayerTouchingWallState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) {
+        public PlayerTouchingWallState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData) {
             
         } 
         public override void DoChecks() {

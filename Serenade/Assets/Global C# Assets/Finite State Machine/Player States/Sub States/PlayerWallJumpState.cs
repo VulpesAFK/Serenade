@@ -11,7 +11,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
         // v Determine the direction of the facing direction similar to facing direction
         private int wallJumpDirection;
 
-        public PlayerWallJumpState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+        public PlayerWallJumpState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData)
         {
             
         }

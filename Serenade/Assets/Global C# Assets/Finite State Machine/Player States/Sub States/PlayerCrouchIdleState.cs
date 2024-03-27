@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates {
     public class PlayerCrouchIdleState : PlayerGroundedState {
-        public PlayerCrouchIdleState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) { }
+        public PlayerCrouchIdleState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData) { }
 
         public override void Enter() {
             base.Enter();

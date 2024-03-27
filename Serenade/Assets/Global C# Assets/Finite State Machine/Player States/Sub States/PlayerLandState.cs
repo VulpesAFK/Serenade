@@ -7,7 +7,7 @@ using UnityEngine;
 namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
 {
     public class PlayerLandState : PlayerGroundedState {
-        public PlayerLandState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) { }
+        public PlayerLandState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData) { }
 
         public override void LogicUpdate() {
             base.LogicUpdate();

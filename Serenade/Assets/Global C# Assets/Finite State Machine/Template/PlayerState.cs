@@ -19,6 +19,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
         protected PlayerData playerData;
         // Reference to the start of the animation in reference to the start of the game
         protected float startTime;
+        protected PlayerStateData playerStateData;
 
         // Reference to whether the state has finished when the cycle has finished
         public bool isAnimationFinished { get; protected set; }
@@ -28,7 +29,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
         // Name of the bool condition
         private string animBoolName;
 
-        public PlayerState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName)
+        public PlayerState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData)
         {
             // Assign all variables to the constructor and store to the protected and private variables
             this.player = player;

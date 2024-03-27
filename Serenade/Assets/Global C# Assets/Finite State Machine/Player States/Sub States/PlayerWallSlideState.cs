@@ -8,7 +8,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
 {
     public class PlayerWallSlideState : PlayerTouchingWallState
     {
-        public PlayerWallSlideState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+        public PlayerWallSlideState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData)
         {
             
         }

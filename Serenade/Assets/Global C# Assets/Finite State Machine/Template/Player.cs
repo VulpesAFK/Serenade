@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     #region State Machine Instantiation Properties 
     public PlayerStateMachine StateMachine { get; private set; }
+    public PlayerStateData StateData { get; private set; }
     [SerializeField] private PlayerData playerData;
     #endregion
 
@@ -52,20 +53,21 @@ public class Player : MonoBehaviour
         Core = GetComponentInChildren<Core>();
 
         StateMachine = new PlayerStateMachine();
+        StateData = new PlayerStateData();
 
         #region Instantiation 
-        IdleState = new PlayerIdleState(this, StateMachine, playerData, "idle");
-        MoveState = new PlayerMoveState(this, StateMachine, playerData, "move");
-        CrouchIdleState = new PlayerCrouchIdleState(this, StateMachine, playerData, "crouchIdle");
-        CrouchMoveState = new PlayerCrouchMoveState(this, StateMachine, playerData, "crouchMove");
-        JumpState  = new PlayerJumpState(this, StateMachine, playerData, "inAir");
-        InAirState = new PlayerInAirState(this, StateMachine, playerData, "inAir");
-        LandState = new PlayerLandState(this, StateMachine, playerData, "land");
-        WallSlideState = new PlayerWallSlideState(this, StateMachine, playerData, "wallSlide");
-        WallGrabState = new PlayerWallGrabState(this, StateMachine, playerData, "wallGrab");
-        WallClimbState = new PlayerWallClimbState(this, StateMachine, playerData, "wallClimb");
-        WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "inAir");
-        LedgeClimbState = new PlayerLedgeClimbState(this, StateMachine, playerData, "ledgeClimbState");
+        IdleState = new PlayerIdleState(this, StateMachine, playerData, "idle", StateData);
+        MoveState = new PlayerMoveState(this, StateMachine, playerData, "move", StateData);
+        CrouchIdleState = new PlayerCrouchIdleState(this, StateMachine, playerData, "crouchIdle", StateData);
+        CrouchMoveState = new PlayerCrouchMoveState(this, StateMachine, playerData, "crouchMove", StateData);
+        JumpState  = new PlayerJumpState(this, StateMachine, playerData, "inAir", StateData);
+        InAirState = new PlayerInAirState(this, StateMachine, playerData, "inAir", StateData);
+        LandState = new PlayerLandState(this, StateMachine, playerData, "land", StateData);
+        WallSlideState = new PlayerWallSlideState(this, StateMachine, playerData, "wallSlide", StateData);
+        WallGrabState = new PlayerWallGrabState(this, StateMachine, playerData, "wallGrab", StateData);
+        WallClimbState = new PlayerWallClimbState(this, StateMachine, playerData, "wallClimb", StateData);
+        WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "inAir", StateData);
+        LedgeClimbState = new PlayerLedgeClimbState(this, StateMachine, playerData, "ledgeClimbState", StateData);
         #endregion
 
         //TODO - INSTANTIATE THE NEW STATES AFTER ALL IS FIXED WITH THE LAST TODO ITEM

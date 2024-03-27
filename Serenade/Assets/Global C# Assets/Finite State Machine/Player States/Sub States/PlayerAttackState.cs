@@ -9,7 +9,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
     public class PlayerAttackState : PlayerAbilitiesState
     {
 
-        public PlayerAttackState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+        public PlayerAttackState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData)
         {
 
         }

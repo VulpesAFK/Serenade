@@ -10,7 +10,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
     {
         private int amountOfJumpsLeft;
 
-        public PlayerJumpState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) {
+        public PlayerJumpState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData) {
             amountOfJumpsLeft = playerData.AmountOfJumps;
         }
 

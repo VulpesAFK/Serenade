@@ -37,7 +37,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
 
         private Vector2 workSpace;
 
-        public PlayerLedgeClimbState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+        public PlayerLedgeClimbState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData)
         {
             
         }

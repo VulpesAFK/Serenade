@@ -10,7 +10,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
         protected Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
         private Movement movement;
 
-        public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName) { }
+        public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData) { }
 
         public override void Enter() {
             base.Enter();

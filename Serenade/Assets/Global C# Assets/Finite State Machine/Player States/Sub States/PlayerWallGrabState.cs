@@ -11,7 +11,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
         // v Variable holding the vector2 position from when it started
         private Vector2 holdPosition;
 
-        public PlayerWallGrabState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+        public PlayerWallGrabState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData)
         {
             
         }

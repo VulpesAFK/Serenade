@@ -38,7 +38,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
         private Collision Collision { get => collision ??= core.GetCoreComponent<Collision>(); }
         private Collision collision;
 
-        public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
+        public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData)
         {
 
         }
