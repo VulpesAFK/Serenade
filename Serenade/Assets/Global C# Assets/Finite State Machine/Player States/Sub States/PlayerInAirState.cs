@@ -228,8 +228,9 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
 
         private void CheckCoyoteTime() {
             if (coyoteTime && Time.time > startTime + playerData.CoyoteTime) {
+                Debug.Log("Coyote Time Made");
                 coyoteTime = false;
-                player.JumpState.DecreaseAmountOfJumpsLeft();
+                playerStateData.DecreaseAmountOfJumpsLeft();
             }
         }
 

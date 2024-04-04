@@ -5,26 +5,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    #region State Machine Instantiation Properties 
     public PlayerStateMachine StateMachine { get; private set; }
     public PlayerStateData StateData { get; private set; }
     [SerializeField] private PlayerData playerData;
-    #endregion
-
-    #region Core Components
     public Core Core { get; private set; }
     private Movement Movement { get => movement ??= Core.GetCoreComponent<Movement>(); }
     private Movement movement;
     private Collision Collision { get => collision ??= Core.GetCoreComponent<Collision>(); }
     private Collision collision;
-    #endregion
-
-    #region Player Components 
     public Animator Anim { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
     public Rigidbody2D RB { get; private set; }
-    #endregion
-
     public Transform DashDirectionIndicator { get; private set; }
     public BoxCollider2D MovementCollider { get; private set; }
     private Vector2 workSpace;
@@ -54,6 +45,7 @@ public class Player : MonoBehaviour
 
         StateMachine = new PlayerStateMachine();
         StateData = new PlayerStateData();
+
 
         #region Instantiation 
         IdleState = new PlayerIdleState(this, StateMachine, playerData, "idle", StateData);

@@ -36,6 +36,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
             this.stateMachine = stateMachine;
             this.playerData = playerData;
             this.animBoolName = animBoolName;
+            this.playerStateData = playerStateData;
 
             core = player.Core;
         }

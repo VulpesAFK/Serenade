@@ -14,8 +14,9 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
 
         public override void Enter() {
             base.Enter();
-            //TODO - MOVE ELSEWHERE
-            player.JumpState?.ResetAmountOfJumpsLeft();
+            
+            playerStateData.ResetAmountOfJumps(playerData.AmountOfJumps);
+
             // player.DashState.ResetCanDash();
         }
 
