@@ -22,9 +22,17 @@ public class Collision : CoreComponent {
         get => GenericNonImplementedError<Transform>.TryGet(ceilingCheck, core.transform.parent.name);
         private set => ceilingCheck = value;
     }
+    public Transform InteractCheck { 
+        get => GenericNonImplementedError<Transform>.TryGet(interactCheck, core.transform.parent.name);
+        private set => interactCheck = value;
+    }
 
     public float GroundCheckRadius { get => groundCheckRadius; set => groundCheckRadius = value; }
     public float WallCheckDistance { get => wallCheckDistance; set => wallCheckDistance = value; }
+    public float InteractCheckDistance { get => interactiveCheckRadius; set => interactiveCheckRadius = value; }
+
+
+
     public LayerMask WhatIsGround { get => whatIsGround; set => whatIsGround = value; }
     private Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
     private Movement movement;
@@ -36,10 +44,12 @@ public class Collision : CoreComponent {
     [SerializeField] private Transform ledgeCheckHorizontal;
     [SerializeField] private Transform ledgeCheckVertical;
     [SerializeField] private Transform ceilingCheck;
+    [SerializeField] private Transform interactCheck;
 
     // Check properties
     [SerializeField] private float groundCheckRadius = 0.3f;
     [SerializeField] private float wallCheckDistance = 0.5f;
+    [SerializeField] private float interactiveCheckRadius = 0.7f;
     [SerializeField] private LayerMask whatIsGround; 
 
     // Check the surroundings of the ground

@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     public PlayerWallClimbState WallClimbState { get; private set; }
     public PlayerWallJumpState WallJumpState { get; private set; }
     public PlayerLedgeClimbState LedgeClimbState { get; private set; }
+    public PlayerInteractState InteractState { get; private set; }
     #endregion
 
     //TODO - REIMPLEMENT THESE SECTIONS OF THE STATES LATER AFTER LOOKING AT THE MECHANICS OF THE NEW ATTACKING STATE
@@ -60,6 +61,7 @@ public class Player : MonoBehaviour
         WallClimbState = new PlayerWallClimbState(this, StateMachine, playerData, "wallClimb", StateData);
         WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "inAir", StateData);
         LedgeClimbState = new PlayerLedgeClimbState(this, StateMachine, playerData, "ledgeClimbState", StateData);
+        InteractState = new PlayerInteractState(this, StateMachine, playerData, "interact", StateData);
         #endregion
 
         //TODO - INSTANTIATE THE NEW STATES AFTER ALL IS FIXED WITH THE LAST TODO ITEM
@@ -108,10 +110,12 @@ public class Player : MonoBehaviour
         Func<bool> GroundedStateToJump() => () => InputHandler.JumpInput && !Collision.Ceiling && JumpState.CanJump; 
         Func<bool> GroundedStateToInAir() => () => !Collision.Ground && !Collision.Ceiling; 
         Func<bool> GroundedStateToWallGrab() => () => Collision.WallFront && InputHandler.GrabInput && Collision.LedgeHorizontal;
+        Func<bool> GroundedStateToInteract() => () => true;
 
         At("super", IdleState, JumpState, GroundedStateToJump());  
         At("super", IdleState, InAirState, GroundedStateToInAir());  
         At("super", IdleState, WallGrabState, GroundedStateToWallGrab());  
+        At("super", IdleState, InteractState, GroundedStateToInteract());  
         #endregion
 
         #region Abilities Complete
