@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
         WallClimbState = new PlayerWallClimbState(this, StateMachine, playerData, "wallClimb", StateData);
         WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "inAir", StateData);
         LedgeClimbState = new PlayerLedgeClimbState(this, StateMachine, playerData, "ledgeClimbState", StateData);
+        //TODO - TESTING CHANGING IT TO IDLE
         InteractState = new PlayerInteractState(this, StateMachine, playerData, "interact", StateData);
         #endregion
 
@@ -110,7 +111,7 @@ public class Player : MonoBehaviour
         Func<bool> GroundedStateToJump() => () => InputHandler.JumpInput && !Collision.Ceiling && JumpState.CanJump; 
         Func<bool> GroundedStateToInAir() => () => !Collision.Ground && !Collision.Ceiling; 
         Func<bool> GroundedStateToWallGrab() => () => Collision.WallFront && InputHandler.GrabInput && Collision.LedgeHorizontal;
-        Func<bool> GroundedStateToInteract() => () => true;
+        Func<bool> GroundedStateToInteract() => () => InputHandler.InteractInput && Collision.Interact;
 
         At("super", IdleState, JumpState, GroundedStateToJump());  
         At("super", IdleState, InAirState, GroundedStateToInAir());  

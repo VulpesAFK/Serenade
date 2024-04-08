@@ -29,6 +29,12 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
 
         public override void LogicUpdate() {
             base.LogicUpdate();
+
+            Debug.Log("INTERACTIVE");
+
+            player.InputHandler.UseInteractInput();
+
+            isAbilityDone = true;
         }
     }
 }
