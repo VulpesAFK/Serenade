@@ -9,28 +9,28 @@ public class PlayerInputHandler : MonoBehaviour
     private PlayerInput playerInput;
     private Camera cam;
 
-    // v Raw vector2 of the current movement input
     public Vector2 RawMovementInput { get; private set; }
-    // v Normalized input of the movement input via the x axis
+
     public int NormInputX { get; private set; }
-    // v Normalized input of the movement input via the y axis
+
     public int NormInputY { get; private set; }
-    // v Bool for the jump input pressed down
+
     public bool JumpInput { get; private set; }
-    // v Bool for the jump input when it's placed up 
+
     public bool JumpInputStop { get; private set; }
-    // v Bool to store the grab input 
+
     public bool GrabInput { get; private set; }
 
-    // v Bool storing the dash input
+
     public bool DashInput { get; private set; }
-    // v Bool when the dash input is pressed up
+
     public bool DashInputStop { get; private set; }
 
-    // v Time for when the dash is used
+    public bool InteractInput { get; private set; }
+
+
     private float DashInputStartTime;
 
-    // v Position angle for dash
     public Vector2 RawDashDirectionInput { get; private set; }
     public Vector2Int DashDirectionInput { get; private set; }
 
@@ -54,24 +54,25 @@ public class PlayerInputHandler : MonoBehaviour
         NormInputY = Mathf.RoundToInt(RawMovementInput.y);
     }
 
-    // f Function to store all logic for the jump input
-    public void OnJumpInput(InputAction.CallbackContext context)
-    {
-        // t Check if the player has pressed the space or controller button
-        if (context.started)
-        {
-            // t Declare the jump input to be true
+    public void OnInteractInput(InputAction.CallbackContext context) {
+        if (context.started) {
+            InteractInput = true;
+            Debug.Log(InteractInput);
+        }
+        if (context.canceled) {
+            InteractInput = false;
+            Debug.Log(InteractInput);
+        }
+    }
+
+    public void OnJumpInput(InputAction.CallbackContext context) {
+        if (context.started) {
             JumpInput = true;
-            // t Declare when the released
             JumpInputStop = false;
         }
 
-        // t Check if the player has relased the space or controller button
-        if (context.canceled)
-        {
-            // t Switch bool to false as jump input is off
+        if (context.canceled) {
             JumpInput = false;
-            // t Short pressed jump input has been set true
             JumpInputStop = true;
         }
     }
@@ -157,6 +158,10 @@ public class PlayerInputHandler : MonoBehaviour
     public void UseJumpInput()
     {
         JumpInput = false;
+    }
+    public void UseInteractInput()
+    {
+        InteractInput = false;
     }
 
     // f Function used to allow for all dash users to set input false

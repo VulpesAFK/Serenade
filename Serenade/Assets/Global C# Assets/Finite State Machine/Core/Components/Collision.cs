@@ -34,6 +34,7 @@ public class Collision : CoreComponent {
 
 
     public LayerMask WhatIsGround { get => whatIsGround; set => whatIsGround = value; }
+    public LayerMask WhatIsInteract { get => whatIsInteractive; set => whatIsInteractive = value; }
     private Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
     private Movement movement;
 
@@ -51,20 +52,14 @@ public class Collision : CoreComponent {
     [SerializeField] private float wallCheckDistance = 0.5f;
     [SerializeField] private float interactiveCheckRadius = 0.7f;
     [SerializeField] private LayerMask whatIsGround; 
+    [SerializeField] private LayerMask whatIsInteractive;
 
-    // Check the surroundings of the ground
+
     public bool Ground { get => Physics2D.OverlapCircle(GroundCheck.position, groundCheckRadius, whatIsGround); }
-
-    // Check the surroundings of the walls in front of us
     public bool WallFront { get => Physics2D.Raycast(WallCheck.position, Vector2.right * Movement.FacingDirection, wallCheckDistance, whatIsGround); }
-
-    // Check the surroundings of the walls behind of us
     public bool WallBack { get => Physics2D.Raycast(WallCheck.position, Vector2.right * -Movement.FacingDirection, wallCheckDistance, whatIsGround); }
-
-    // Designed to check whether there is a ledge or not
     public bool LedgeHorizontal { get => Physics2D.Raycast(LedgeCheckHorizontal.position, Vector2.right * Movement.FacingDirection, wallCheckDistance, whatIsGround); }
     public bool LedgeVertical { get => Physics2D.Raycast(LedgeCheckVertical.position, Vector2.down, wallCheckDistance, whatIsGround); }
-    // Designed to check for the ceiling 
     public bool Ceiling { get => Physics2D.OverlapCircle(CeilingCheck.position, groundCheckRadius, whatIsGround); }
-
+    public bool Interact { get => Physics2D.OverlapCircle(InteractCheck.position, interactiveCheckRadius, whatIsInteractive); }
 }
