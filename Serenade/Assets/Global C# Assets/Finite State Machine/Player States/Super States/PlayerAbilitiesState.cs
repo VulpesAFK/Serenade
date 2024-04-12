@@ -16,7 +16,6 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
 
         public override void DoChecks() {
             base.DoChecks();
-
             if (Collision) {
                 isTouchingWall = Collision.WallFront;
             }

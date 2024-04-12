@@ -2,8 +2,7 @@ using FoxTail.Serenade.Experimental.FiniteStateMachine.Construct;
 using FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates;
 using UnityEngine;
 
-namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
-{
+namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates {
     public class PlayerInteractState : PlayerAbilitiesState {
         public PlayerInteractState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData) { }
         /*
@@ -30,7 +29,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
         public override void LogicUpdate() {
             base.LogicUpdate();
 
-            Debug.Log("INTERACTIVE");
+            Debug.Log(Physics2D.OverlapCircle(Collision.InteractCheck.position, playerData.InteractiveCheckRadius, playerData.WhatIsInteractive).gameObject.name);
 
             player.InputHandler.UseInteractInput();
 

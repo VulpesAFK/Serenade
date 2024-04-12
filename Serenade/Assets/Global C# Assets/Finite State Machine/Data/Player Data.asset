@@ -35,3 +35,7 @@ MonoBehaviour:
   CrouchColliderHeight: 0.8
   StandColliderHeight: 1.6
   CrouchMovementVelocity: 5
+  InteractiveCheckRadius: 0.7
+  WhatIsInteractive:
+    serializedVersion: 2
+    m_Bits: 4096

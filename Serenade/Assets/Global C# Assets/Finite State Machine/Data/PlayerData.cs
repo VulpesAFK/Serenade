@@ -50,6 +50,10 @@ public class PlayerData : ScriptableObject
 
     [Header("Crouch Move State")]
     public float CrouchMovementVelocity = 5f;
+
+    [Header("Interactive State")]
+    public float InteractiveCheckRadius = 0.7f;
+    public LayerMask WhatIsInteractive;
     
 
     # endregion
