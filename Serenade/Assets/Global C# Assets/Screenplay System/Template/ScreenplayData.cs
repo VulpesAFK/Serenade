@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 namespace FoxTail.Serenade.Experimental.ScreenplaySystem.Template {
@@ -11,8 +10,9 @@ namespace FoxTail.Serenade.Experimental.ScreenplaySystem.Template {
 
 
 }
+
 namespace FoxTail.Serenade.Experimental.ScreenplaySystem.Template {
-    [System.Serializable]
+    [Serializable]
     public class Script {
         public string Text;
     }

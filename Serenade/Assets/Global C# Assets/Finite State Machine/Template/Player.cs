@@ -61,8 +61,7 @@ public class Player : MonoBehaviour
         WallClimbState = new PlayerWallClimbState(this, StateMachine, playerData, "wallClimb", StateData);
         WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "inAir", StateData);
         LedgeClimbState = new PlayerLedgeClimbState(this, StateMachine, playerData, "ledgeClimbState", StateData);
-        //TODO - TESTING CHANGING IT TO IDLE
-        InteractState = new PlayerInteractState(this, StateMachine, playerData, "interact", StateData);
+        InteractState = new PlayerInteractState(this, StateMachine, playerData, "idle", StateData);
         #endregion
 
         //TODO - INSTANTIATE THE NEW STATES AFTER ALL IS FIXED WITH THE LAST TODO ITEM

@@ -1,39 +1,38 @@
 using FoxTail.Serenade.Experimental.FiniteStateMachine.Construct;
 using FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates;
+using FoxTail.Serenade.Experimental.ScreenplaySystem.Template;
 using UnityEngine;
 
 namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates {
     public class PlayerInteractState : PlayerAbilitiesState {
-        public PlayerInteractState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData) { }
         /*
-            ? Method 1
-                ! State transition require the nedd to be able trandition from the grounded state to the interact state (isGrounded && object-interactive is true)
-                * Freeze the player via set velocity 0
-                * Fetch the type of object it is (for now its sign post || NPCs)
-                * Set the object boolean event trigger towards the isAbilityFinished
-                ! Switch states back to the idle state
-
-            ? Method 1 EXT. 1
-                ! State transition require the nedd to be able trandition from the grounded state to the interact state (isGrounded && object-interactive is true)
-				! Freeze the player via set velocity 0 -> Enter()
-				! Fetch the type of object it is
-				! Set the object boolean event trigger towards the isAbilityFinished
-				! Switch states back to the idle state
+            * Interact input 
+            * Fetch the inter-class function 
         */
-        public override void Enter() {
+        private Screenplay screenplay;
+        public PlayerInteractState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData) { }
+
+
+        public override void Enter()
+        {
             base.Enter();
 
-			Movement?.SetVelocityZero();
+            Collider2D interactive = Physics2D.OverlapCircle(Collision.InteractCheck.position, playerData.InteractiveCheckRadius, playerData.WhatIsInteractive);
+            screenplay = interactive.GetComponent<Screenplay>();
+            screenplay.ResetIsScreenplayFinished();
+
+            Movement?.SetVelocityZero();
         }
 
         public override void LogicUpdate() {
             base.LogicUpdate();
 
-            Debug.Log(Physics2D.OverlapCircle(Collision.InteractCheck.position, playerData.InteractiveCheckRadius, playerData.WhatIsInteractive).gameObject.name);
+            if (player.InputHandler.InteractInput) {
+                player.InputHandler.UseInteractInput();
+                screenplay.TEST();
+            }
 
-            player.InputHandler.UseInteractInput();
-
-            isAbilityDone = true;
+            isAbilityDone = screenplay.IsScreenplayFinished;
         }
     }
 }
