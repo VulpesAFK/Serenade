@@ -12,5 +12,6 @@ namespace FoxTail.Serenade.Experimental.Screenplay.Template {
     [Serializable]
     public class Script {
         public string Text;
+        
     }
 }

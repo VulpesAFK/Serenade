@@ -8,28 +8,44 @@ namespace FoxTail.Serenade.Experimental.Screenplay.System {
     public class Dialogue : ScriptDialogue {
         private String empty;
         private bool textFinished = true;
-        private IEnumerator textEffect;
         [SerializeField] private ScriptDialogueData dialogueData;
+        private IEnumerator textCoroutines;
 
         private int textCounter_;
-        private bool readFinished;
+
+        private bool isReading;
+        private bool canSkip;
+
         protected override void Update()
         {
             base.Update();
 
-            if (interactiveInput && textFinished) {
-                // textCounter_ = textCounter_ > dialogueData.Scripts.Length? 0 : textCounter_;
+            if (interactiveInput && !isReading && !canSkip) {
 
                 if (textCounter_ >= dialogueData.Scripts.Length) {
                     canvasText.text = "";
                     textCounter_ = 0;
+                    textFinished = false;
                 }
                 else {
-                    textEffect = textTypeEffect(dialogueData.Scripts[textCounter_].Text);
-                    StartCoroutine(textEffect);
-                    textCounter_++;
+                    textCoroutines = textTypeEffect(dialogueData.Scripts[textCounter_].Text);
+                    StartCoroutine(textCoroutines);
+
+                    isReading = true;
+                    canSkip = true;
                 }
             }
+            else if (interactiveInput && isReading && canSkip && !textFinished) {
+                StopCoroutine(textCoroutines);
+                textCoroutines = null;
+
+                canvasText.text = dialogueData.Scripts[textCounter_].Text;
+
+                isReading = false;
+                canSkip = false;
+                textFinished = true;
+                textCounter_++;
+            }   
         }
 
         IEnumerator textTypeEffect(String textType) {
@@ -39,10 +55,13 @@ namespace FoxTail.Serenade.Experimental.Screenplay.System {
             for (int i = 0; i < textType.Length; i++) {
                 empty = empty + textType[i];
                 canvasText.text = empty;
-                yield return new WaitForSeconds(0.05f);
+                yield return new WaitForSeconds(0.02f);
             }
 
             textFinished = true;
+            isReading = false;
+            canSkip = false;
+            textCounter_++;
         }
     }
 }
