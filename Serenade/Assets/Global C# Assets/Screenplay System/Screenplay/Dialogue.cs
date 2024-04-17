@@ -14,15 +14,14 @@ namespace FoxTail.Serenade.Experimental.Screenplay.System {
         private int textCounter_;
 
         private bool isReading;
-        private bool canSkip;
 
         protected override void Update()
         {
             base.Update();
 
-            if (interactiveInput && !isReading && !canSkip) {
+            if (interactiveInput && !isReading) {
 
-                if (textCounter_ >= dialogueData.Scripts.Length) {
+                if (textCounter_ >= dialogueData.Scripts.Length) {  
                     canvasText.text = "";
                     textCounter_ = 0;
                     textFinished = false;
@@ -32,17 +31,15 @@ namespace FoxTail.Serenade.Experimental.Screenplay.System {
                     StartCoroutine(textCoroutines);
 
                     isReading = true;
-                    canSkip = true;
                 }
             }
-            else if (interactiveInput && isReading && canSkip && !textFinished) {
+            else if (interactiveInput && isReading && !textFinished) {
                 StopCoroutine(textCoroutines);
                 textCoroutines = null;
 
                 canvasText.text = dialogueData.Scripts[textCounter_].Text;
 
                 isReading = false;
-                canSkip = false;
                 textFinished = true;
                 textCounter_++;
             }   
@@ -60,7 +57,6 @@ namespace FoxTail.Serenade.Experimental.Screenplay.System {
 
             textFinished = true;
             isReading = false;
-            canSkip = false;
             textCounter_++;
         }
     }
