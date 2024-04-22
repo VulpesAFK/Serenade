@@ -6,4 +6,6 @@ public class PlayerStateData {
     public void ResetAmountOfJumps(int amount) => amountOfJumpsLeft = amount;
     public void DecreaseAmountOfJumpsLeft() => amountOfJumpsLeft--;
 
+    public bool coyoteTime;
+
 }

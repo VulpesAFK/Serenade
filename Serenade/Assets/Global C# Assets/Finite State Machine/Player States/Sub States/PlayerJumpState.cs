@@ -4,25 +4,20 @@ using FoxTail.Serenade.Experimental.FiniteStateMachine.Construct;
 using FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates;
 using UnityEngine;
 
-namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
-{
-    public class PlayerJumpState : PlayerAbilitiesState
-    {
-
+namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates {
+    public class PlayerJumpState : PlayerAbilitiesState {
         public PlayerJumpState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData) {
-            playerStateData.ResetAmountOfJumps(playerData.AmountOfJumps);
+            playerStateData.amountOfJumpsLeft = playerData.AmountOfJumps;
         }
 
         public override void Enter() {
             base.Enter();
 
-            //TODO - Fix to stop an attachment to the jump input
-            //TODO - Doesn't really work with 2+ jumps 
+            playerStateData.coyoteTime = false;
+
             player.InputHandler.UseJumpInput();
      
             Movement?.SetVelocityY(playerData.JumpVelocity);
-
-            Debug.Log(playerStateData.amountOfJumpsLeft);
 
             isAbilityDone = true;
          

@@ -24,7 +24,7 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
         private bool isTouchingLedge;
 
         // States whether the coyote should start or not
-        private bool coyoteTime;
+        // private bool coyoteTime;
         // States whether the coyote time for the wall jump should start or not
         private bool wallJumpCoyoteTime;
         // The time the wall jump coyote time has started
@@ -79,7 +79,8 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
         {
             base.Enter();
 
-            StartCoyoteTime();
+            // StartCoyoteTime();
+            // playerStateData.DecreaseAmountOfJumpsLeft();
         }
 
         public override void Exit()
@@ -225,23 +226,19 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates
                 wallJumpCoyoteTime = false;
             }
         }
-
-        private void CheckCoyoteTime() {
-            if (coyoteTime && Time.time > startTime + playerData.CoyoteTime) {
-                Debug.Log("Coyote Time Made");
-                coyoteTime = false;
-                playerStateData.DecreaseAmountOfJumpsLeft();
-            }
-        }
-
-        public void StartCoyoteTime() => coyoteTime = true;
-
-        public void StartWallJumpCoyoteTime()
-        {
+        public void StartWallJumpCoyoteTime() {
             // Active the time to start
             wallJumpCoyoteTime = true;
             // Set the time to the current time 
             startWallJumpCoyoteTime = Time.time;
+        }
+
+        private void CheckCoyoteTime() {
+            if (playerStateData.coyoteTime && Time.time > startTime + playerData.CoyoteTime) {
+                Debug.Log("Coyote Time Made");
+                playerStateData.coyoteTime = false;
+                playerStateData.DecreaseAmountOfJumpsLeft();
+            }
         }
 
         // Stop continuing the wall jump state

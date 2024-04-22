@@ -1,10 +1,10 @@
 using System;
 using FoxTail.Serenade.Experimental.FiniteStateMachine.Construct;
 using FoxTail.Serenade.Experimental.FiniteStateMachine.SubStates;
+using UnityEditor;
 using UnityEngine;
 
-public class Player : MonoBehaviour
-{
+public class Player : MonoBehaviour {
     public PlayerStateMachine StateMachine { get; private set; }
     public PlayerStateData StateData { get; private set; }
     [SerializeField] private PlayerData playerData;
@@ -198,6 +198,7 @@ public class Player : MonoBehaviour
         MovementCollider = GetComponent<BoxCollider2D>();
         InputHandler = GetComponent<PlayerInputHandler>();
         DashDirectionIndicator = transform.Find("Dash Direction Indicator");
+
         StateMachine.ChangeState(IdleState);
     }
 
@@ -207,9 +208,7 @@ public class Player : MonoBehaviour
     }
 
     private void FixedUpdate() => StateMachine.CurrentState.PhysicsUpdate();
-
     private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
-
     private void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
 
     public void SetColliderHeight(float height) {

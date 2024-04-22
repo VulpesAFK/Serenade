@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Player Data", menuName = "Data/Player Data/Base Data")]
-public class PlayerData : ScriptableObject
-{
-    // r Full list of all data each state needs to communicate and run 
+public class PlayerData : ScriptableObject {
     # region A list of all datas
 
     [Header("Move State")]
@@ -13,7 +11,7 @@ public class PlayerData : ScriptableObject
 
     [Header("Jump State")]
     public float JumpVelocity = 15;
-    public int AmountOfJumps = 1;
+    public int AmountOfJumps = 2;
 
     [Header("In Air State")]
     public float CoyoteTime = 0.1f;

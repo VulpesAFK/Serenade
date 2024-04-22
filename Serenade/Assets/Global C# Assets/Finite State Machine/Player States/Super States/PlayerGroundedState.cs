@@ -1,14 +1,14 @@
 using FoxTail.Serenade.Experimental.FiniteStateMachine.Construct;
 using UnityEngine;
 
-namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
-{
-    public class PlayerGroundedState : PlayerState
-    {
+namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates {
+    public class PlayerGroundedState : PlayerState {
         public int xInput { get; protected set; }
 
         protected Movement Movement { get => movement ??= core.GetCoreComponent<Movement>(); }
         private Movement movement;
+        protected Collision Collision { get => collision ??= core.GetCoreComponent<Collision>(); }
+        private Collision collision;
 
         public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName, PlayerStateData playerStateData) : base(player, stateMachine, playerData, animBoolName, playerStateData) { }
 
@@ -36,7 +36,12 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.SuperStates
             // }
 
             // else if (dashInput && player.DashState.CheckIfCanDash() && !isTouchingCeiling) { stateMachine.ChangeState(player.DashState); }
-            
+        }
+
+        public override void Exit() {
+            base.Exit();
+
+            playerStateData.coyoteTime = true;
         }
 
     }
