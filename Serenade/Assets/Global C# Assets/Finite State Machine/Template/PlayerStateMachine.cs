@@ -43,7 +43,6 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
 
             dictionarySubTransitions.TryGetValue(CurrentState.GetType(), out currentSubTransitions);
 
-            //REVIEW - Attempting value fetching from the sub state super state
             dictionarySuperTransitions.TryGetValue(CurrentState.GetType().BaseType, out currentSuperTransitions);
 
             if (currentSubTransitions == null) currentSubTransitions = emptyTransition;
@@ -51,7 +50,6 @@ namespace FoxTail.Serenade.Experimental.FiniteStateMachine.Construct
             if (currentSuperTransitions == null) currentSuperTransitions = emptyTransition;
 
             CurrentState?.Enter();
-
         }
 
 
