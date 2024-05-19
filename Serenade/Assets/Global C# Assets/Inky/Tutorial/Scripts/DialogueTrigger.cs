@@ -18,8 +18,8 @@ namespace FoxTail {
             isPlayerInRange = Physics2D.OverlapCircle(transform.position, 3, playerLayerMask);
             if (isPlayerInRange) {
                 visualCue.SetActive(true);
-                if (Input.GetMouseButtonDown(0)) {
-                    Debug.Log($"This is the asset {inkJSON.text}");
+                if (Input.GetMouseButtonDown(1)) {
+                    DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
                 }
             }
 
