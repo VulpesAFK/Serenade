@@ -23,7 +23,9 @@ namespace FoxTail.Serenade.Experimental.Dialogue.Testing {
         }
         private void Update() {
             if (Input.GetKeyDown(KeyCode.D) && currentStory.canContinue) {
-                dialogueText.text = currentStory.Continue();;
+                dialogueText.text = currentStory.Continue();
+
+                print(currentStory.currentTags[0]);
 
                 if (currentStory.currentChoices.Count != 0) {
                     EventSystem.current.SetSelectedGameObject(dialogueChoseButtons[0].gameObject);
