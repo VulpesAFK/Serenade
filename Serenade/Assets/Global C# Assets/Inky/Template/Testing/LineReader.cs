@@ -5,10 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace FoxTail.Serenade.Experimental.Dialogue.Testing
-{
-    public class LineReader : MonoBehaviour
-    {
+namespace FoxTail.Serenade.Experimental.Dialogue.Testing {
+    public class LineReader : MonoBehaviour {
         [SerializeField] private TextAsset inkJSON;
         [SerializeField] private TextMeshProUGUI dialogueText;
         [SerializeField] private GameObject[] dialogueChoseButtons;
