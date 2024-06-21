@@ -13,6 +13,16 @@ namespace FoxTail.Serenade.Experimental.Dialogue.Testing {
         private TextMeshProUGUI[] dialogueChose;
         private Story currentStory;
 
+        /*
+        private string InkSpeaker = "speaker";
+        private string InkPosition = "position";
+        private Dictionary<string, string> InkDictionaryTag = new Dictionary<string, string>();
+        private Dictionary<string, Sprite> DialogueSprites = new Dictionary<string, Sprite>();
+        private void Awake() {
+            InkDictionaryTag.Add(InkSpeaker, "");
+            InkDictionaryTag.Add(InkPosition, "");
+        }
+        */
         private void Start() {
             currentStory = new Story(inkJSON.text);
 
@@ -23,20 +33,22 @@ namespace FoxTail.Serenade.Experimental.Dialogue.Testing {
         }
         private void Update() {
             if (Input.GetKeyDown(KeyCode.D) && currentStory.canContinue) {
-                dialogueText.text = currentStory.Continue();
+                DisplayText();
 
-                print(currentStory.currentTags[0]);
+                // // * Tag information
+                // for (int index = 0; index < currentStory.currentTags.Count; index++) {
+                //     string[] inkTag = currentStory.currentTags[index].Split(':');
+                //     print($"{inkTag[0]} & {inkTag[1]}");
+                // }
 
-                if (currentStory.currentChoices.Count != 0) {
-                    EventSystem.current.SetSelectedGameObject(dialogueChoseButtons[0].gameObject);
-                    for (int index = 0; index < currentStory.currentChoices.Count; index++) {
-                        dialogueChoseButtons[index].gameObject.SetActive(true);
-                        dialogueChose[index].text = currentStory.currentChoices[index].text;
-                    }
-                }
+
             }
 
 
+            HideButtons();
+        }
+
+        private void HideButtons() {
             if (currentStory.currentChoices.Count == 0) {
                 for (int index = 0; index < dialogueChoseButtons.Length; index++) {
                     dialogueChoseButtons[index].gameObject.SetActive(false);
@@ -44,16 +56,21 @@ namespace FoxTail.Serenade.Experimental.Dialogue.Testing {
             }
         }
 
-        public void HandleClicked(int choiceIndex) {
-            currentStory.ChooseChoiceIndex(choiceIndex);
+        private void DisplayText() {
             dialogueText.text = currentStory.Continue();
+
             if (currentStory.currentChoices.Count != 0) {
-                    EventSystem.current.SetSelectedGameObject(dialogueChoseButtons[0].gameObject);
-                    for (int index = 0; index < currentStory.currentChoices.Count; index++) {
-                        dialogueChoseButtons[index].gameObject.SetActive(true);
-                        dialogueChose[index].text = currentStory.currentChoices[index].text;
-                    }
+                EventSystem.current.SetSelectedGameObject(dialogueChoseButtons[0].gameObject);
+                for (int index = 0; index < currentStory.currentChoices.Count; index++) {
+                    dialogueChoseButtons[index].gameObject.SetActive(true);
+                    dialogueChose[index].text = currentStory.currentChoices[index].text;
                 }
+            }
+        }
+
+        private void HandleClicked(int choiceIndex) {
+            currentStory.ChooseChoiceIndex(choiceIndex);
+            DisplayText();
         }
     }
 }
